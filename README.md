@@ -1,8 +1,6 @@
 # Standard.AI.Data.EntityIntelligence
 
-![EntityIntelligence](./ei-gitlogo.png)
-
-![EntityIntelligence](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/master/Standard.AI.Data.EntityIntelligence/images/ei-gitlogo.png)
+![EntityIntelligence](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/main/ei-gitlogo.png)
 
 [![.NET](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/actions/workflows/dotnet.yml)
 [![Nuget](https://img.shields.io/nuget/v/Standard.AI.Data.EntityIntelligence?logo=nuget)](https://www.nuget.org/packages/Standard.AI.Data.EntityIntelligence)
@@ -21,6 +19,6 @@ This library was built according to The Standard. The library follows engineerin
 
 This library is also a community effort which involved many nights of pair-programming, test-driven development and in-depth exploration research and design discussions.
 
-
+## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
 
