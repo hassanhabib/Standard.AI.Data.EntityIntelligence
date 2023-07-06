@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityInte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.AI.Data.EntityIntelligence.Tests.Acceptance", "Standard.AI.Data.EntityIntelligence.Tests.Acceptance\Standard.AI.Data.EntityIntelligence.Tests.Acceptance.csproj", "{59A192E3-FD10-44DB-BB44-938D17A52A18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.AI.Data.EntityIntelligence.Tests.Integrations", "Standard.AI.Data.EntityIntelligence.Tests.Integrations\Standard.AI.Data.EntityIntelligence.Tests.Integrations.csproj", "{80DBD189-3949-44E5-AF8D-E05FA660913B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{59A192E3-FD10-44DB-BB44-938D17A52A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59A192E3-FD10-44DB-BB44-938D17A52A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59A192E3-FD10-44DB-BB44-938D17A52A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80DBD189-3949-44E5-AF8D-E05FA660913B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DBD189-3949-44E5-AF8D-E05FA660913B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80DBD189-3949-44E5-AF8D-E05FA660913B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DBD189-3949-44E5-AF8D-E05FA660913B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
