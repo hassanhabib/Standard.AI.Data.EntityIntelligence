@@ -22,3 +22,7 @@ This library is also a community effort which involved many nights of pair-progr
 ## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
 
+### Sessions
+Here's our live sessions to show you how this library is being built
+
+[Standard.EntityIntelligence YouTube Playlist](https://www.youtube.com/watch?v=wzT8tiIg70o&list=PLan3SCnsISTSf0q3FDvFLngnVpmiMte3L)
