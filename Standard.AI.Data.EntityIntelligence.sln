@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityInte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityIntelligence.Tests.Unit", "Standard.AI.Data.EntityIntelligence.Tests.Unit\Standard.AI.Data.EntityIntelligence.Tests.Unit.csproj", "{C81CA00C-8492-4838-9DF3-278F3FE1C86D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.AI.Data.EntityIntelligence.Infrastructure.Build", "Standard.AI.Data.EntityIntelligence.Infrastructure.Build\Standard.AI.Data.EntityIntelligence.Infrastructure.Build.csproj", "{13326AF0-D973-4E7D-BD06-50EF47C0B402}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C81CA00C-8492-4838-9DF3-278F3FE1C86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C81CA00C-8492-4838-9DF3-278F3FE1C86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C81CA00C-8492-4838-9DF3-278F3FE1C86D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13326AF0-D973-4E7D-BD06-50EF47C0B402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13326AF0-D973-4E7D-BD06-50EF47C0B402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13326AF0-D973-4E7D-BD06-50EF47C0B402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13326AF0-D973-4E7D-BD06-50EF47C0B402}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
