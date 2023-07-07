@@ -7,4 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Standard.AI.OpenAI" Version="0.6.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Foundations\AIs\" />
+  </ItemGroup>
+  <ItemGroup>
+	<InternalsVisibleTo Include="Standard.AI.Data.EntityIntelligence.Tests.Unit" />
+	<InternalsVisibleTo Include="Standard.AI.Data.EntityIntelligence.Tests.Acceptance" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
 </Project>

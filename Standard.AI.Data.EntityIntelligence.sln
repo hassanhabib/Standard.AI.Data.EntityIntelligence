@@ -16,8 +16,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityIntelligence.Tests.Integrations", "Standard.AI.Data.EntityIntelligence.Tests.Integrations\Standard.AI.Data.EntityIntelligence.Tests.Integrations.csproj", "{80DBD189-3949-44E5-AF8D-E05FA660913B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityIntelligence.Tests.Unit", "Standard.AI.Data.EntityIntelligence.Tests.Unit\Standard.AI.Data.EntityIntelligence.Tests.Unit.csproj", "{C81CA00C-8492-4838-9DF3-278F3FE1C86D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D6BF3D87-8F6C-440E-9757-A42C6B895BC4} = {D6BF3D87-8F6C-440E-9757-A42C6B895BC4}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard.AI.Data.EntityIntelligence.Infrastructure.Build", "Standard.AI.Data.EntityIntelligence.Infrastructure.Build\Standard.AI.Data.EntityIntelligence.Infrastructure.Build.csproj", "{13326AF0-D973-4E7D-BD06-50EF47C0B402}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard.AI.Data.EntityIntelligence.Infrastructure.Build", "Standard.AI.Data.EntityIntelligence.Infrastructure.Build\Standard.AI.Data.EntityIntelligence.Infrastructure.Build.csproj", "{13326AF0-D973-4E7D-BD06-50EF47C0B402}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
