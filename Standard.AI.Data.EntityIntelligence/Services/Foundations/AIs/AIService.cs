@@ -2,9 +2,9 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.AIs;
+using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
 {
@@ -15,9 +15,22 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
         public AIService(IAIBroker aiBroker) =>
             this.aiBroker = aiBroker;
 
-        public ValueTask<string> RetrieveSqlQueryAsync(string naturalQuery)
+        public async ValueTask<string> RetrieveSqlQueryAsync(string naturalQuery)
         {
-            throw new NotImplementedException();
+            var completion = new Completion
+            {
+                Request = new CompletionRequest
+                {
+                    Prompts = new string[] { naturalQuery },
+                    Model = "text-davinci-003",
+                    MaxTokens = 100
+                }
+            };
+
+            Completion completionResponse =
+                await this.aiBroker.PromptCompletionAsync(completion);
+
+            return completionResponse.Response.Choices[0].Text;
         }
     }
 }
