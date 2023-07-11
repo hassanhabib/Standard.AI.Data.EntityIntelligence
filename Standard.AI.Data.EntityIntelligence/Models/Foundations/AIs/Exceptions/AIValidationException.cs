@@ -4,7 +4,7 @@
 
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
 {
     internal class AIValidationException : Xeption
     {

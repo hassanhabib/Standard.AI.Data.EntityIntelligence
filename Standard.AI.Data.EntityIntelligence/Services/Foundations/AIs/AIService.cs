@@ -8,15 +8,18 @@ using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
 {
-    internal class AIService : IAIService
+    internal partial class AIService : IAIService
     {
         private readonly IAIBroker aiBroker;
 
         public AIService(IAIBroker aiBroker) =>
             this.aiBroker = aiBroker;
 
-        public async ValueTask<string> RetrieveSqlQueryAsync(string naturalQuery)
+        public ValueTask<string> RetrieveSqlQueryAsync(string naturalQuery) =>
+        TryCatch(async () =>
         {
+            ValidateNaturalQuery(naturalQuery);
+
             var completion = new Completion
             {
                 Request = new CompletionRequest
@@ -31,6 +34,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
                 await this.aiBroker.PromptCompletionAsync(completion);
 
             return completionResponse.Response.Choices[0].Text;
-        }
+        });
     }
 }

@@ -5,7 +5,7 @@
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Xunit;
 
