@@ -49,7 +49,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             this.aiBrokerMock.Verify(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()),
-                    Times.Never);
+                    Times.Once);
 
             this.aiBrokerMock.VerifyNoOtherCalls();
         }
