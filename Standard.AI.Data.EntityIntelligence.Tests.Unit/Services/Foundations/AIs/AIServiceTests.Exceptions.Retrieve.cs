@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -64,7 +65,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         {
             // given
             string someNaturalQuery = GetRandomString();
-            
+
             var failedAIDependencyException =
                 new FailedAIDependencyException(
                     clientDependencyException.InnerException as Xeption);
@@ -88,6 +89,44 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
             // then
             actualAIDependencyException.Should().BeEquivalentTo(
                 expectedAIDependencyException);
+
+            this.aiBrokerMock.Verify(broker =>
+                broker.PromptCompletionAsync(It.IsAny<Completion>()),
+                    Times.Once);
+
+            this.aiBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        {
+            // given
+            string someNaturalQuery = GetRandomString();
+            var serviceException = new Exception();
+
+            var failedAIServiceException =
+                new FailedAIServiceException(
+                    serviceException);
+
+            var expectedAIServiceException =
+                new AIServiceException(
+                    failedAIServiceException);
+
+            this.aiBrokerMock.Setup(broker =>
+                broker.PromptCompletionAsync(It.IsAny<Completion>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+
+            AIServiceException actualAIServiceException =
+                await Assert.ThrowsAsync<AIServiceException>(
+                    retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIServiceException.Should().BeEquivalentTo(
+                expectedAIServiceException);
 
             this.aiBrokerMock.Verify(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()),
