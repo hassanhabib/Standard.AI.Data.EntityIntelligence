@@ -8,8 +8,11 @@ using KellermanSoftware.CompareNetObjects;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
+using Standard.AI.OpenAI.Models.Clients.Completions.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AIs
 {
@@ -26,6 +29,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             this.aiService = new AIService(
                 aiBroker: this.aiBrokerMock.Object);
+        }
+
+        public static TheoryData AIClientDependencyExceptions()
+        {
+            var innerAIDependencyException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new CompletionClientDependencyException(innerAIDependencyException),
+                new CompletionClientServiceException(innerAIDependencyException)
+            };
         }
 
         private static string GetRandomString() => 

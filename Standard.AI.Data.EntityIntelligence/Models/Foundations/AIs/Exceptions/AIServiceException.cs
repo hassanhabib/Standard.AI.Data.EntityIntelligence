@@ -6,10 +6,11 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
 {
-    internal class AIValidationException : Xeption
+    internal class AIServiceException : Xeption
     {
-        public AIValidationException(Xeption innerException)
-            : base(message: "AI validation error occurred, fix the errors and try again.")
+        public AIServiceException(Xeption innerException)
+            : base(message: "AI error occurred, contact support.",
+                  innerException)
         { }
     }
 }

@@ -57,20 +57,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
             this.aiBrokerMock.VerifyNoOtherCalls();
         }
 
-        [Fact]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync()
+        [Theory]
+        [MemberData(nameof(AIClientDependencyExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
+            Xeption clientDependencyException)
         {
             // given
             string someNaturalQuery = GetRandomString();
-            var innerDepedencyException = new Xeption();
-
-            var completionClientDependencyException =
-                new CompletionClientDependencyException(
-                    innerDepedencyException);
-
+            
             var failedAIDependencyException =
                 new FailedAIDependencyException(
-                    innerDepedencyException);
+                    clientDependencyException.InnerException as Xeption);
 
             var expectedAIDependencyException =
                 new AIDependencyException(
@@ -78,7 +75,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))
-                    .ThrowsAsync(completionClientDependencyException);
+                    .ThrowsAsync(clientDependencyException);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
