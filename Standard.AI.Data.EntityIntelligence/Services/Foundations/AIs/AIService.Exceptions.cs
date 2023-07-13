@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.OpenAI.Models.Clients.Completions.Exceptions;
@@ -46,6 +47,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
                         completionClientServiceException.InnerException as Xeption);
 
                 throw new AIDependencyException(failedAIDependencyException);
+            }
+            catch (Exception exception)
+            {
+                var failedAIServiceException =
+                    new FailedAIServiceException(exception);
+
+                throw new AIServiceException(failedAIServiceException);
             }
         }
     }
