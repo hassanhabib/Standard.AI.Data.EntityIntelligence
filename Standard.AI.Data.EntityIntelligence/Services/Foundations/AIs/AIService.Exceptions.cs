@@ -39,6 +39,14 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
 
                 throw new AIDependencyException(failedAIDependencyException);
             }
+            catch (CompletionClientServiceException completionClientServiceException)
+            {
+                var failedAIDependencyException =
+                    new FailedAIDependencyException(
+                        completionClientServiceException.InnerException as Xeption);
+
+                throw new AIDependencyException(failedAIDependencyException);
+            }
         }
     }
 }
