@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -21,19 +20,23 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         {
             // given
             string someNaturalQuery = GetRandomString();
-            var someValidationException = new Exception();
+            var innerValidationException = new Xeption();
 
             var completionClientValidationException =
                 new CompletionClientValidationException(
-                    someValidationException as Xeption);
+                    innerValidationException);
+
+            var invalidAIException =
+                new InvalidAIQueryException(
+                    innerValidationException);
+
+            var expectedAIDependencyValidationException =
+                new AIDependencyValidationException(
+                    invalidAIException);
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))
                     .ThrowsAsync(completionClientValidationException);
-
-            var expectedAIDependencyValidationException =
-                new AIDependencyValidationException(
-                    completionClientValidationException.InnerException as Xeption);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
@@ -59,19 +62,23 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         {
             // given
             string someNaturalQuery = GetRandomString();
-            var somedepedencyException = new Exception();
+            var innerDepedencyException = new Xeption();
 
             var completionClientDependencyException =
                 new CompletionClientDependencyException(
-                    somedepedencyException as Xeption);
+                    innerDepedencyException);
+
+            var failedAIDependencyException =
+                new FailedAIDependencyException(
+                    innerDepedencyException);
+
+            var expectedAIDependencyException =
+                new AIDependencyException(
+                    failedAIDependencyException);
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))
                     .ThrowsAsync(completionClientDependencyException);
-
-            var expectedAIDependencyException =
-                new AIDependencyException(
-                    completionClientDependencyException.InnerException as Xeption);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =

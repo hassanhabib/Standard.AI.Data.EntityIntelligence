@@ -7,14 +7,11 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
 {
-    internal class InvalidAIQueryException : Xeption
+    internal class FailedAIDependencyException : Xeption
     {
-        public InvalidAIQueryException()
-            : base(message: "Invalid AI Query error occurred, fix the errors and try again.")
-        { }
-
-        public InvalidAIQueryException(Exception innerException)
-            : base(message: "Invalid AI Query error occurred, fix the errors and try again.", innerException)
+        public FailedAIDependencyException(Exception innerException)
+            : base(message: "Failed AI dependency error occurred, contact support.",
+                  innerException)
         { }
     }
 }
