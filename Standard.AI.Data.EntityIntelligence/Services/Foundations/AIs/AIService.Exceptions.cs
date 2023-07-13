@@ -25,8 +25,19 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
             }
             catch (CompletionClientValidationException completionClientValidationException)
             {
-                throw new AIDependencyValidationException(
-                    completionClientValidationException.InnerException as Xeption);
+                var invalidAIQueryException = 
+                    new InvalidAIQueryException(
+                        completionClientValidationException.InnerException as Xeption);
+
+                throw new AIDependencyValidationException(invalidAIQueryException);
+            }
+            catch (CompletionClientDependencyException completionClientDependencyException)
+            {
+                var failedAIDependencyException =
+                    new FailedAIDependencyException(
+                        completionClientDependencyException.InnerException as Xeption);
+
+                throw new AIDependencyException(failedAIDependencyException);
             }
         }
     }

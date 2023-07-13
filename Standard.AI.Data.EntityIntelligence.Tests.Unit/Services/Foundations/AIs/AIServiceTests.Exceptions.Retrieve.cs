@@ -58,7 +58,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         }
 
         [Fact]
-        public async Task ShouldThrowAIDependencyExceptionOnRetrieveIfCompletionClientDependencyExceptionOccursAsync()
+        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
