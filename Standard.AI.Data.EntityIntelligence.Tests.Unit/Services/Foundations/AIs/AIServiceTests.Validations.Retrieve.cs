@@ -29,7 +29,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(invalidAIQuery);
+                this.aiService.PromptQueryAsync(invalidAIQuery);
 
             AIValidationException actualAIValidationException =
                 await Assert.ThrowsAsync<AIValidationException>(

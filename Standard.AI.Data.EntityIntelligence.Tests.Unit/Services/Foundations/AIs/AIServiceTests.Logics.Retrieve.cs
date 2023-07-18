@@ -56,7 +56,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             string actualSqlQuery =
-                await this.aiService.RetrieveSqlQueryAsync(inputNaturalQuery);
+                await this.aiService.PromptQueryAsync(inputNaturalQuery);
 
             // then
             actualSqlQuery.Should().Be(expectedSqlQuery);

@@ -41,7 +41,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIDependencyValidationException actualAIDependencyValidationException =
                 await Assert.ThrowsAsync<AIDependencyValidationException>(
@@ -80,7 +80,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIDependencyException actualAIDependencyException =
                 await Assert.ThrowsAsync<AIDependencyException>(
@@ -118,7 +118,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIServiceException actualAIServiceException =
                 await Assert.ThrowsAsync<AIServiceException>(
