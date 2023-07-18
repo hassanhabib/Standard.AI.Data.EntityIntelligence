@@ -11,7 +11,7 @@ using Dapper;
 
 namespace Standard.AI.Data.EntityIntelligence.Brokers.DataStorages
 {
-    public class DataBroker
+    public class DataBroker : IDataBroker
     {
         private readonly DataStorageConfiguration configuration;
 
