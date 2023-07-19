@@ -3,9 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.AIs;
@@ -13,7 +11,7 @@ using Tynamix.ObjectFiller;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 {
-    internal partial class AIProcessingServiceTests
+    public partial class AIProcessingServiceTests
     {
         private readonly Mock<IAIService> aiServiceMock;
         private readonly IAIProcessingService aiProcessingService;
@@ -26,35 +24,39 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 aiService: this.aiServiceMock.Object);
         }
 
-        private static List<Dictionary<string, Dictionary<string, string>>>
-            GenerateRandomTablesInformation()
+        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTables()
         {
             int tablesCount = GetRandomNumber();
+            var tablesDictionary = new Dictionary<string, Dictionary<string, string>>();
 
-            return Enumerable.Range(0, tablesCount)
-                .Select(item => GenerateRandomTable())
-                    .ToList();
+            for (int i = 0; i < tablesCount; i++)
+            {
+                (string tableName, Dictionary<string, string> tableData) =
+                    GenerateRandomTable();
+
+                tablesDictionary.Add(tableName, tableData);
+            }
+
+            return tablesDictionary;
         }
 
-        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTable()
+        private static Tuple<string, Dictionary<string, string>> GenerateRandomTable()
         {
             string randomTableName = GenerateRandomString();
             int randomColumnCount = GetRandomNumber();
             var columnsDictionary = new Dictionary<string, string>();
-            
-            var tableDictionary = 
+
+            var tableDictionary =
                 new Dictionary<string, Dictionary<string, string>>();
 
-            for(int i = 0; i <= randomColumnCount; i++)
+            for (int i = 0; i <= randomColumnCount; i++)
             {
                 columnsDictionary.Add(
-                    key: GenerateRandomString(), 
+                    key: GenerateRandomString(),
                     value: GenerateRandomString());
             }
 
-            tableDictionary.Add(randomTableName, columnsDictionary);
-
-            return tableDictionary;
+            return new(randomTableName, columnsDictionary);
         }
 
         private static string GenerateRandomString() =>

@@ -34,7 +34,7 @@ var githubPipeline = new GithubPipeline
             RunsOn = BuildMachines.WindowsLatest,
 
             Steps = new List<GithubTask>
-            { 
+            {
                 new CheckoutTaskV2
                 {
                     Name = "Checking out code"

@@ -21,7 +21,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
             string invalidAIQuery)
         {
             // given
-            var invalidAIQueryException = 
+            var invalidAIQueryException =
                 new InvalidAIQueryException();
 
             var expectedAIValidationException =
