@@ -22,21 +22,32 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             List<TableInformation> tables,
             string naturalQuery)
         {
-            string tableNameColumns = String.Join(" ", tables.Select(table =>
-            {
-                string tableName = table.Name;
-
-                string tableColumns =
-                    String.Join(" ", table.Columns.Select(column =>
-                        $"{column.Name} with type {column.Type}"));
-
-                return $"Table name: {tableName} has the following columns: {tableColumns}";
-            }));
+            IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tables);
+            string tablesNameColumns = string.Join(" ", tablesDetails);
 
             string naturalQueryInput = $"Respond ONLY with code. Given a SQL db with the following tables: " +
-                $"{tableNameColumns} Translated the following request into SQL query: {naturalQuery}";
+                $"{tablesNameColumns} Translated the following request into SQL query: {naturalQuery}";
 
             return await this.aiService.PromptQueryAsync(naturalQueryInput);
+        }
+
+        private static IEnumerable<string> ConvertToTablesDetailsEnumerable(
+            List<TableInformation> tables)
+        {
+            return tables.Select(table =>
+            {
+                IEnumerable<string> tableColumnDetails = ConvertToTableColumnDetailsEnumerable(table);
+                string tableColumns = string.Join(" ", tableColumnDetails);
+
+                return $"Table name: {table.Name} has the following columns: {tableColumns}";
+            });
+        }
+
+        private static IEnumerable<string> ConvertToTableColumnDetailsEnumerable(
+            TableInformation table)
+        {
+            return table.Columns.Select(column =>
+                $"{column.Name} with type {column.Type}");
         }
     }
 }
