@@ -2,27 +2,24 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using Standard.AI.Data.EntityIntelligence.Models.Data;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Dapper;
+using Standard.AI.Data.EntityIntelligence.Models.Datas;
 
-namespace Standard.AI.Data.EntityIntelligence.Brokers.DataStorages
+namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {
     public class DataBroker : IDataBroker
     {
         private readonly DataStorageConfiguration configuration;
 
-        public DataBroker(DataStorageConfiguration configuration)
-        {
+        public DataBroker(DataStorageConfiguration configuration) => 
             this.configuration = configuration;
-        }
 
         public async Task<IEnumerable<TableColumnMetadata>> SelectSqlTablesMetadataAsync()
         {
-            const string query = 
+            const string query =
                 $@"SELECT 
 	                    c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],
 	                    c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],
