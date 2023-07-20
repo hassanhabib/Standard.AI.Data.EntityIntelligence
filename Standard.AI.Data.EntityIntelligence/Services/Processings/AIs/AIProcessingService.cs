@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
+using Standard.AI.OpenAI.Models.Clients.Completions.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 {
@@ -22,6 +24,8 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             List<TableInformation> tables,
             string naturalQuery)
         {
+            ValidateTablesAndNaturalQuery(tables, naturalQuery);
+
             IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tables);
             string tablesNameColumns = string.Join(" ", tablesDetails);
 
@@ -49,5 +53,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             return table.Columns.Select(column =>
                 $"{column.Name} with type {column.Type}");
         }
+
+
     }
 }

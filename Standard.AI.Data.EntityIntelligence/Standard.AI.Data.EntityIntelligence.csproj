@@ -12,4 +12,7 @@
 	<InternalsVisibleTo Include="Standard.AI.Data.EntityIntelligence.Tests.Acceptance" />
     <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Processings\" />
+  </ItemGroup>
 </Project>
