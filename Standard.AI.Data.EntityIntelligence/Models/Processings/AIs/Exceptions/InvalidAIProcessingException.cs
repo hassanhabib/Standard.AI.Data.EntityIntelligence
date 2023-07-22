@@ -7,14 +7,14 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
 {
-    internal class InvalidAIProcessingQueryException : Xeption
+    internal class InvalidAIProcessingException : Xeption
     {
-        public InvalidAIProcessingQueryException(Exception innerException)
-           : base(message: "Invalid AI Processing Query error occurred, fix the errors and try again.", innerException)
+        public InvalidAIProcessingException(Exception innerException)
+           : base(message: "Invalid AI Processing Query errors occurred, fix the errors and try again.", innerException)
         { }
 
-        public InvalidAIProcessingQueryException()
-           : base(message: "Invalid AI Processing Query error occurred, fix the errors and try again.")
+        public InvalidAIProcessingException()
+           : base(message: "Invalid AI Processing Query errors occurred, fix the errors and try again.")
         { }
     }
 }
