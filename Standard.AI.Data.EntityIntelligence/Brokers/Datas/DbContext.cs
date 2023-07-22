@@ -19,7 +19,7 @@ namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
             this.configurations = configurations;
         }
 
-        public async Task<IEnumerable<T>> QueryAsync<T>(string query)
+        public async ValueTask<IEnumerable<T>> QueryAsync<T>(string query)
         {
             using var dbConnection = new SqlConnection(this.configurations.ConnectionString);
 
