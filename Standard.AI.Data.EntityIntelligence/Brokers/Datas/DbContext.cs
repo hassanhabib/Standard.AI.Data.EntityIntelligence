@@ -12,16 +12,16 @@ namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {
     internal class DbContext
     {
-        private readonly IDbContextConfigurations configuration;
+        private readonly DbContextConfigurations configurations;
 
-        public DbContext(IDbContextConfigurations configuration)
+        public DbContext(DbContextConfigurations configurations)
         {
-            this.configuration = configuration;
+            this.configurations = configurations;
         }
 
         public async Task<IEnumerable<T>> QueryAsync<T>(string query)
         {
-            using var dbConnection = new SqlConnection(this.configuration.ConnectionString);
+            using var dbConnection = new SqlConnection(this.configurations.ConnectionString);
 
             return await dbConnection.QueryAsync<T>(query);
         }
