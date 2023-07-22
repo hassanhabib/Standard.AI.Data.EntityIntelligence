@@ -4,8 +4,8 @@
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Datas
 {
-    public class DataStorageConfiguration
+    internal interface IDbContextConfigurations
     {
-        public string ConnectionString { get; init; }
+        string ConnectionString { get; init; }
     }
 }

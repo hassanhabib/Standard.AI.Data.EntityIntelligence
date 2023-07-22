@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {
-    public interface IDataBroker
+    internal interface IDataBroker
     {
-        ValueTask<IEnumerable<T>> ExecuteQuery<T>(string query);
+        ValueTask<IEnumerable<T>> ExecuteQueryAsync<T>(string query);
     }
 }
