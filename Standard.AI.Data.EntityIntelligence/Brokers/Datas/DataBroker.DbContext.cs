@@ -10,11 +10,11 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas;
 
 namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {
-    internal class DbContext
+    internal partial class DataBroker
     {
         private readonly DbContextConfigurations configurations;
 
-        public DbContext(DbContextConfigurations configurations)
+        public DataBroker(DbContextConfigurations configurations)
         {
             this.configurations = configurations;
         }
