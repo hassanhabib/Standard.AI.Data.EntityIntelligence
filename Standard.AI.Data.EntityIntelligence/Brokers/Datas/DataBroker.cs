@@ -10,7 +10,7 @@ namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {
     internal class DataBroker : DbContext, IDataBroker
     {
-        public DataBroker(IDbContextConfigurations configurations) 
+        public DataBroker(DbContextConfigurations configurations) 
             : base(configurations)
         { }
 
