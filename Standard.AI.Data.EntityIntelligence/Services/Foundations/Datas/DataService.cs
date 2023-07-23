@@ -17,10 +17,8 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
         public async ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
         {
-            var query = GetSelectAllTablesMetadataQuery();
-
             var retrievedTablesColumnsMetadata =
-                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(query);
+                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
 
             return ToTablesMetadata(retrievedTablesColumnsMetadata);
         }
@@ -52,12 +50,14 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                 };
         }
 
-        private static string GetSelectAllTablesMetadataQuery() =>
-            $@"SELECT 
-	           c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],
-	           c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],
-	           c.COLUMN_NAME AS [{nameof(TableColumnMetadata.Name)}],
-               c.DATA_TYPE AS [{nameof(TableColumnMetadata.Type)}]
-               FROM INFORMATION_SCHEMA.COLUMNS c";
+        private static string SelectAllTablesMetadataQuery =
+            String.Join(
+                Environment.NewLine,
+                "SELECT",
+	            $"c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],",
+	            $"c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],",
+	            $"c.COLUMN_NAME AS [{nameof(TableColumnMetadata.Name)}],",
+                $"c.DATA_TYPE AS [{nameof(TableColumnMetadata.Type)}]",
+                "FROM INFORMATION_SCHEMA.COLUMNS c");
     }
 }

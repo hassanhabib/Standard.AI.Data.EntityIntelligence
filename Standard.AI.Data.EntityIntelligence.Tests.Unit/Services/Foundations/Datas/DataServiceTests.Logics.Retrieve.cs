@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -14,7 +15,16 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         [Fact]
         public async Task ShouldRetrieveTablesDetailsAsync()
         {
-            var randomQuery = GetRandomString();
+            // given
+            var query = String.Join(
+                            Environment.NewLine,
+                            "SELECT",
+                            $"c.TABLE_SCHEMA AS [TableSchema],",
+                            $"c.TABLE_NAME AS [TableName],",
+                            $"c.COLUMN_NAME AS [Name],",
+                            $"c.DATA_TYPE AS [Type]",
+                            "FROM INFORMATION_SCHEMA.COLUMNS c");
+
             var randomNumber = GetRandomNumber();
             var randomTablesMetadataProperties = GenerateRandomTablesMetadata();
 
@@ -58,17 +68,18 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     };
                 }).ToList();
 
-            dataBrokerMock.Setup(broker => broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+            dataBrokerMock.Setup(broker => broker.ExecuteQueryAsync<TableColumnMetadata>(query))
                 .ReturnsAsync(toRetrieveTablesColumnsMetadata);
 
             // when
             var retrievedTablesDetails =
                 await dataService.RetrieveTablesDetailsAsync();
 
+            // then
             retrievedTablesDetails.Should().BeEquivalentTo(expectedTablesDetails);
 
             dataBrokerMock.Verify(broker =>
-                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                broker.ExecuteQueryAsync<TableColumnMetadata>(query),
                     Times.Once());
 
             dataBrokerMock.VerifyNoOtherCalls();
