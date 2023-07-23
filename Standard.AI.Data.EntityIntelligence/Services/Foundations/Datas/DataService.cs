@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
@@ -13,7 +15,43 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) => 
             this.dataBroker = dataBroker;
 
-        public ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
+        public async ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
+        {
+            var query = GetSelectAllTablesMetadataQuery();
+
+            var retrievedTablesColumnsMetadata =
+                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(query);
+
+            return ToTablesMetadata(retrievedTablesColumnsMetadata);
+        }
+
+        private static List<TableMetadata> ToTablesMetadata(IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
+        {
+            var groupedColumns =
+                retrievedTablesColumnsMetadata
+                    .GroupBy(tableColumnMetadata =>
+                        (tableColumnMetadata.TableSchema, tableColumnMetadata.Name));
+
+            return groupedColumns.Select(ToTableMetadata).ToList();
+
+            static TableMetadata ToTableMetadata(
+                IGrouping<(string TableSchema, string Name),
+                TableColumnMetadata> tableColumnsMetadata) =>
+                new()
+                {
+                    Schema = tableColumnsMetadata.Key.TableSchema,
+                    Name = tableColumnsMetadata.Key.Name,
+                    ColumnsMetadata =
+                        tableColumnsMetadata.Select(columnsMetadata =>
+                            new ColumnMetadata
+                            {
+                                Name = columnsMetadata.Name,
+                                DataType = columnsMetadata.Type,
+                            }).ToList(),
+                };
+        }
+
+        private string GetSelectAllTablesMetadataQuery()
         {
             throw new NotImplementedException();
         }
