@@ -51,9 +51,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                 };
         }
 
-        private string GetSelectAllTablesMetadataQuery()
-        {
-            throw new NotImplementedException();
-        }
+        private static string GetSelectAllTablesMetadataQuery() => 
+            $@"SELECT 
+	           c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],
+	           c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],
+	           c.COLUMN_NAME AS [{nameof(TableColumnMetadata.Name)}],
+               c.DATA_TYPE AS [{nameof(TableColumnMetadata.Type)}]
+               FROM INFORMATION_SCHEMA.COLUMNS c";
     }
 }
