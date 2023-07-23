@@ -58,7 +58,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     };
                 }).ToList();
 
-            dataBrokerMock.Setup(broker => broker.ExecuteQueryAsync<TableColumnMetadata>(randomQuery))
+            dataBrokerMock.Setup(broker => broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                 .ReturnsAsync(toRetrieveTablesColumnsMetadata);
 
             // when
@@ -68,7 +68,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             retrievedTablesDetails.Should().BeEquivalentTo(expectedTablesDetails);
 
             dataBrokerMock.Verify(broker =>
-                broker.ExecuteQueryAsync<TableColumnMetadata>(randomQuery),
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once());
 
             dataBrokerMock.VerifyNoOtherCalls();

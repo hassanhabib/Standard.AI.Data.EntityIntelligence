@@ -23,7 +23,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         }
 
         private static string GetRandomString() =>
-            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
+            new MnemonicString().GetValue();
 
         private static int GetRandomNumber(int min = 5, int max = 10) =>
             new IntRange(min, max).GetValue();

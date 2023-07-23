@@ -12,7 +12,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
     {
         private readonly IDataBroker dataBroker;
 
-        public DataService(IDataBroker dataBroker) => 
+        public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
         public async ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
@@ -25,12 +25,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             return ToTablesMetadata(retrievedTablesColumnsMetadata);
         }
 
-        private static List<TableMetadata> ToTablesMetadata(IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
+        private static List<TableMetadata> ToTablesMetadata(
+            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
         {
             var groupedColumns =
                 retrievedTablesColumnsMetadata
                     .GroupBy(tableColumnMetadata =>
-                        (tableColumnMetadata.TableSchema, tableColumnMetadata.Name));
+                        (tableColumnMetadata.TableSchema, tableColumnMetadata.TableName));
 
             return groupedColumns.Select(ToTableMetadata).ToList();
 
@@ -51,7 +52,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                 };
         }
 
-        private static string GetSelectAllTablesMetadataQuery() => 
+        private static string GetSelectAllTablesMetadataQuery() =>
             $@"SELECT 
 	           c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],
 	           c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],
