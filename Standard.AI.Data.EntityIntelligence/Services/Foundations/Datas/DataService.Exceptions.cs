@@ -42,6 +42,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
                 throw new DataStorageDependencyException(failedDataStorageDependencyException);
             }
+            catch (Exception exception)
+            {
+                var failedDataServiceException =
+                    new FailedDataServiceException(exception);
+
+                throw new DataServiceException(failedDataServiceException);
+            }
         }
     }
 }
