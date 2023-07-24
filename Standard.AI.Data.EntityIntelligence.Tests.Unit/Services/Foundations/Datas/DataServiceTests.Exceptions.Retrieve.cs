@@ -1,4 +1,5 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -11,7 +12,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
     public partial class DataServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnSqlException()
+        public async Task ShouldThrowDependencyExceptionOnSqlException()
         {
             // given
             SqlException sqlException = GetSqlException();
@@ -39,6 +40,38 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 expectedDataDependencyException);
 
             this.dataBrokerMock.Verify(broker => 
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                    Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedDataServiceException =
+                new FailedDataServiceException(serviceException);
+
+            var expectedDataServiceException =
+                new DataServiceException(
+                    failedDataServiceException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+
+            var actualTableInformationListException =
+                await Assert.ThrowsAsync<DataServiceException>(
+                                       retrieveTablesDetailsTask.AsTask);
+
+            // then
+            actualTableInformationListException.Should().BeEquivalentTo(expectedDataServiceException);
+
+            this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
         }
