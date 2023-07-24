@@ -20,6 +20,20 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             {
                 return await returningFuction();
             }
+            catch (InvalidOperationException invalidOperationException)
+            {
+                var failedDependencyValidationException =
+                    new FailedDataStorageDependencyValidationException(invalidOperationException);
+
+                throw new DataStorageDependencyValidationException(failedDependencyValidationException);
+            }
+            catch (ArgumentException argumentException)
+            {
+                var failedDependencyValidationException =
+                    new FailedDataStorageDependencyValidationException(argumentException);
+
+                throw new DataStorageDependencyValidationException(failedDependencyValidationException);
+            }
             catch (SqlException sqlException)
             {
                 var failedDataStorageDependencyException = 

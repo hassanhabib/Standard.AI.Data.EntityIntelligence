@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         {
             // given
             var failedDataDependencyValidationException =
-                new FailedDataStorageDependencyException(dataStorageDependencyValidationException);
+                new FailedDataStorageDependencyValidationException(dataStorageDependencyValidationException);
 
             var expectedDataDependencyValidationException =
                 new DataStorageDependencyValidationException(
@@ -32,7 +32,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
 
             var actualTableInformationListException =
-                await Assert.ThrowsAsync<DataStorageDependencyException>(
+                await Assert.ThrowsAsync<DataStorageDependencyValidationException>(
                                        retrieveTablesDetailsTask.AsTask);
 
             // then
