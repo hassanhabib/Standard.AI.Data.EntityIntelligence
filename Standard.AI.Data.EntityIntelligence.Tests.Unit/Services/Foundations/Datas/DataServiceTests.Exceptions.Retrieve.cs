@@ -80,5 +80,37 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedDataServiceException =
+                new FailedDataServiceException(serviceException);
+
+            var expectedDataServiceException =
+                new DataServiceException(
+                    failedDataServiceException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+
+            var actualTableInformationListException =
+                await Assert.ThrowsAsync<DataServiceException>(
+                                       retrieveTablesDetailsTask.AsTask);
+
+            // then
+            actualTableInformationListException.Should().BeEquivalentTo(expectedDataServiceException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                    Times.Once);
+        }
     }
 }
