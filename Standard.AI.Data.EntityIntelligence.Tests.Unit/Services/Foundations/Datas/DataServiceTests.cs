@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Linq;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
@@ -27,6 +28,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
         private static int GetRandomNumber(int min = 5, int max = 10) =>
             new IntRange(min, max).GetValue();
+
+        private static SqlException GetSqlException() => 
+            (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
+
 
         private static Dictionary<string, Dictionary<string, string>> GenerateRandomTablesMetadata()
         {
