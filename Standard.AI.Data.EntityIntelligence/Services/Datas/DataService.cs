@@ -19,13 +19,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public async ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
+        public ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync() =>
+        TryCatch(async () =>
         {
             var retrievedTablesColumnsMetadata =
               await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
-
             return ToTablesMetadata(retrievedTablesColumnsMetadata);
-        }
+        });
 
         private static List<TableMetadata> ToTablesMetadata(
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
