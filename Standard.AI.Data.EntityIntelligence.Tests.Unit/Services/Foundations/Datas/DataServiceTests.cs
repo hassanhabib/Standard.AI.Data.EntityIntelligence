@@ -6,7 +6,10 @@ using System.Linq;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
+using Standard.AI.OpenAI.Models.Clients.Completions.Exceptions;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -21,6 +24,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             this.dataService = new DataService(
                 dataBroker: this.dataBrokerMock.Object);
+        }
+
+        public static TheoryData DataStorageDependencyValidationExceptions()
+        {
+            return new TheoryData<Exception>
+            {
+                new InvalidOperationException(),
+                new ArgumentException(),
+            };
         }
 
         private static string GetRandomString() =>

@@ -23,7 +23,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             catch (SqlException sqlException)
             {
                 var failedDataStorageDependencyException = 
-                    new FailedDataStorageDependencyException(sqlException);
+                    new FailedDataStorageDependencyValidationException(sqlException);
 
                 throw new DataStorageDependencyException(failedDataStorageDependencyException);
             }

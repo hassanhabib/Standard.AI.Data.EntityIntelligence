@@ -51,7 +51,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                 };
         }
 
-        private static string SelectAllTablesMetadataQuery =
+        private static readonly string SelectAllTablesMetadataQuery =
             String.Join(
                 Environment.NewLine,
                 "SELECT",

@@ -11,6 +11,39 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 {
     public partial class DataServiceTests
     {
+        [Theory]
+        [MemberData(nameof(DataStorageDependencyValidationExceptions))]
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync(
+            Exception dataStorageDependencyValidationException)
+        {
+            // given
+            var failedDataDependencyValidationException =
+                new FailedDataStorageDependencyException(dataStorageDependencyValidationException);
+
+            var expectedDataDependencyValidationException =
+                new DataStorageDependencyValidationException(
+                        failedDataDependencyValidationException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+                    .ThrowsAsync(dataStorageDependencyValidationException);
+
+            // when
+            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+
+            var actualTableInformationListException =
+                await Assert.ThrowsAsync<DataStorageDependencyException>(
+                                       retrieveTablesDetailsTask.AsTask);
+
+            // then
+            actualTableInformationListException.Should().BeEquivalentTo(
+                expectedDataDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                    Times.Once);
+        }
+
         [Fact]
         public async Task ShouldThrowDependencyExceptionOnSqlException()
         {
@@ -18,7 +51,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             SqlException sqlException = GetSqlException();
 
             var failedDataDependencyException =
-                new FailedDataStorageDependencyException(sqlException);
+                new FailedDataStorageDependencyValidationException(sqlException);
 
             var expectedDataDependencyException =
                 new DataStorageDependencyException(
