@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -41,6 +42,39 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // then
             actualTableInformationListException.Should().BeEquivalentTo(
                 expectedDataDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                    Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyExceptionOnSqlException()
+        {
+            // given
+            SqlException sqlException = GetSqlException();
+
+            var failedDataDependencyException =
+                new FailedDataStorageDependencyValidationException(sqlException);
+
+            var expectedDataDependencyException =
+                new DataStorageDependencyException(
+                    failedDataDependencyException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+                    .ThrowsAsync(sqlException);
+
+            // when
+            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+
+            var actualTableInformationListException =
+                await Assert.ThrowsAsync<DataStorageDependencyException>(
+                                       retrieveTablesDetailsTask.AsTask);
+
+            // then
+            actualTableInformationListException.Should().BeEquivalentTo(
+                expectedDataDependencyException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
