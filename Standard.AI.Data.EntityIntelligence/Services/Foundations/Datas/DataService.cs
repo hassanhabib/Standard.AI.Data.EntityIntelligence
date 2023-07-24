@@ -8,20 +8,21 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal class DataService : IDataService
+    internal partial class DataService : IDataService
     {
         private readonly IDataBroker dataBroker;
 
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public async ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync()
+        public ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync() =>
+        TryCatch(async () =>
         {
             var retrievedTablesColumnsMetadata =
-                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
+              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
 
             return ToTablesMetadata(retrievedTablesColumnsMetadata);
-        }
+        });
 
         private static List<TableMetadata> ToTablesMetadata(
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
