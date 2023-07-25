@@ -45,6 +45,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -78,6 +80,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -111,6 +115,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -143,6 +149,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
                     Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
