@@ -24,6 +24,8 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             List<TableInformation> tables,
             string naturalQuery)
         {
+            DeleteMe();
+
             ValidateTablesAndNaturalQuery(tables, naturalQuery);
 
             IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tables);

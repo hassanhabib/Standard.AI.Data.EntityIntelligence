@@ -16,7 +16,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         //TODO: the member data is only accepting functions that return one value and thats why we are using a tuple.
         [Theory]
         [MemberData(nameof(InvalidTableInformationsAndInvalidNaturalQueries))]
-        public async Task ShouldThrowValidationExceptionOnRetrieveSqlQueryIfTableInformationOrNaturalQueryAreInvalid(Tuple<dynamic, string> tableInformationsAndNaturalQuery)
+        public async Task ShouldThrowValidationExceptionOnRetrieveSqlQueryIfTableInformationOrNaturalQueryAreInvalid(
+            Tuple<dynamic, string> tableInformationsAndNaturalQuery)
         {
             // given
             var invalidTableInformations = tableInformationsAndNaturalQuery.Item1;
