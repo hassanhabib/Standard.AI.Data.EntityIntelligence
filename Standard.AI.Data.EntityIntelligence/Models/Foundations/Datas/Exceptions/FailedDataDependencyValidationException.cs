@@ -7,10 +7,10 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class FailedDataStorageDependencyValidationException : Xeption
+    internal class FailedDataDependencyValidationException : Xeption
     {
-        public FailedDataStorageDependencyValidationException(Exception innerException)
-            : base(message: "Data storage validation error occurred, fix the errors and try again.",
+        public FailedDataDependencyValidationException(Exception innerException)
+            : base(message: "Data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
     }

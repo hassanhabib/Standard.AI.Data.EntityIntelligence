@@ -15,32 +15,64 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 {
     public partial class DataServiceTests
     {
-        [Theory]
-        [MemberData(nameof(DataStorageDependencyValidationExceptions))]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync(
-            Exception dataStorageDependencyValidationException)
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidArgumentExceptionOccursAsync()
         {
             // given
-            var failedDataDependencyValidationException =
-                new FailedDataStorageDependencyValidationException(dataStorageDependencyValidationException);
+            var invalidArgumentException = new ArgumentException();
+
+            var invalidDataValidationException =
+                new InvalidDataValidationException(invalidArgumentException);
 
             var expectedDataDependencyValidationException =
-                new DataStorageDependencyValidationException(
-                        failedDataDependencyValidationException);
+                new DataDependencyValidationException(invalidDataValidationException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
-                    .ThrowsAsync(dataStorageDependencyValidationException);
+                    .ThrowsAsync(invalidArgumentException);
 
             // when
             var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
 
-            var actualTableInformationListException =
-                await Assert.ThrowsAsync<DataStorageDependencyValidationException>(
+            var actualTableDetailsException =
+                await Assert.ThrowsAsync<DataDependencyValidationException>(
                                        retrieveTablesDetailsTask.AsTask);
 
             // then
-            actualTableInformationListException.Should().BeEquivalentTo(
+            actualTableDetailsException.Should().BeEquivalentTo(
+                expectedDataDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
+                    Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidOperationExceptionOccursAsync()
+        {
+            // given
+            var invalidOperationException = new InvalidOperationException();
+
+            var invalidOperationDataValidationException =
+                new InvalidOperationDataValidationException(invalidOperationException);
+
+            var expectedDataDependencyValidationException =
+                new DataDependencyValidationException(
+                        invalidOperationDataValidationException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
+                    .ThrowsAsync(invalidOperationException);
+
+            // when
+            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+
+            var actualTableDetailsException =
+                await Assert.ThrowsAsync<DataDependencyValidationException>(
+                                       retrieveTablesDetailsTask.AsTask);
+
+            // then
+            actualTableDetailsException.Should().BeEquivalentTo(
                 expectedDataDependencyValidationException);
 
             this.dataBrokerMock.Verify(broker =>
@@ -55,10 +87,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             SqlException sqlException = GetSqlException();
 
             var failedDataDependencyException =
-                new FailedDataStorageDependencyValidationException(sqlException);
+                new FailedDataDependencyValidationException(sqlException);
 
             var expectedDataDependencyException =
-                new DataStorageDependencyException(
+                new DataDependencyException(
                     failedDataDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -69,7 +101,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
 
             var actualTableInformationListException =
-                await Assert.ThrowsAsync<DataStorageDependencyException>(
+                await Assert.ThrowsAsync<DataDependencyException>(
                                        retrieveTablesDetailsTask.AsTask);
 
             // then

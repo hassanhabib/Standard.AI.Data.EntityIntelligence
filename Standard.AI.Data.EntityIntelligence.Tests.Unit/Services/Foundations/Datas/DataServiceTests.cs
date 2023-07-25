@@ -26,15 +26,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 dataBroker: this.dataBrokerMock.Object);
         }
 
-        public static TheoryData DataStorageDependencyValidationExceptions()
-        {
-            return new TheoryData<Exception>
-            {
-                new InvalidOperationException(),
-                new ArgumentException(),
-            };
-        }
-
         private static SqlException GetSqlException() =>
             (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
 

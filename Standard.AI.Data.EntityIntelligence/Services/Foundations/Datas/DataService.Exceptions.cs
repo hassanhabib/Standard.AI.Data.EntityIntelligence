@@ -23,24 +23,24 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             }
             catch (InvalidOperationException invalidOperationException)
             {
-                var failedDependencyValidationException =
-                    new FailedDataStorageDependencyValidationException(invalidOperationException);
+                var invalidOperationDataValidationException =
+                    new InvalidOperationDataValidationException(invalidOperationException);
 
-                throw new DataStorageDependencyValidationException(failedDependencyValidationException);
+                throw new DataDependencyValidationException(invalidOperationDataValidationException);
             }
             catch (ArgumentException argumentException)
             {
-                var failedDependencyValidationException =
-                    new FailedDataStorageDependencyValidationException(argumentException);
+                var invalidDataValidationException =
+                    new InvalidDataValidationException(argumentException);
 
-                throw new DataStorageDependencyValidationException(failedDependencyValidationException);
+                throw new DataDependencyValidationException(invalidDataValidationException);
             }
             catch (SqlException sqlException)
             {
-                var failedDataStorageDependencyException =
-                    new FailedDataStorageDependencyValidationException(sqlException);
+                var failedDataDependencyException =
+                    new FailedDataDependencyValidationException(sqlException);
 
-                throw new DataStorageDependencyException(failedDataStorageDependencyException);
+                throw new DataDependencyException(failedDataDependencyException);
             }
             catch (Exception exception)
             {

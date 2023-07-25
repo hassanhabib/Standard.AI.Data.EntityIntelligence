@@ -21,13 +21,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         {
             // given
             var query = String.Join(
-                            Environment.NewLine,
-                            "SELECT",
-                            $"c.TABLE_SCHEMA AS [TableSchema],",
-                            $"c.TABLE_NAME AS [TableName],",
-                            $"c.COLUMN_NAME AS [Name],",
-                            $"c.DATA_TYPE AS [DataType]",
-                            "FROM INFORMATION_SCHEMA.COLUMNS c");
+                separator: Environment.NewLine,
+                "SELECT",
+                $"c.TABLE_SCHEMA AS [TableSchema],",
+                $"c.TABLE_NAME AS [TableName],",
+                $"c.COLUMN_NAME AS [Name],",
+                $"c.DATA_TYPE AS [DataType]",
+                "FROM INFORMATION_SCHEMA.COLUMNS c");
 
             var randomNumber = GetRandomNumber();
             var randomTablesMetadataProperties = GenerateRandomTablesMetadata();
