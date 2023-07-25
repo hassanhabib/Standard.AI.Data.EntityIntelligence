@@ -30,7 +30,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 
 
             var listOfTables = new List<TableInformation>
-            { 
+            {
                 null,
 
                 new TableInformation
@@ -60,7 +60,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             };
 
 
-            
+
 
 
             // Break if List<TableInformation> is null NullTableInformationListException()
@@ -171,12 +171,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             return tableInformation switch
             {
-                null => new List<(dynamic Rule, string Parameter)> 
-                { 
+                null => new List<(dynamic Rule, string Parameter)>
+                {
                     (Rule: IsInvalid(tableInformation),
-                    Parameter: $"Item[{index}]") 
+                    Parameter: $"Item[{index}]")
                 },
-                
+
                 _ => ValidateTableInformationPropeties(tableInformation, index)
             };
         }
@@ -185,30 +185,36 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             TableInformation tableInformation,
             int index)
         {
-            return new List<(dynamic Rule , string Parameter)>
+            return new List<(dynamic Rule, string Parameter)>
             {
-                (Rule: IsInvalid(tableInformation.Name, nameof(TableInformation.Name)), 
+                (Rule: IsInvalid(tableInformation.Name, nameof(TableInformation.Name)),
                 Parameter: $"Item[{index}]"),
 
-                (Rule: IsInvalid(tableInformation.Columns),
-                Parameter: $"Item[{index}].{nameof(TableInformation.Columns)}")
+                (Rule: IsInvalid(tableInformation.Columns, nameof(TableInformation.Columns)),
+                Parameter: $"Item[{index}]")
             }.Where(validation => validation.Rule.Condition is true);
         }
 
         private static dynamic IsInvalid(
             string value,
             string propertyName) => new
-        {
-            Condition = String.IsNullOrWhiteSpace(value),
-            Message = $"{propertyName} is required"
-        };
+            {
+                Condition = String.IsNullOrWhiteSpace(value),
+                Message = $"{propertyName} is required"
+            };
 
         private static dynamic IsInvalid(
             object @object,
             string propertyName) => new
+            {
+                Condition = @object is null,
+                Message = $"{propertyName} Value is required"
+            };
+
+        private static dynamic IsInvalid(object @object) => new
         {
             Condition = @object is null,
-            Message = "Value is required"
+            Message = $"Value is required"
         };
     }
 }
