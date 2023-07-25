@@ -22,8 +22,9 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync() =>
         TryCatch(async () =>
         {
-            var retrievedTablesColumnsMetadata =
+            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata =
               await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
+
             return ToTablesMetadata(retrievedTablesColumnsMetadata);
         });
 
@@ -40,10 +41,11 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             static TableMetadata ToTableMetadata(
                 IGrouping<(string TableSchema, string Name),
                 TableColumnMetadata> tableColumnsMetadata) =>
-                new()
+                new TableMetadata
                 {
                     Schema = tableColumnsMetadata.Key.TableSchema,
                     Name = tableColumnsMetadata.Key.Name,
+
                     ColumnsMetadata =
                         tableColumnsMetadata.Select(columnsMetadata =>
                             new ColumnMetadata
@@ -56,7 +58,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
         private static readonly string SelectAllTablesMetadataQuery =
             String.Join(
-                Environment.NewLine,
+                separator: Environment.NewLine,
                 "SELECT",
                 $"c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],",
                 $"c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],",
