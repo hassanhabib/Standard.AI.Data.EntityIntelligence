@@ -4,8 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Linq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
@@ -17,22 +15,17 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         private static void ValidateTablesAndNaturalQuery(List<TableInformation> tables, string naturalQuery)
 
         {
-            // break the circuit if no tables
-            ValidateTablesAreNotNullOrEmpty(tables);
+            // Validate tables
+            ValidateTableInformations(tables);
 
-            // continous validation
-            // TODO: Is there a better way to test these nested objects?
-            Validate(
-                (Rule: IsInvalidNaturalQuery(naturalQuery), Parameter: nameof(naturalQuery)),
-                (Rule: IsInvalidTables(tables), Parameter: nameof(tables)),
-                (Rule: IsInvalidTableColumns(tables), Parameter: nameof(tables))
-                );
+            // Validate columns
+            ValidateTableInformationsColumns(tables);
+        }
 
-
-            var listOfTables = new List<TableInformation>
+        private static void DeleteMe()
+        {
+            List<TableInformation> tables = new List<TableInformation>
             {
-                null,
-
                 new TableInformation
                 {
                     Name = "Students",
@@ -46,123 +39,93 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                     }
                 },
 
-                new TableInformation
-                {
-                    Name = null,
-                    Columns = new List<TableColumn>()
-                },
-
-                new TableInformation
+                 new TableInformation
                 {
                     Name = "Teachers",
-                    Columns = null
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn
+                        {
+                            Name = "",
+                            Type = "int"
+                        },
+                         new TableColumn
+                        {
+                            Name = "",
+                            Type = ""
+                        }
+                    }
                 },
-            };
 
-
-
-
-
-            // Break if List<TableInformation> is null NullTableInformationListException()
-            // Break if naturalQuery is null, empty or whitespace InvalidNaturalQueryException()
-
-            // Break if any of List<TableInformation> is null InvalidAIProcessingException() [BAD]
-
-            // Validate if any tableinformation.TableName is null, empty or whitespace
-            // Validate if any tableinformation.columns is null or empty
-            // Then Break InvalidAIProcessingException() with Data having the issues
-
-            // Validate if any ColumnName is not null, empty or whitespace
-            // Validate if any ColumnValue is not null, empty or whitespace
-            // Then Break InvalidAIProcessingException()
-
-        }
-
-        private static void ValidateTablesAreNotNullOrEmpty(List<TableInformation> tables)
-        {
-            if (tables is null || tables.Count == 0)
-            {
-                throw new NullOrEmptyTableInformationException();
-            }
-        }
-
-        private static dynamic IsInvalidNaturalQuery(string naturalQuery) => new
-        {
-            Condition = string.IsNullOrWhiteSpace(naturalQuery),
-            Message = "Natural query is required."
-        };
-
-        private static dynamic IsInvalidTables(List<TableInformation> tables) => new
-        {
-            Condition = tables.Any(tableInformation => string.IsNullOrEmpty(tableInformation.Name) || tableInformation.Columns == null
-            || tableInformation.Columns.Count() == 0),
-            Message = "Each table should have a name and associated columns."
-            // One or more tables are null
-        };
-
-        private static dynamic IsInvalidTableColumns(List<TableInformation> tables) => new
-        {
-            Condition = tables.Any(tableInformation => tableInformation.Columns.Any(column => string.IsNullOrEmpty(column.Name) ||
-                string.IsNullOrEmpty(column.Type))),
-            Message = "Each table column should have a name and a type."
-        };
-
-        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
-        {
-            var invalidAIProcessingException =
-                new InvalidAIProcessingQueryException();
-
-            foreach ((dynamic rule, string parameter) in validations)
-            {
-                if (rule.Condition)
+                  new TableInformation
                 {
-                    invalidAIProcessingException.UpsertDataList(
-                        key: parameter,
-                        value: rule.Message);
+                    Name = "Table3",
+                    Columns = new List<TableColumn>
+                    {
+                        new TableColumn
+                        {
+                            Name = null,
+                            Type = null
+                        },
+                        new TableColumn
+                        {
+                            Name = "some name",
+                            Type = "some type"
+                        }
+                    }
                 }
-            }
 
-            invalidAIProcessingException.ThrowIfContainsErrors();
-        }
 
-        private static void DeleteMe()
-        {
-            var invalidTableInformations = new List<TableInformation>
-            {
-                null,
-
-                new TableInformation
-                {
-
-                },
-
-                new TableInformation
-                {
-                    Name = null,
-                    Columns = new List<TableColumn>()
-                },
-
-                new TableInformation
-                {
-                    Name = "Students",
-                    Columns = null
-                },
             };
 
-            ValidateTableInformations(invalidTableInformations);
+            ValidateTableInformationsColumns(tables);
+        }
+
+        private static void ValidateTableInformationsColumns(List<TableInformation> tableInformations)
+        {
+            Validate(tableInformations.SelectMany((tableInformation, tableIndex) =>
+                           ValidateTableInformationColumns(tableInformation, tableIndex)).ToArray());
+        }
+
+        private static IEnumerable<(dynamic, string)> ValidateTableInformationColumns(
+                       TableInformation tableInformation, int tableIndex)
+        {
+            return tableInformation.Columns.SelectMany((tableColumn, columnIndex) =>
+                 ValidateTableInformationColumn(tableColumn, columnIndex, tableIndex));
+        }
+
+        private static IEnumerable<(dynamic, string)> ValidateTableInformationColumn(TableColumn tableColumn, int columnIndex, int tableIndex)
+        {
+            return tableColumn switch
+            {
+                null => new List<(dynamic Rule, string Parameter)>
+                {
+                    (Rule: IsInvalid(tableColumn),
+                    Parameter: $"Table[{tableIndex}] Column[{columnIndex}]")
+                },
+
+                _ => ValidateColumnProperties(tableColumn, columnIndex, tableIndex)
+            };
+        }
+
+        private static IEnumerable<(dynamic Rule, string Parameter)> ValidateColumnProperties(TableColumn tableColumn, int columnIndex, int tableIndex)
+        {
+            return new List<(dynamic Rule, string Parameter)>
+            {
+                (Rule: IsInvalid(tableColumn.Name, nameof(TableColumn.Name)),
+                    Parameter: $"Table[{tableIndex}] Column[{columnIndex}]"),
+
+                (Rule: IsInvalid(tableColumn.Type, nameof(TableColumn.Type)),
+                    Parameter: $"Table[{tableIndex}] Column[{columnIndex}]")
+            }.Where(validation => validation.Rule.Condition is true);
         }
 
         private static void ValidateTableInformations(
             List<TableInformation> tableInformations)
         {
-            var invalidAIProcessingException =
-                new InvalidAIProcessingQueryException();
-
             Validate(
                 tableInformations.SelectMany((tableInformation, index) =>
                     ValidateTableInformation(tableInformation, index)).ToArray());
-
-            return;
         }
 
         private static IEnumerable<(dynamic, string)> ValidateTableInformation(
@@ -177,11 +140,11 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                     Parameter: $"Item[{index}]")
                 },
 
-                _ => ValidateTableInformationPropeties(tableInformation, index)
+                _ => ValidateTableInformationProperties(tableInformation, index)
             };
         }
 
-        private static IEnumerable<(dynamic, string)> ValidateTableInformationPropeties(
+        private static IEnumerable<(dynamic, string)> ValidateTableInformationProperties(
             TableInformation tableInformation,
             int index)
         {
@@ -216,5 +179,25 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             Condition = @object is null,
             Message = $"Value is required"
         };
+
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
+        {
+            var invalidAIProcessingException =
+                new InvalidAIProcessingException();
+
+            foreach ((dynamic rule, string parameter) in validations)
+            {
+                if (rule.Condition)
+                {
+                    invalidAIProcessingException.UpsertDataList(
+                        key: parameter,
+                        value: rule.Message);
+                }
+            }
+            invalidAIProcessingException.ThrowIfContainsErrors();
+        }
+
     }
+
+
 }
