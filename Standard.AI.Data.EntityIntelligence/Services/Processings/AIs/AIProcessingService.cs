@@ -21,12 +21,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             this.aiService = aiService;
 
         public async ValueTask<string> RetrieveSqlQueryAsync(
-            List<TableInformation> tables,
+            List<TableInformation> tableInformations,
             string naturalQuery)
         {
-            ValidateTablesAndNaturalQuery(tables, naturalQuery);
+            ValidateTablesAndNaturalQuery(tableInformations, naturalQuery);
 
-            IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tables);
+            IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tableInformations);
             string tablesNameColumns = string.Join(" ", tablesDetails);
 
             string naturalQueryInput = $"Respond ONLY with code. Given a SQL db with the following tables: " +

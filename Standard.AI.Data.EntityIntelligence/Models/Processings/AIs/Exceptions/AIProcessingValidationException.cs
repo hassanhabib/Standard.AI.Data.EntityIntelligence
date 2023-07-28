@@ -8,7 +8,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
 {
     internal class AIProcessingValidationException : Xeption
     {
-        public AIProcessingValidationException(Exception innerException)
+        public AIProcessingValidationException(Xeption innerException)
          : base(message: "Invalid AI Query error occurred, fix the errors and try again.", innerException)
         { }
     }

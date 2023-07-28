@@ -6,9 +6,10 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
 {
-    internal class NullTableInformationListException : Xeption
+    internal class NullTableInformationListAIProcessingException : Xeption
     {
-        public NullTableInformationListException() : base(message: "Table information list is null.")
+        public NullTableInformationListAIProcessingException() 
+            : base(message: "Table information list is null.")
         { }
     }
 }
