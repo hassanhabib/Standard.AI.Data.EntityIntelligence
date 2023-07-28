@@ -20,9 +20,9 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         public AIProcessingService(IAIService aiService) =>
             this.aiService = aiService;
 
-        public async ValueTask<string> RetrieveSqlQueryAsync(
+        public ValueTask<string> RetrieveSqlQueryAsync(
             List<TableInformation> tableInformations,
-            string naturalQuery)
+            string naturalQuery) => TryCatch(async () =>
         {
             ValidateTablesAndNaturalQuery(tableInformations, naturalQuery);
 
@@ -33,7 +33,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                 $"{tablesNameColumns} Translated the following request into SQL query: {naturalQuery}";
 
             return await this.aiService.PromptQueryAsync(naturalQueryInput);
-        }
+        });
 
         private static IEnumerable<string> ConvertToTablesDetailsEnumerable(
             List<TableInformation> tables)
@@ -53,7 +53,5 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             return table.Columns.Select(column =>
                 $"{column.Name} with type {column.Type}");
         }
-
-
     }
 }

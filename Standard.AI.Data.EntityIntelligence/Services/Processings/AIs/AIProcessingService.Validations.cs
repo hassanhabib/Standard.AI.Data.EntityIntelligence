@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Linq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
@@ -11,10 +10,19 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 {
     internal partial class AIProcessingService : IAIProcessingService
     {
-        private static void ValidateTablesAndNaturalQuery(List<TableInformation> tables, string naturalQuery)
-
+        private static void ValidateTablesAndNaturalQuery(
+            List<TableInformation> tables,
+            string naturalQuery)
         {
+            ValidateTableInformationList(tables);
+        }
 
+        private static void ValidateTableInformationList(List<TableInformation> tables)
+        {
+            if (tables is null)
+            {
+                throw new NullTableInformationListAIProcessingException();
+            }
         }
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)

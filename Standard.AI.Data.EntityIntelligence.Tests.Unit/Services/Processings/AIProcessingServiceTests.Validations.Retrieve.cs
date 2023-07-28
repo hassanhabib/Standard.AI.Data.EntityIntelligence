@@ -31,8 +31,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(
-                    nullTableInformationList,
-                    someNaturalQuery);
+                    tableInformations: nullTableInformationList,
+                    naturalQuery: someNaturalQuery);
 
             AIProcessingValidationException actualAIProcessingValidationException =
                 await Assert.ThrowsAsync<AIProcessingValidationException>(
