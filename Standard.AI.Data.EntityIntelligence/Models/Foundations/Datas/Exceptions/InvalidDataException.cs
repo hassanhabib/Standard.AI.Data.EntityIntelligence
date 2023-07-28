@@ -3,9 +3,9 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class InvalidDataValidationException : Xeption
+    internal class InvalidDataException : Xeption
     {
-        public InvalidDataValidationException(Exception innerException)
+        public InvalidDataException(Exception innerException)
             : base(message: "Invalid data validation error occurred, fix the errors and try again.",
                   innerException)
         { }

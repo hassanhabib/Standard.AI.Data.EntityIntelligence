@@ -13,32 +13,32 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
     internal partial class DataService : IDataService
     {
-        private delegate ValueTask<List<TableMetadata>> ReturningFunction();
+        private delegate ValueTask<IEnumerable<TableMetadata>> ReturningTableMetadatasFunction();
 
-        private static async ValueTask<List<TableMetadata>> TryCatch(ReturningFunction returningFuction)
+        private static async ValueTask<IEnumerable<TableMetadata>> TryCatch(ReturningTableMetadatasFunction returningTableMetadatasFunction)
         {
             try
             {
-                return await returningFuction();
+                return await returningTableMetadatasFunction();
             }
             catch (InvalidOperationException invalidOperationException)
             {
-                var invalidOperationDataValidationException =
-                    new InvalidOperationDataValidationException(invalidOperationException);
+                var invalidOperationDataException =
+                    new InvalidOperationDataException(invalidOperationException);
 
-                throw new DataDependencyValidationException(invalidOperationDataValidationException);
+                throw new DataDependencyValidationException(invalidOperationDataException);
             }
             catch (ArgumentException argumentException)
             {
-                var invalidDataValidationException =
-                    new InvalidDataValidationException(argumentException);
+                var invalidDataException =
+                    new InvalidDataException(argumentException);
 
-                throw new DataDependencyValidationException(invalidDataValidationException);
+                throw new DataDependencyValidationException(invalidDataException);
             }
             catch (SqlException sqlException)
             {
                 var failedDataDependencyException =
-                    new FailedDataDependencyValidationException(sqlException);
+                    new FailedDataDependencyException(sqlException);
 
                 throw new DataDependencyException(failedDataDependencyException);
             }

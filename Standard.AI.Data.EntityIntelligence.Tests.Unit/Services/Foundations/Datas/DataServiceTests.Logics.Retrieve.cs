@@ -17,29 +17,31 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
     public partial class DataServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveTablesDetailsAsync()
+        public async Task ShouldRetrieveTableMetadatasAsync()
         {
             // given
-            var query = String.Join(
+            string query = String.Join(
                 separator: Environment.NewLine,
                 "SELECT",
-                $"c.TABLE_SCHEMA AS [TableSchema],",
-                $"c.TABLE_NAME AS [TableName],",
-                $"c.COLUMN_NAME AS [Name],",
-                $"c.DATA_TYPE AS [DataType]",
-                "FROM INFORMATION_SCHEMA.COLUMNS c");
+                $"columnMetadata.TABLE_SCHEMA AS [TableSchema],",
+                $"columnMetadata.TABLE_NAME AS [TableName],",
+                $"columnMetadata.COLUMN_NAME AS [Name],",
+                $"columnMetadata.DATA_TYPE AS [DataType]",
+                "FROM INFORMATION_SCHEMA.COLUMNS columnMetadata");
 
             var randomNumber = GetRandomNumber();
-            var randomTablesMetadataProperties = GenerateRandomTablesMetadata();
+            var randomTableMetadatas = GenerateRandomTableMetadatas();
 
-            var toRetrieveTablesColumnsMetadata =
-                randomTablesMetadataProperties.Keys.SelectMany(schema__tableName =>
+            var toRetrieveTableColumnsMetadata =
+                randomTableMetadatas.Keys.SelectMany(schema__tableName =>
                 {
-                    var columnsMetadata = randomTablesMetadataProperties[schema__tableName];
+                    var columnsMetadata = randomTableMetadatas[schema__tableName];
                     var tablesColumnsMetadata = new List<TableColumnMetadata>();
+
                     foreach (var columnKey in columnsMetadata.Keys)
                     {
                         var columnMetadata = columnsMetadata[columnKey];
+
                         tablesColumnsMetadata.Add(
                             new TableColumnMetadata
                             {
@@ -52,14 +54,16 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     return tablesColumnsMetadata;
                 });
 
-            var expectedTablesDetails =
-                randomTablesMetadataProperties.Keys.Select(schema__tableName =>
+            var expectedTableMetadata =
+                randomTableMetadatas.Keys.Select(schema__tableName =>
                 {
-                    var columnsMetadata = randomTablesMetadataProperties[schema__tableName];
+                    var columnsMetadata = randomTableMetadatas[schema__tableName];
+
                     return new TableMetadata
                     {
                         Schema = schema__tableName.Split(".")[0],
                         Name = schema__tableName.Split(".")[1],
+
                         ColumnsMetadata = columnsMetadata.Keys.Select(key => new ColumnMetadata
                         {
                             Name = key,
@@ -68,15 +72,16 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     };
                 }).ToList();
 
-            dataBrokerMock.Setup(broker => broker.ExecuteQueryAsync<TableColumnMetadata>(query))
-                .ReturnsAsync(toRetrieveTablesColumnsMetadata);
+            dataBrokerMock.Setup(broker => 
+                broker.ExecuteQueryAsync<TableColumnMetadata>(query))
+                    .ReturnsAsync(toRetrieveTableColumnsMetadata);
 
             // when
-            var retrievedTablesDetails =
-                await dataService.RetrieveTablesDetailsAsync();
+            var retrievedTableMetadatas =
+                await dataService.RetrieveTableMetadatasAsync();
 
             // then
-            retrievedTablesDetails.Should().BeEquivalentTo(expectedTablesDetails);
+            retrievedTableMetadatas.Should().BeEquivalentTo(expectedTableMetadata);
 
             dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query),

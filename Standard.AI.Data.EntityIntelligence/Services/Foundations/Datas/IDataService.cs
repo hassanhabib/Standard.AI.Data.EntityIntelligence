@@ -10,6 +10,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
     internal interface IDataService
     {
-        ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync();
+        ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync();
     }
 }

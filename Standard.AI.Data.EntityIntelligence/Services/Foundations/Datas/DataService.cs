@@ -19,51 +19,51 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<List<TableMetadata>> RetrieveTablesDetailsAsync() =>
+        public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
         TryCatch(async () =>
         {
-            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata =
-              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTablesMetadataQuery);
+            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
+              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
 
-            return ToTablesMetadata(retrievedTablesColumnsMetadata);
+            return ToTablesMetadata(retrievedTablesColumnsMetadatas);
         });
 
-        private static List<TableMetadata> ToTablesMetadata(
-            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadata)
+        private static IEnumerable<TableMetadata> ToTablesMetadata(
+            IEnumerable<TableColumnMetadata> tableColumnsMetadatas)
         {
-            var groupedColumns =
-                retrievedTablesColumnsMetadata
+            IEnumerable<IGrouping<(string TableSchema, string TableName), TableColumnMetadata>> groupedColumns =
+                tableColumnsMetadatas
                     .GroupBy(tableColumnMetadata =>
                         (tableColumnMetadata.TableSchema, tableColumnMetadata.TableName));
 
-            return groupedColumns.Select(ToTableMetadata).ToList();
-
-            static TableMetadata ToTableMetadata(
-                IGrouping<(string TableSchema, string Name),
-                TableColumnMetadata> tableColumnsMetadata) =>
-                new TableMetadata
-                {
-                    Schema = tableColumnsMetadata.Key.TableSchema,
-                    Name = tableColumnsMetadata.Key.Name,
-
-                    ColumnsMetadata =
-                        tableColumnsMetadata.Select(columnsMetadata =>
-                            new ColumnMetadata
-                            {
-                                Name = columnsMetadata.Name,
-                                DataType = columnsMetadata.DataType,
-                            }).ToList(),
-                };
+            return groupedColumns.Select(ToTableMetadata);
         }
 
-        private static readonly string SelectAllTablesMetadataQuery =
+        static TableMetadata ToTableMetadata(
+                IGrouping<(string TableSchema, string Name),
+                TableColumnMetadata> tableColumnsMetadatas) =>
+                    new TableMetadata
+                    {
+                        Schema = tableColumnsMetadatas.Key.TableSchema,
+                        Name = tableColumnsMetadatas.Key.Name,
+
+                        ColumnsMetadata =
+                            tableColumnsMetadatas.Select(columnsMetadata =>
+                                new ColumnMetadata
+                                {
+                                    Name = columnsMetadata.Name,
+                                    DataType = columnsMetadata.DataType,
+                                }),
+                    };
+
+        private static readonly string SelectAllTableMetadatasQuery =
             String.Join(
                 separator: Environment.NewLine,
                 "SELECT",
-                $"c.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],",
-                $"c.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],",
-                $"c.COLUMN_NAME AS [{nameof(TableColumnMetadata.Name)}],",
-                $"c.DATA_TYPE AS [{nameof(TableColumnMetadata.DataType)}]",
-                "FROM INFORMATION_SCHEMA.COLUMNS c");
+                $"columnMetadata.TABLE_SCHEMA AS [{nameof(TableColumnMetadata.TableSchema)}],",
+                $"columnMetadata.TABLE_NAME AS [{nameof(TableColumnMetadata.TableName)}],",
+                $"columnMetadata.COLUMN_NAME AS [{nameof(TableColumnMetadata.Name)}],",
+                $"columnMetadata.DATA_TYPE AS [{nameof(TableColumnMetadata.DataType)}]",
+                "FROM INFORMATION_SCHEMA.COLUMNS columnMetadata");
     }
 }

@@ -9,7 +9,6 @@ using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 using Tynamix.ObjectFiller;
-using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -32,10 +31,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
 
-        private static int GetRandomNumber(int min = 5, int max = 10) =>
-            new IntRange(min, max).GetValue();
+        private static int GetRandomNumber() =>
+            new IntRange(2, 10).GetValue();
 
-        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTablesMetadata()
+        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTableMetadatas()
         {
             int tablesCount = GetRandomNumber();
             var tablesDictionary = new Dictionary<string, Dictionary<string, string>>();
@@ -55,7 +54,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         {
             string randomSchemaName = GetRandomString();
             string randomTableName = GetRandomString();
-
             int randomColumnCount = GetRandomNumber();
             var columnsDictionary = new Dictionary<string, string>();
 
@@ -66,7 +64,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     value: GetRandomString());
             }
 
-            return new(new(randomSchemaName, randomTableName), columnsDictionary);
+            return Tuple.Create(
+                    Tuple.Create(randomSchemaName, randomTableName),
+                    columnsDictionary);
         }
     }
 }

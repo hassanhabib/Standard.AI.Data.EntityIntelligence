@@ -10,6 +10,6 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
     {
         public string Schema { get; init; }
         public string Name { get; init; }
-        public List<ColumnMetadata> ColumnsMetadata { get; init; }
+        public IEnumerable<ColumnMetadata> ColumnsMetadata { get; init; }
     }
 }

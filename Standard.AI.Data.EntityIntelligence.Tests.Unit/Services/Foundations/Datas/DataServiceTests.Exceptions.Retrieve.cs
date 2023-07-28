@@ -3,11 +3,13 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
+using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
 
@@ -21,25 +23,26 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // given
             var invalidArgumentException = new ArgumentException();
 
-            var invalidDataValidationException =
-                new InvalidDataValidationException(invalidArgumentException);
+            var invalidDataException =
+                new InvalidDataException(invalidArgumentException);
 
             var expectedDataDependencyValidationException =
-                new DataDependencyValidationException(invalidDataValidationException);
+                new DataDependencyValidationException(invalidDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(invalidArgumentException);
 
             // when
-            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+                this.dataService.RetrieveTableMetadatasAsync();
 
-            var actualTableDetailsException =
+            var actualTableMetadatasException =
                 await Assert.ThrowsAsync<DataDependencyValidationException>(
-                                       retrieveTablesDetailsTask.AsTask);
+                    retrieveTableMetadatasTask.AsTask);
 
             // then
-            actualTableDetailsException.Should().BeEquivalentTo(
+            actualTableMetadatasException.Should().BeEquivalentTo(
                 expectedDataDependencyValidationException);
 
             this.dataBrokerMock.Verify(broker =>
@@ -55,26 +58,27 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // given
             var invalidOperationException = new InvalidOperationException();
 
-            var invalidOperationDataValidationException =
-                new InvalidOperationDataValidationException(invalidOperationException);
+            var invalidOperationDataException =
+                new InvalidOperationDataException(invalidOperationException);
 
             var expectedDataDependencyValidationException =
                 new DataDependencyValidationException(
-                        invalidOperationDataValidationException);
+                    invalidOperationDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(invalidOperationException);
 
             // when
-            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+                this.dataService.RetrieveTableMetadatasAsync();
 
-            var actualTableDetailsException =
+            var actualTableMetadatasException =
                 await Assert.ThrowsAsync<DataDependencyValidationException>(
-                                       retrieveTablesDetailsTask.AsTask);
+                    retrieveTableMetadatasTask.AsTask);
 
             // then
-            actualTableDetailsException.Should().BeEquivalentTo(
+            actualTableMetadatasException.Should().BeEquivalentTo(
                 expectedDataDependencyValidationException);
 
             this.dataBrokerMock.Verify(broker =>
@@ -91,7 +95,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             SqlException sqlException = GetSqlException();
 
             var failedDataDependencyException =
-                new FailedDataDependencyValidationException(sqlException);
+                new FailedDataDependencyException(sqlException);
 
             var expectedDataDependencyException =
                 new DataDependencyException(
@@ -102,11 +106,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(sqlException);
 
             // when
-            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+                this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
                 await Assert.ThrowsAsync<DataDependencyException>(
-                                       retrieveTablesDetailsTask.AsTask);
+                    retrieveTableMetadatasTask.AsTask);
 
             // then
             actualTableInformationListException.Should().BeEquivalentTo(
@@ -137,11 +142,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(serviceException);
 
             // when
-            var retrieveTablesDetailsTask = this.dataService.RetrieveTablesDetailsAsync();
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+                this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
                 await Assert.ThrowsAsync<DataServiceException>(
-                                       retrieveTablesDetailsTask.AsTask);
+                    retrieveTableMetadatasTask.AsTask);
 
             // then
             actualTableInformationListException.Should().BeEquivalentTo(expectedDataServiceException);
