@@ -69,16 +69,21 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     columnsDictionary);
         }
 
-        private static IEnumerable<KeyValuePair<string, string>> GenerateRandomColumnDatas()
+        private static IEnumerable<KeyValuePair<int, (string ColumnName, string ColumnValue)>> 
+            GenerateColumnDatas()
         {
+            int rowsCount = GetRandomNumber();
             int columnsCount = GetRandomNumber();
 
-            for (int i = 0; i < columnsCount ; i++) 
+            for (int rowNumber = 0; rowNumber < rowsCount; rowNumber++)
             {
-                var columnName = GetRandomString();
-                var columnValue = GetRandomString();
+                for (int columnNumber = 0; columnNumber < columnsCount; columnNumber++)
+                {
+                    var columnName = GetRandomString();
+                    var columnValue = GetRandomString();
 
-                yield return KeyValuePair.Create(columnName, columnValue);
+                    yield return KeyValuePair.Create(rowNumber, (columnName, columnValue));
+                }
             }
         }
     }

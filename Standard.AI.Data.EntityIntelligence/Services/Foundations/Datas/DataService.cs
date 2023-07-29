@@ -19,9 +19,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<ColumnData>> RunQuery(string query)
+        public async ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query)
         {
-            throw new NotImplementedException();
+            var retrievedRows =
+                await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
+
+            return ToColumnsDatas(retrievedRows);
         }
 
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
@@ -32,6 +35,18 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
             return ToTablesMetadata(retrievedTablesColumnsMetadatas);
         });
+
+        private static IEnumerable<ResultRow> ToColumnsDatas(
+            IEnumerable<IDictionary<string, object>> retrievedRows) => 
+                retrievedRows.Select(columns =>
+                    new ResultRow
+                    {
+                        Columns = columns.Select(column => new ColumnData
+                        {
+                            Name = column.Key,
+                            Value = column.Value.ToString(),
+                        })
+                    });
 
         private static IEnumerable<TableMetadata> ToTablesMetadata(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)

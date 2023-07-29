@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,37 +21,41 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var randomQuery = GetRandomString();
             var inputQuery = randomQuery;
 
-            IEnumerable<KeyValuePair<string, string>> 
-                randomColumnDatas = GenerateRandomColumnDatas();
+            IEnumerable<KeyValuePair<int, (string ColumnName, string ColumnValue)>> 
+                randomColumnData = GenerateColumnDatas().ToList();
 
-            IEnumerable<dynamic> toRetriveColumnDatas =
-                randomColumnDatas.Select(columnData =>
-                    new
-                    {
-                        ColumnName = columnData.Key,
-                        ColumnValue = columnData.Value
-                    });
+            IEnumerable<IDictionary<string, object>> toRetriveColumnDatas =
+                randomColumnData.GroupBy(rcd => rcd.Key)
+                    .Select(rcd => 
+                        rcd.Select(r => 
+                            KeyValuePair.Create(
+                                r.Value.ColumnName.ToString(),
+                                r.Value.ColumnValue as object))
+                        .ToDictionary(r => r.Key, r => r.Value));
 
-            IEnumerable<ColumnData> expectedColumnDatas =
-                randomColumnDatas.Select(columnData =>
-                    new ColumnData
+            IEnumerable<ResultRow> expectedResultRows =
+                randomColumnData.GroupBy(rcd => rcd.Key)
+                    .Select(rcd => new ResultRow
                     {
-                        Name = columnData.Key,
-                        Value = columnData.Value
+                        Columns = rcd.Select(r => new ColumnData
+                        {
+                            Name = r.Value.ColumnName,
+                            Value = r.Value.ColumnValue,
+                        })
                     });
 
             this.dataBrokerMock.Setup(broker =>
-                broker.ExecuteQueryAsync<dynamic>(inputQuery))
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery))
                     .ReturnsAsync(toRetriveColumnDatas);
 
-            IEnumerable<ColumnData> retrievedColumnsData =
-                await dataService.RunQuery(randomQuery);
+            IEnumerable<ResultRow> retrievedResultRows =
+                await dataService.RunQueryAsync(randomQuery);
 
-            retrievedColumnsData.Should()
-                .BeEquivalentTo(expectedColumnDatas);
+            retrievedResultRows.Should()
+                .BeEquivalentTo(expectedResultRows);
 
             this.dataBrokerMock.Verify(broker => 
-                broker.ExecuteQueryAsync<dynamic>(inputQuery), 
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery), 
                     Times.Once());
 
             this.dataBrokerMock.VerifyNoOtherCalls();
