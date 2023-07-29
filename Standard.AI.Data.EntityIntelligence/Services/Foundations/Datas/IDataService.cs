@@ -10,6 +10,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
     internal interface IDataService
     {
+        ValueTask<IEnumerable<ColumnData>> RunQuery(string randomQuery);
         ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync();
     }
 }

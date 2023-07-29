@@ -19,6 +19,11 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
+        public ValueTask<IEnumerable<ColumnData>> RunQuery(string query)
+        {
+            throw new NotImplementedException();
+        }
+
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
         TryCatch(async () =>
         {

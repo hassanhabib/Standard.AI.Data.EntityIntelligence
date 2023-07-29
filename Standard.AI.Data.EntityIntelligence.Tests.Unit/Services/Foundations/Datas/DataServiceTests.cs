@@ -68,5 +68,18 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     Tuple.Create(randomSchemaName, randomTableName),
                     columnsDictionary);
         }
+
+        private static IEnumerable<KeyValuePair<string, string>> GenerateRandomColumnDatas()
+        {
+            int columnsCount = GetRandomNumber();
+
+            for (int i = 0; i < columnsCount ; i++) 
+            {
+                var columnName = GetRandomString();
+                var columnValue = GetRandomString();
+
+                yield return KeyValuePair.Create(columnName, columnValue);
+            }
+        }
     }
 }
