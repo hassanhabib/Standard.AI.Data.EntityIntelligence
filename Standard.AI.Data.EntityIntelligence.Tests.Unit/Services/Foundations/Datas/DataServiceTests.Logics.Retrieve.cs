@@ -29,7 +29,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 $"columnMetadata.DATA_TYPE AS [DataType]",
                 "FROM INFORMATION_SCHEMA.COLUMNS columnMetadata");
 
-            var randomNumber = GetRandomNumber();
             var randomTableMetadatas = GenerateRandomTableMetadatas();
 
             var toRetrieveTableColumnsMetadata =
@@ -72,7 +71,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     };
                 }).ToList();
 
-            dataBrokerMock.Setup(broker => 
+            this.dataBrokerMock.Setup(broker => 
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query))
                     .ReturnsAsync(toRetrieveTableColumnsMetadata);
 
@@ -83,11 +82,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // then
             retrievedTableMetadatas.Should().BeEquivalentTo(expectedTableMetadata);
 
-            dataBrokerMock.Verify(broker =>
+            this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query),
-                    Times.Once());
+                    Times.Once);
 
-            dataBrokerMock.VerifyNoOtherCalls();
+            this.dataBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

@@ -89,7 +89,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyExceptionOnSqlException()
+        public async Task ShouldThrowSqlDependencyExceptionOnRetrieveIfSqlDependencyExceptionOccursAsync()
         {
             // given
             SqlException sqlException = GetSqlException();
