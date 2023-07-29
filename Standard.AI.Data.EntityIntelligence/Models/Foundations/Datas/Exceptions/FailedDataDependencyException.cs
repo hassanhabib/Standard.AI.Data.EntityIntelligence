@@ -10,7 +10,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
     internal class FailedDataDependencyException : Xeption
     {
         public FailedDataDependencyException(Exception innerException)
-            : base(message: "Data validation error occurred, fix the errors and try again.",
+            : base(message: "Failed data dependency error ocurred, contact support.",
                   innerException)
         { }
     }
