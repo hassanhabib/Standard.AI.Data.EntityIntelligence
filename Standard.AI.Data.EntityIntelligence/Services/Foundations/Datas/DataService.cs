@@ -44,7 +44,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                         Columns = columns.Select(column => new ColumnData
                         {
                             Name = column.Key,
-                            Value = column.Value.ToString(),
+                            Value = column.Value,
                         })
                     });
 

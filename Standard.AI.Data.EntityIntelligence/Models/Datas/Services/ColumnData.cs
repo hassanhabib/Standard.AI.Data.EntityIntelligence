@@ -7,6 +7,6 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
     internal class ColumnData
     {
         public string Name { get; init; }
-        public string Value { get; init; }
+        public object Value { get; init; }
     }
 }

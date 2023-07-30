@@ -21,7 +21,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var randomQuery = GetRandomString();
             var inputQuery = randomQuery;
 
-            IEnumerable<KeyValuePair<int, (string ColumnName, string ColumnValue)>> 
+            IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
                 randomColumnData = GenerateColumnDatas().ToList();
 
             IEnumerable<IDictionary<string, object>> toRetriveColumnDatas =
@@ -29,8 +29,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .Select(rcd => 
                         rcd.Select(r => 
                             KeyValuePair.Create(
-                                r.Value.ColumnName.ToString(),
-                                r.Value.ColumnValue as object))
+                                r.Value.ColumnName,
+                                r.Value.ColumnValue))
                         .ToDictionary(r => r.Key, r => r.Value));
 
             IEnumerable<ResultRow> expectedResultRows =

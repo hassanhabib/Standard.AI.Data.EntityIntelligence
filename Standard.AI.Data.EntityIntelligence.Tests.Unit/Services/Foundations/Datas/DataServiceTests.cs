@@ -69,7 +69,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     columnsDictionary);
         }
 
-        private static IEnumerable<KeyValuePair<int, (string ColumnName, string ColumnValue)>> 
+        private static IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
             GenerateColumnDatas()
         {
             int rowsCount = GetRandomNumber();
@@ -82,7 +82,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     var columnName = GetRandomString();
                     var columnValue = GetRandomString();
 
-                    yield return KeyValuePair.Create(rowNumber, (columnName, columnValue));
+                    yield return KeyValuePair.Create(rowNumber, (columnName, columnValue as object));
                 }
             }
         }
