@@ -19,6 +19,15 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
+        public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
+        TryCatch(async () =>
+        {
+            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
+              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
+
+            return ToTablesMetadata(retrievedTablesColumnsMetadatas);
+        });
+
         public ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query) =>
         TryCatch(async () =>
         {
@@ -28,15 +37,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                 await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
 
             return ToColumnsDatas(retrievedRows);
-        });
-
-        public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
-        TryCatch(async () =>
-        {
-            IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
-              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
-
-            return ToTablesMetadata(retrievedTablesColumnsMetadatas);
         });
 
         private static IEnumerable<ResultRow> ToColumnsDatas(

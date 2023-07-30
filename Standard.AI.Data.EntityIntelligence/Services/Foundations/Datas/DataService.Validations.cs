@@ -12,10 +12,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         private static void ValidateQuery(string query) =>
             Validate(validations: (Rule: IsInvalid(query), Parameter: nameof(query)));
 
-        private static dynamic IsInvalid(string text) => new
+        private static dynamic IsInvalid(string query) => new
         {
-            Condition = String.IsNullOrWhiteSpace(text),
-            Message = "Text is required."
+            Condition = String.IsNullOrWhiteSpace(query),
+            Message = "Query is required."
         };
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)

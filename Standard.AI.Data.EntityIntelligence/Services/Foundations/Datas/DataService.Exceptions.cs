@@ -16,19 +16,8 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         private delegate ValueTask<IEnumerable<TableMetadata>> ReturningTableMetadatasFunction();
         private delegate ValueTask<IEnumerable<ResultRow>> ReturningResultRawsFunction();
 
-        private static async ValueTask<IEnumerable<ResultRow>> TryCatch(ReturningResultRawsFunction returningResultRawsFunction)
-        {
-            try
-            {
-                return await returningResultRawsFunction();
-            }
-            catch (InvalidDataQueryException invalidDataQueryException)
-            {
-                throw new DataValidationException(invalidDataQueryException);
-            }
-        }
-
-        private static async ValueTask<IEnumerable<TableMetadata>> TryCatch(ReturningTableMetadatasFunction returningTableMetadatasFunction)
+        private static async ValueTask<IEnumerable<TableMetadata>> TryCatch(
+            ReturningTableMetadatasFunction returningTableMetadatasFunction)
         {
             try
             {
@@ -61,6 +50,19 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
                     new FailedDataServiceException(exception);
 
                 throw new DataServiceException(failedDataServiceException);
+            }
+        }
+
+        private static async ValueTask<IEnumerable<ResultRow>> TryCatch(
+            ReturningResultRawsFunction returningResultRawsFunction)
+        {
+            try
+            {
+                return await returningResultRawsFunction();
+            }
+            catch (InvalidDataQueryException invalidDataQueryException)
+            {
+                throw new DataValidationException(invalidDataQueryException);
             }
         }
     }
