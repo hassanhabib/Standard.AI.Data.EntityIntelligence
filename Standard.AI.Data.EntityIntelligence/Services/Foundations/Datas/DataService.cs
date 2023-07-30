@@ -19,13 +19,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public async ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query)
+        public ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query) =>
+        TryCatch(async () =>
         {
+            ValidateQuery(query);
+
             var retrievedRows =
                 await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
 
             return ToColumnsDatas(retrievedRows);
-        }
+        });
 
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
         TryCatch(async () =>
