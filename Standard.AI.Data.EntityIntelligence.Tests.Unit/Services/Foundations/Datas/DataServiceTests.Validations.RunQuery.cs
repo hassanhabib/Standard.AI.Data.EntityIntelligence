@@ -40,5 +40,31 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             this.dataBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(InvalidMultiStatementQueries))]
+        public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryContainsMultipleStatementsAsync(
+            string invalidQuery)
+        {
+            // given
+            var multipleStatementQueryException =
+                new MultipleStatementQueryException();
+
+            var expectedDataValidationException =
+                new DataValidationException(multipleStatementQueryException);
+
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.dataService.RunQueryAsync(invalidQuery);
+
+            DataValidationException actualDataValidationException =
+                await Assert.ThrowsAsync<DataValidationException>(
+                    runQueryTask.AsTask);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(It.IsAny<string>()),
+                    Times.Never);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }

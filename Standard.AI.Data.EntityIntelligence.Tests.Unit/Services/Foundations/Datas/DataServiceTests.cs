@@ -9,6 +9,7 @@ using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -24,6 +25,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataService = new DataService(
                 dataBroker: this.dataBrokerMock.Object);
         }
+
+        public static TheoryData InvalidMultiStatementQueries() =>
+            new TheoryData<string>
+                {
+                    "SELECT * FROM TableName; SELECT * FROM OtherTableName;",
+                    "SELECT * FROM schema.TableName; DELETE FROM TableName;",
+                    "DROP TABLE TableName; SELECT * FROM TableName",
+                    "ALTER TABLE TableName; SELECT * FROM OtherTableName",
+                };
 
         private static SqlException GetSqlException() =>
             (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
