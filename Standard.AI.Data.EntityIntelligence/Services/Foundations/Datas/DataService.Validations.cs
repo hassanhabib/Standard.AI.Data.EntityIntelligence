@@ -16,12 +16,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         private const string MultiStatementSelectQueryRegex =
             @"^(?i)(?=(\s*SELECT.*FROM))[^;]*;{0,1}$";
 
+        private const string ValidSelectQueryRegex =
+            @"^(?i)(?=(\s*SELECT.*FROM))(?!.*(?:CREATE|UPDATE|INSERT|ALTER|DELETE|EXEC|ATTACH|DETACH|TRUNCATE))[^;]*;{0,1}$";
+
         private static void ValidateQuery(string query)
         {
             ValidateIsNullOrEmpty(query);
 
             Validate(
-                (Rule: IsMultiStatementSelectQuery(query), Parameter: nameof(query)));
+                (Rule: IsMultiStatementSelectQuery(query), Parameter: nameof(query)),
+                (Rule: IsInvalid(query), Parameter: nameof(query)));
         }
 
         private static void ValidateIsNullOrEmpty(string query)
@@ -40,8 +44,8 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
         private static dynamic IsInvalid(string query) => new
         {
-            Condition = String.IsNullOrWhiteSpace(query),
-            Message = "Query is required."
+            Condition = !Regex.IsMatch(query, ValidSelectQueryRegex),
+            Message = "Query is invalid."
         };
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
