@@ -60,6 +60,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             {
                 return await returningResultRawsFunction();
             }
+            catch (NullOrEmptyDataQueryException nullOrEmptyDataQueryException)
+            {
+                throw new DataValidationException(nullOrEmptyDataQueryException);
+            }
             catch (InvalidDataQueryException invalidDataQueryException)
             {
                 throw new DataValidationException(invalidDataQueryException);

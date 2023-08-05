@@ -6,24 +6,36 @@ using System;
 using System.Data;
 using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
+using RESTFulSense.Models.Coordinations.Forms.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
     internal partial class DataService
     {
-        private const string ValidSqlStatementRegex =
-            @"^\s*SELECT[^;]*FROM(?:[^;]*;){0,1}$";
+        private const string MultiStatementSelectQueryRegex =
+            @"^(?i)(?=(\s*SELECT.*FROM))[^;]*;{0,1}$";
 
-        private static void ValidateQuery(string query) =>
-            Validate(
-                (Rule: IsInvalid(query), Parameter: nameof(query)),
-                (Rule: IsInvalidSelectQuery(query), Parameter: nameof(query)));
-
-        private static dynamic IsInvalidSelectQuery(string query) => new
+        private static void ValidateQuery(string query)
         {
-            Condition = !Regex.IsMatch(query, ValidSqlStatementRegex),
-            Message = "Invalid select query."
+            ValidateIsNullOrEmpty(query);
+
+            Validate(
+                (Rule: IsMultiStatementSelectQuery(query), Parameter: nameof(query)));
+        }
+
+        private static void ValidateIsNullOrEmpty(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                throw new NullOrEmptyDataQueryException();
+            }
+        }
+
+        private static dynamic IsMultiStatementSelectQuery(string query) => new
+        {
+            Condition = !Regex.IsMatch(query, MultiStatementSelectQueryRegex),
+            Message = "Query with multiple statements not allowed."
         };
 
         private static dynamic IsInvalid(string query) => new

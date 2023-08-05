@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         [Fact]
         public async Task ShouldRunSqlQueryAsync()
         {
-            var randomQuery = GetRandomString();
+            var randomQuery = GetValidQuery();
             var inputQuery = randomQuery;
 
             IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
