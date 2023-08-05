@@ -29,10 +29,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         public static TheoryData InvalidMultiStatementQueries() =>
             new TheoryData<string>
                 {
-                    "SELECT * FROM TableName; SELECT * FROM OtherTableName;",
-                    "SELECT * FROM schema.TableName; DELETE FROM TableName;",
-                    "DROP TABLE TableName; SELECT * FROM TableName",
-                    "ALTER TABLE TableName; SELECT * FROM OtherTableName",
+                    "SELECT * FROM TableX;SELECT * FROM TableY;",
+                    "SELECT * FROM TableX;SELECT * FROM TableY",
+                    "SELECT * FROM TableX;    SELECT * FROM TableY;",
+                    "SELECT * FROM TableX;    SELECT * FROM TableY",
                 };
 
         private static SqlException GetSqlException() =>

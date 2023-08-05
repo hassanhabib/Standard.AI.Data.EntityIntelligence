@@ -47,11 +47,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             string invalidQuery)
         {
             // given
-            var multipleStatementQueryException =
-                new MultipleStatementQueryException();
+            var invalidDataQueryException =
+                new InvalidDataQueryException();
 
             var expectedDataValidationException =
-                new DataValidationException(multipleStatementQueryException);
+                new DataValidationException(invalidDataQueryException);
 
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.dataService.RunQueryAsync(invalidQuery);

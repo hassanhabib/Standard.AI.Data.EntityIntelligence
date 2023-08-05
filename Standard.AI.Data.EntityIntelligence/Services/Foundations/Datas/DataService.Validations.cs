@@ -3,14 +3,28 @@
 // ----------------------------------------------------------------------------------
 
 using System;
+using System.Data;
+using System.Reflection.Metadata;
+using System.Text.RegularExpressions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
     internal partial class DataService
     {
+        private const string ValidSqlStatementRegex =
+            @"^\s*SELECT[^;]*FROM(?:[^;]*;){0,1}$";
+
         private static void ValidateQuery(string query) =>
-            Validate(validations: (Rule: IsInvalid(query), Parameter: nameof(query)));
+            Validate(
+                (Rule: IsInvalid(query), Parameter: nameof(query)),
+                (Rule: IsInvalidSelectQuery(query), Parameter: nameof(query)));
+
+        private static dynamic IsInvalidSelectQuery(string query) => new
+        {
+            Condition = !Regex.IsMatch(query, ValidSqlStatementRegex),
+            Message = "Invalid select query."
+        };
 
         private static dynamic IsInvalid(string query) => new
         {
