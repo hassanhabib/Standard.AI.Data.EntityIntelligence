@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryIsInvalidAsync(
+        public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryIsNullOrEmptyAsync(
             string invalidQuery)
         {
             // given
@@ -44,6 +44,32 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         [Theory]
         [MemberData(nameof(InvalidMultiStatementQueries))]
         public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryContainsMultipleStatementsAsync(
+            string invalidQuery)
+        {
+            // given
+            var invalidDataQueryException =
+                new InvalidDataQueryException();
+
+            var expectedDataValidationException =
+                new DataValidationException(invalidDataQueryException);
+
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.dataService.RunQueryAsync(invalidQuery);
+
+            DataValidationException actualDataValidationException =
+                await Assert.ThrowsAsync<DataValidationException>(
+                    runQueryTask.AsTask);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(It.IsAny<string>()),
+                    Times.Never);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [MemberData(nameof(InvalidQueries))]
+        public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryIsInvalidAsync(
             string invalidQuery)
         {
             // given

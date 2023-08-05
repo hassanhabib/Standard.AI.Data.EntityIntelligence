@@ -34,6 +34,22 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     "SelECT * FROM TableX;SELECT * from TableY",
                     "select * FROM tableX;    selECT * FROM TableY;",
                     "SELECT * FROM TableX;    SELECT * FROM TableY",
+                    "SELECT * FROM TableX;DROP TABLE TableY",
+                };
+
+        public static TheoryData InvalidQueries() =>
+            new TheoryData<string>
+                {
+                    "CREATE TABLE TableX (Column1 INT, Column2 VARCHAR(50));",
+                    "INSERT INTO TableX (Column1, Column2) VALUES (Value1, Value2);",
+                    "UPDATE TableX SET Column1 = Value1 WHERE Condition;",
+                    "DELETE FROM TableX WHERE Condition;",
+                    "DROP TABLE TableX;",
+                    "ALTER TABLE TableX ADD Column3 INT;",
+                    "EXEC dbo.GetTableXData;",
+                    "TRUNCATE TABLE TableX;",
+                    "DETACH DATABASE alias_name;",
+                    "ATTACH DATABASE 'another_database.db' AS alias_name;",
                 };
 
         private static string GetValidQuery() => 
