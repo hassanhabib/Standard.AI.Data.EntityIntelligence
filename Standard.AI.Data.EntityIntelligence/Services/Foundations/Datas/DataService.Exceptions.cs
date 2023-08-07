@@ -82,6 +82,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
                 throw new DataDependencyValidationException(invalidOperationDataException);
             }
+            catch (SqlException sqlException)
+            {
+                var failedDataDependencyException =
+                    new FailedDataDependencyException(sqlException);
+
+                throw new DataDependencyException(failedDataDependencyException);
+            }
         }
     }
 }

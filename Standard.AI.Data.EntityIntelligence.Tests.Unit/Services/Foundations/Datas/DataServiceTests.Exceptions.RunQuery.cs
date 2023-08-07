@@ -114,7 +114,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 this.dataService.RunQueryAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<DataDependencyValidationException>(
+                await Assert.ThrowsAsync<DataDependencyException>(
                     runQueryTask.AsTask);
 
             // assert
