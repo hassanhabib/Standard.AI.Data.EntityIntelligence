@@ -52,5 +52,42 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             this.dataBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
+        {
+            // arrange
+            string query = GetValidQuery();
+
+            var invalidOperationException = new InvalidOperationException();
+
+            var invalidOperationDataException =
+                new InvalidOperationDataException(invalidOperationException);
+
+            var expectedDataDependencyValidationException =
+                new DataDependencyValidationException(invalidOperationDataException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
+                    .ThrowsAsync(invalidOperationException);
+
+            // act
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.dataService.RunQueryAsync(query);
+
+            var actualRunQueryException =
+                await Assert.ThrowsAsync<DataDependencyValidationException>(
+                    runQueryTask.AsTask);
+
+            // assert
+            actualRunQueryException.Should().BeEquivalentTo(
+                expectedDataDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(query),
+                    Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
