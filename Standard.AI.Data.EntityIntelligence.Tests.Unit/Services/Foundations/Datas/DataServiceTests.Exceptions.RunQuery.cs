@@ -127,5 +127,42 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             this.dataBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
+        {
+            // arrange
+            string query = GetValidQuery();
+            var serviceException = new Exception();
+
+            var failedDataServiceException =
+                new FailedDataServiceException(serviceException);
+
+            var expectedDataServiceException =
+                new DataServiceException(
+                    failedDataServiceException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
+                    .ThrowsAsync(serviceException);
+
+            // act
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.dataService.RunQueryAsync(query);
+
+            var actualRunQueryException =
+                await Assert.ThrowsAsync<DataServiceException>(
+                    runQueryTask.AsTask);
+
+            // assert
+            actualRunQueryException.Should().BeEquivalentTo(
+                expectedDataServiceException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(query),
+                    Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
