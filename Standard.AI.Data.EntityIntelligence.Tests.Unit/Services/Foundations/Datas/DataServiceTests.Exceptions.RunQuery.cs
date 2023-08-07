@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System;
 using Xunit;
 using FluentAssertions;
+using System.Data.SqlClient;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -82,6 +83,43 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // assert
             actualRunQueryException.Should().BeEquivalentTo(
                 expectedDataDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(query),
+                    Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowSqlDependencyExceptionOnRunQueryIfSqlDependencyExceptionOccursAsync()
+        {
+            // arrange
+            string query = GetValidQuery();
+            SqlException sqlException = GetSqlException();
+
+            var failedDataDependencyException =
+                new FailedDataDependencyException(sqlException);
+
+            var expectedDataDependencyException =
+                new DataDependencyException(
+                    failedDataDependencyException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
+                    .ThrowsAsync(sqlException);
+
+            // act
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.dataService.RunQueryAsync(query);
+
+            var actualRunQueryException =
+                await Assert.ThrowsAsync<DataDependencyValidationException>(
+                    runQueryTask.AsTask);
+
+            // assert
+            actualRunQueryException.Should().BeEquivalentTo(
+                expectedDataDependencyException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<It.IsAnyType>(query),
