@@ -31,7 +31,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 new DataDependencyValidationException(invalidDataException);
 
             this.dataBrokerMock.Setup(broker =>
-                broker.ExecuteQueryAsync<It.IsAnyType>(query))
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(invalidArgumentException);
 
             // act
