@@ -2,11 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
-using System.Data;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
-using RESTFulSense.Models.Coordinations.Forms.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
@@ -14,7 +10,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
     internal partial class DataService
     {
         private const string MultiStatementSelectQueryRegex =
-            @"^(?i)(?=(\s*SELECT.*FROM))[^;]*;{0,1}$";
+            @"^(?i)\s*SELECT(?!.*(?:SELECT)).*FROM.*$";
 
         private const string ValidSelectQueryRegex =
             @"^(?i)(?=(\s*SELECT.*FROM))(?!.*(?:CREATE|UPDATE|INSERT|ALTER|DELETE|EXEC|ATTACH|DETACH|TRUNCATE))[^;]*;{0,1}$";

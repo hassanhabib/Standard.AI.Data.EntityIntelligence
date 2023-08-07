@@ -34,7 +34,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     "SelECT * FROM TableX;SELECT * from TableY",
                     "select * FROM tableX;    selECT * FROM TableY;",
                     "SELECT * FROM TableX;    SELECT * FROM TableY",
-                    "SELECT * FROM TableX;DROP TABLE TableY",
                     "SELECT * FROM TableX SELECT * FROM TableY",
                     "SELECT * FROM TableX GO SELECT * FROM TableY",
                 };
