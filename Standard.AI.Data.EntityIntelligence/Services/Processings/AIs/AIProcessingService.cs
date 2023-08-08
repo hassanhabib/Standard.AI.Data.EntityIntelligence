@@ -22,6 +22,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             string naturalQuery) => TryCatch(async () =>
         {
             ValidateTableInformationList(tableInformations);
+            ValidateNaturalQuery(naturalQuery);
 
             IEnumerable<string> tablesDetails = ConvertToTablesDetailsEnumerable(tableInformations);
             string tablesNameColumns = string.Join(" ", tablesDetails);
