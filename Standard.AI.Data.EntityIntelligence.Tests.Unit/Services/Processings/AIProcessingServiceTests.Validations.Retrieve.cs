@@ -56,7 +56,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public async Task ShouldThrowValidationExceptionOnRetrieveIfNaturalQueryIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfNaturalQueryIsInvalidAsync(
             string invalidNaturalQuery)
         {
             // given

@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
     public partial class AIServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
@@ -60,7 +60,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
         [Theory]
         [MemberData(nameof(AIClientDependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
             Xeption clientDependencyException)
         {
             // given
@@ -98,7 +98,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
