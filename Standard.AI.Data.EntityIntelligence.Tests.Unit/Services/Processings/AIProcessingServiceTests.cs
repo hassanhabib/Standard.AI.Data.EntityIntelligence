@@ -10,6 +10,7 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.AIs;
 using Tynamix.ObjectFiller;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 {
@@ -24,6 +25,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             this.aiProcessingService = new AIProcessingService(
                 aiService: this.aiServiceMock.Object);
+        }
+
+        public static TheoryData InvalidTableInformations()
+        {
+            return new TheoryData<List<TableInformation>>
+            {
+                null,
+                new List<TableInformation> ()
+            };
         }
 
         private static List<TableInformation> CreateRandomTableInformations() =>

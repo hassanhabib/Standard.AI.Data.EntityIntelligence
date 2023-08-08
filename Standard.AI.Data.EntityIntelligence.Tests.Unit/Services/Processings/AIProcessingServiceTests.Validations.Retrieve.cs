@@ -14,16 +14,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 {
     public partial class AIProcessingServiceTests
     {
-        [Fact]
-        public async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsIsNullAsync()
+        [Theory]
+        [MemberData(nameof(InvalidTableInformations))]
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsIsInvalidAsync(
+            List<TableInformation> invalidTableInformation)
         {
             // given
             string someNaturalQuery = GenerateRandomString();
-            List<TableInformation> nullTableInformationList = null;
 
             var tableInformationListAIProcessingException =
-                new NullTableInformationListAIProcessingException(
-                    message: "Table information list is null.");
+                new InvalidTableInformationListAIProcessingException(
+                    message: "Table information list is null or empty.");
 
             var expectedAIProcessingValidationException =
                 new AIProcessingValidationException(
@@ -33,7 +34,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(
-                    tableInformations: nullTableInformationList,
+                    tableInformations: invalidTableInformation,
                     naturalQuery: someNaturalQuery);
 
             AIProcessingValidationException actualAIProcessingValidationException =

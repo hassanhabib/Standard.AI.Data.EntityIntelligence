@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             {
                 return await returningStringFunction();
             }
-            catch (NullTableInformationListAIProcessingException nullTableInformationListAIProcessingException)
+            catch (InvalidTableInformationListAIProcessingException nullTableInformationListAIProcessingException)
             {
                 throw new AIProcessingValidationException(nullTableInformationListAIProcessingException);
             }

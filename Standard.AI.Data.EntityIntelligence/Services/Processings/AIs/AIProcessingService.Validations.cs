@@ -22,7 +22,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             if (tableInformations is null)
             {
-                throw new NullTableInformationListAIProcessingException();
+                throw new InvalidTableInformationListAIProcessingException();
             }
         }
     }
