@@ -11,5 +11,8 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
         public NullTableInformationListAIProcessingException() 
             : base(message: "Table information list is null.")
         { }
+
+        public NullTableInformationListAIProcessingException(string message) 
+            : base(message) { }
     }
 }

@@ -22,11 +22,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             List<TableInformation> nullTableInformationList = null;
 
             var tableInformationListAIProcessingException =
-                new NullTableInformationListAIProcessingException();
+                new NullTableInformationListAIProcessingException(
+                    message: "Table information list is null.");
 
             var expectedAIProcessingValidationException =
                 new AIProcessingValidationException(
-                    tableInformationListAIProcessingException);
+                    message: "Invalid AI Query error occurred, fix the errors and try again.",
+                    innerException: tableInformationListAIProcessingException);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
