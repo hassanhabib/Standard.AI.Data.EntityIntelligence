@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Linq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
@@ -20,7 +21,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         }
         private static void ValidateTableInformationList(List<TableInformation> tableInformations)
         {
-            if (tableInformations is null)
+            if (tableInformations is null || tableInformations.Any() is false)
             {
                 throw new InvalidTableInformationListAIProcessingException();
             }
