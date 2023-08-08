@@ -10,7 +10,6 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.AIs;
 using Tynamix.ObjectFiller;
-using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 {
@@ -26,6 +25,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             this.aiProcessingService = new AIProcessingService(
                 aiService: this.aiServiceMock.Object);
         }
+
+        private static List<TableInformation> CreateRandomTableInformations() =>
+            CreateTableInformationFiller().Create(count: GetRandomNumber()).ToList();
 
         private static Dictionary<string, Dictionary<string, string>> GenerateRandomTables()
         {
@@ -70,5 +72,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
         private static int GetRandomNumber(int minimum, int maximum) =>
           new IntRange(min: minimum, max: maximum).GetValue();
+
+        private static Filler<TableInformation> CreateTableInformationFiller() =>
+            new Filler<TableInformation>();
     }
 }

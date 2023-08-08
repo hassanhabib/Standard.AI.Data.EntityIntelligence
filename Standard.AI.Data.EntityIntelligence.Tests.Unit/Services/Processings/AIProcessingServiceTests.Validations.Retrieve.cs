@@ -27,7 +27,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             var expectedAIProcessingValidationException =
                 new AIProcessingValidationException(
-                    message: "Invalid AI Query error occurred, fix the errors and try again.",
+                    message: "AI validation error occurred, fix errors and try again.",
                     innerException: tableInformationListAIProcessingException);
 
             // when
@@ -39,6 +39,47 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             AIProcessingValidationException actualAIProcessingValidationException =
                 await Assert.ThrowsAsync<AIProcessingValidationException>(
                     retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIProcessingValidationException.Should().BeEquivalentTo(
+                expectedAIProcessingValidationException);
+
+            this.aiServiceMock.Verify(aiService =>
+                aiService.PromptQueryAsync(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("   ")]
+        public async Task ShouldThrowValidationExceptionOnRetrieveIfNaturalQueryIsInvalidAsync(
+            string invalidNaturalQuery)
+        {
+            // given
+            List<TableInformation> someTableInformations =
+                CreateRandomTableInformations();
+
+            var invalidNaturalQueryAIProcessingException =
+                new InvalidNaturalQueryAIProcessingException(
+                    message: "Natural query is invalid, fix errors and try again.");
+
+            var expectedAIProcessingValidationException =
+                new AIProcessingValidationException(
+                    message: "AI validation error occurred, fix errors and try again.",
+                    innerException: invalidNaturalQueryAIProcessingException);
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiProcessingService.RetrieveSqlQueryAsync(
+                    someTableInformations,
+                    invalidNaturalQuery);
+
+            AIProcessingValidationException actualAIProcessingValidationException =
+               await Assert.ThrowsAsync<AIProcessingValidationException>(
+                   retrieveSqlQueryTask.AsTask);
 
             // then
             actualAIProcessingValidationException.Should().BeEquivalentTo(

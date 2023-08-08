@@ -6,9 +6,13 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
 {
-    internal class InvalidNaturalQueryException : Xeption
+    internal class InvalidNaturalQueryAIProcessingException : Xeption
     {
-        public InvalidNaturalQueryException() : base(message: "Natural language query is null or empty.")
+        public InvalidNaturalQueryAIProcessingException()
+            : base(message: "Natural query is invalid, fix errors and try again.")
         { }
+
+        public InvalidNaturalQueryAIProcessingException(string message)
+            : base(message) { }
     }
 }
