@@ -10,27 +10,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 {
     internal partial class AIProcessingService : IAIProcessingService
     {
-        private static void ValidateTablesAndNaturalQuery(List<TableInformation> tables, string naturalQuery)
-
+        private static void ValidateTableInformationList(List<TableInformation> tables)
         {
-
-        }
-
-        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
-        {
-            var invalidAIProcessingException =
-                new InvalidAIProcessingException();
-
-            foreach ((dynamic rule, string parameter) in validations)
+            if (tables is null)
             {
-                if (rule.Condition)
-                {
-                    invalidAIProcessingException.UpsertDataList(
-                        key: parameter,
-                        value: rule.Message);
-                }
+                throw new NullTableInformationListAIProcessingException();
             }
-            invalidAIProcessingException.ThrowIfContainsErrors();
         }
     }
 }
