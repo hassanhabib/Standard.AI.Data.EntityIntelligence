@@ -107,10 +107,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 new IntRange(min: 0, max: randomTableInformation.Count)
                     .GetValue();
 
-            List<TableInformation> invalidTableInformaitons =
+            List<TableInformation> invalidTableInformations =
                 randomTableInformation;
 
-            invalidTableInformaitons[randomInvalidItemIndex] = null;
+            invalidTableInformations[randomInvalidItemIndex] = null;
 
             var invalidTableInformationAIProcessingException =
                 new InvalidTableInformationListAIProcessingException(
@@ -128,7 +128,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(
-                    invalidTableInformaitons,
+                    invalidTableInformations,
                     someNaturalQuery);
 
             AIProcessingValidationException actualAIProcessingValidationException =
