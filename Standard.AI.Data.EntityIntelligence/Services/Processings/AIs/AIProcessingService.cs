@@ -34,14 +34,17 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         });
 
         private static IEnumerable<string> ConvertToTablesDetailsEnumerable(
-            List<TableInformation> tables)
+            List<TableInformation> tableInformations)
         {
-            return tables.Select(table =>
+            return tableInformations.Select(tableInformation =>
             {
-                IEnumerable<string> tableColumnDetails = ConvertToTableColumnDetailsEnumerable(table);
-                string tableColumns = string.Join(" ", tableColumnDetails);
+                IEnumerable<string> tableColumnDetails = 
+                    ConvertToTableColumnDetailsEnumerable(tableInformation);
+                
+                string tableColumns = 
+                    string.Join(" ", tableColumnDetails);
 
-                return $"Table name: {table.Name} has the following columns: {tableColumns}";
+                return $"Table name: {tableInformation.Name} has the following columns: {tableColumns}";
             });
         }
 
@@ -51,7 +54,5 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             return table.Columns.Select(column =>
                 $"{column.Name} with type {column.Type}");
         }
-
-
     }
 }

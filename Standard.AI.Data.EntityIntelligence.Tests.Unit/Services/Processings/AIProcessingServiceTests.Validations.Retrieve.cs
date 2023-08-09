@@ -8,6 +8,7 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
+using Tynamix.ObjectFiller;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
@@ -77,6 +78,58 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 this.aiProcessingService.RetrieveSqlQueryAsync(
                     someTableInformations,
                     invalidNaturalQuery);
+
+            AIProcessingValidationException actualAIProcessingValidationException =
+               await Assert.ThrowsAsync<AIProcessingValidationException>(
+                   retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIProcessingValidationException.Should().BeEquivalentTo(
+                expectedAIProcessingValidationException);
+
+            this.aiServiceMock.Verify(aiService =>
+                aiService.PromptQueryAsync(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsHasInvalidItemsAsync()
+        {
+            // given
+            string someNaturalQuery = GenerateRandomString();
+
+            List<TableInformation> randomTableInformation =
+                CreateRandomTableInformations();
+
+            int randomInvalidItemIndex = 
+                new IntRange(min: 0, max: randomTableInformation.Count)
+                    .GetValue();
+
+            List<TableInformation> invalidTableInformaitons =
+                randomTableInformation;
+
+            invalidTableInformaitons[randomInvalidItemIndex] = null;
+
+            var invalidTableInformationAIProcessingException =
+                new InvalidTableInformationListAIProcessingException(
+                    message: "Table information list is null or empty.");
+
+            invalidTableInformationAIProcessingException.AddData(
+                key: $"Element at {randomInvalidItemIndex}",
+                values: "Object is required");
+
+            var expectedAIProcessingValidationException =
+                new AIProcessingValidationException(
+                    message: "AI validation error occurred, fix errors and try again.",
+                    innerException: invalidTableInformationAIProcessingException);
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiProcessingService.RetrieveSqlQueryAsync(
+                    invalidTableInformaitons,
+                    someNaturalQuery);
 
             AIProcessingValidationException actualAIProcessingValidationException =
                await Assert.ThrowsAsync<AIProcessingValidationException>(
