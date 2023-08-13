@@ -9,8 +9,13 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
     internal class AIDependencyException : Xeption
     {
         public AIDependencyException(Xeption innerException)
-            : base(message: "AI dependency error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "AI dependency error occurred, contact support.",
+                    innerException:  innerException)
+        { }
+
+        public AIDependencyException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

@@ -9,8 +9,13 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
     internal class AIDependencyValidationException : Xeption
     {
         public AIDependencyValidationException(Xeption innerException)
-            : base(message: "AI validation error occurred, fix the errors and try again.",
-                  innerException)
+            : base(
+                message: "AI validation error occurred, fix the errors and try again.",
+                    innerException: innerException)
+        { }
+
+        public AIDependencyValidationException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
     public partial class AIServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
@@ -25,15 +25,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var completionClientValidationException =
                 new CompletionClientValidationException(
-                    innerValidationException);
+                        innerValidationException);
 
             var invalidAIException =
                 new InvalidAIQueryException(
-                    innerValidationException);
+                    message: "Invalid AI Query error occurred, fix the errors and try again.",
+                        innerException: innerValidationException);
 
             var expectedAIDependencyValidationException =
                 new AIDependencyValidationException(
-                    invalidAIException);
+                    message: "AI validation error occurred, fix the errors and try again.",
+                        innerException: invalidAIException);
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))
@@ -60,7 +62,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
         [Theory]
         [MemberData(nameof(AIClientDependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
             Xeption clientDependencyException)
         {
             // given
@@ -68,11 +70,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var failedAIDependencyException =
                 new FailedAIDependencyException(
-                    clientDependencyException.InnerException as Xeption);
+                    message: "Failed AI dependency error occurred, contact support.",
+                        innerException: clientDependencyException.InnerException as Xeption);
 
             var expectedAIDependencyException =
                 new AIDependencyException(
-                    failedAIDependencyException);
+                    message: "AI dependency error occurred, contact support.",
+                        innerException: failedAIDependencyException);
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))
@@ -98,7 +102,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
@@ -106,11 +110,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var failedAIServiceException =
                 new FailedAIServiceException(
-                    serviceException);
+                    message: "Failed AI error occurred, contact support.",
+                        innerException: serviceException);
 
             var expectedAIServiceException =
                 new AIServiceException(
-                    failedAIServiceException);
+                    message: "AI error occurred, contact support.",
+                        innerException: failedAIServiceException);
 
             this.aiBrokerMock.Setup(broker =>
                 broker.PromptCompletionAsync(It.IsAny<Completion>()))

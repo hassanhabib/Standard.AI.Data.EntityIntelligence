@@ -9,8 +9,13 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
     internal class AIServiceException : Xeption
     {
         public AIServiceException(Xeption innerException)
-            : base(message: "AI error occurred, contact support.",
-                  innerException)
+            : base(
+                message: "AI error occurred, contact support.",
+                    innerException: innerException)
+        { }
+
+        public AIServiceException(string message, Xeption innerException)
+            : base(message, innerException)
         { }
     }
 }

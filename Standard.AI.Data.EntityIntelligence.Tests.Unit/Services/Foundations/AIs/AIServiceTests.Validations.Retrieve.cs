@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnRetrieveIfQueryIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfQueryIsInvalidAsync(
             string invalidAIQuery)
         {
             // given
@@ -25,7 +25,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
                 new InvalidAIQueryException();
 
             var expectedAIValidationException =
-                new AIValidationException(invalidAIQueryException);
+                new AIValidationException(
+                    message: "AI validation error occurred, fix the errors and try again.",
+                        innerException: invalidAIQueryException);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
