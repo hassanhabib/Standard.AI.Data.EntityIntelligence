@@ -17,5 +17,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
         public AIDependencyValidationException(string message, Xeption innerException)
             : base(message, innerException)
         { }
+
+        public AIDependencyValidationException(string message, Xeption innerException)
+            : base(message: message, innerException)
+        { }
     }
 }

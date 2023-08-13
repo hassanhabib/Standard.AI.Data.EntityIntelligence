@@ -2,10 +2,11 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Datas
+namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
 {
-    internal class DbContextConfigurations
+    public class ColumnMetadata
     {
-        public string ConnectionString { get; init; }
+        public string Name { get; init; }
+        public string DataType { get; init; }
     }
 }
