@@ -2,7 +2,9 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -103,28 +105,39 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             List<TableInformation> randomTableInformation =
                 CreateRandomTableInformations();
 
-            int randomInvalidItemIndex = 
-                new IntRange(min: 0, max: randomTableInformation.Count)
-                    .GetValue();
-
             List<TableInformation> invalidTableInformations =
                 randomTableInformation;
 
-            invalidTableInformations[randomInvalidItemIndex] = null;
+            int randomInvalidItemsCount =
+                new IntRange(min: 1, max: randomTableInformation.Count)
+                    .GetValue();
+
+            List<int> uniqueRandomNumbers = Enumerable.Range(0, invalidTableInformations.Count)
+                .OrderBy(x => Guid.NewGuid())
+                    .Take(randomInvalidItemsCount).ToList();
 
             var invalidTableInformationAIProcessingException =
                 new InvalidTableInformationListAIProcessingException(
                     message: "Table information list is null or empty.");
 
-            invalidTableInformationAIProcessingException.AddData(
-                key: $"Element at {randomInvalidItemIndex}",
-                values: "Object is required");
+            invalidTableInformations = invalidTableInformations.Select((tableInformation, index) =>
+            {
+                if (uniqueRandomNumbers.Contains(index))
+                {
+                    invalidTableInformationAIProcessingException.AddData(
+                        key: $"Element at {index}",
+                        values: "Object is required");
+                    return null;
+                }
+
+                return tableInformation;
+            }).ToList();
 
             var expectedAIProcessingValidationException =
                 new AIProcessingValidationException(
                     message: "AI validation error occurred, fix errors and try again.",
                     innerException: invalidTableInformationAIProcessingException);
-
+            
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(
