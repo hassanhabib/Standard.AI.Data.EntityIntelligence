@@ -74,6 +74,14 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             return new(randomTableName, columnsDictionary);
         }
 
+        private static IEnumerable<T> Shuffle<T>(IEnumerable<T> list)
+        {
+            T[] shuffledTableInformaitons = list.ToArray();
+            Random.Shared.Shuffle(shuffledTableInformaitons);
+
+            return shuffledTableInformaitons;
+        }
+
         private static string GenerateRandomString() =>
             new MnemonicString().GetValue();
 

@@ -112,8 +112,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 new IntRange(min: 1, max: randomTableInformation.Count)
                     .GetValue();
 
-            List<int> uniqueRandomNumbers = Enumerable.Range(0, invalidTableInformations.Count)
-                .OrderBy(x => Guid.NewGuid())
+            List<int> uniqueRandomNumbers = Shuffle(
+                list: Enumerable.Range(0, invalidTableInformations.Count))
                     .Take(randomInvalidItemsCount).ToList();
 
             var invalidTableInformationAIProcessingException =
