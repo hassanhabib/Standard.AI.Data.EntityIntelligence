@@ -29,10 +29,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var invalidAIException =
                 new InvalidAIQueryException(
-                    innerValidationException);
+                    message: "Invalid AI Query error occurred, fix the errors and try again.",
+                    innerException: innerValidationException);
 
             var expectedAIDependencyValidationException =
                 new AIDependencyValidationException(
+                    message: "AI validation error occurred, fix the errors and try again.",
                     invalidAIException);
 
             this.aiBrokerMock.Setup(broker =>
