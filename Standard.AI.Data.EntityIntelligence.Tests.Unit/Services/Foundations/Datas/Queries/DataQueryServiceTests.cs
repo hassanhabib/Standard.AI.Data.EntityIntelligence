@@ -26,17 +26,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 dataBroker: this.dataBrokerMock.Object);
         }
 
-        public static TheoryData InvalidMultiStatementQueries() =>
-            new TheoryData<string>
-                {
-                    "SELECT * FROM TableX;SELECT * FROM TableY;",
-                    "SelECT * FROM TableX;SELECT * from TableY",
-                    "select * FROM tableX;    selECT * FROM TableY;",
-                    "SELECT * FROM TableX;    SELECT * FROM TableY",
-                    "SELECT * FROM TableX SELECT * FROM TableY",
-                    "SELECT * FROM TableX GO SELECT * FROM TableY",
-                };
-
         public static TheoryData InvalidQueries() =>
             new TheoryData<string>
                 {
