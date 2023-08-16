@@ -2,14 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 {
-    internal class TableMetadata
+    internal interface IDataQueryService
     {
-        public string Schema { get; init; }
-        public string Name { get; init; }
-        public IEnumerable<ColumnMetadata> ColumnsMetadata { get; init; }
+        ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query);
     }
 }

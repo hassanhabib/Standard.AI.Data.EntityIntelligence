@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,15 +10,15 @@ using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.Queries
 {
-    public partial class DataServiceTests
+    public partial class DataQueryServiceTests
     {
         [Fact]
         public async Task ShouldRunSqlQueryAsync()
         {
-            var randomQuery = GetValidQuery();
-            var inputQuery = randomQuery;
+            string query = GetValidQuery();
+            var inputQuery = query;
 
             IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
                 randomColumnData = GenerateColumnDatas().ToList();
@@ -49,7 +48,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ReturnsAsync(toRetriveColumnDatas);
 
             IEnumerable<ResultRow> retrievedResultRows =
-                await dataService.RunQueryAsync(randomQuery);
+                await dataQueryService.RunQueryAsync(query);
 
             retrievedResultRows.Should()
                 .BeEquivalentTo(expectedResultRows);

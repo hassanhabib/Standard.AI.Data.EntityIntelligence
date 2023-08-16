@@ -3,11 +3,11 @@
 // ----------------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 {
-    internal partial class DataService
+    internal partial class DataQueryService
     {
         private const string MultiStatementSelectQueryRegex =
             @"^(?i)\s*SELECT(?!.*(?:SELECT)).*FROM.*$";

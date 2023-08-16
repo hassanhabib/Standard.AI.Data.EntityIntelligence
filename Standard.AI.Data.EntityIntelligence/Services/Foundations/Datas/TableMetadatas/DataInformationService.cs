@@ -10,13 +10,13 @@ using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMetadatas
 {
-    internal partial class DataService : IDataService
+    internal partial class DataInformationService : IDataInformationService
     {
         private readonly IDataBroker dataBroker;
 
-        public DataService(IDataBroker dataBroker) =>
+        public DataInformationService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
@@ -27,29 +27,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 
             return ToTablesMetadata(retrievedTablesColumnsMetadatas);
         });
-
-        public ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query) =>
-        TryCatch(async () =>
-        {
-            ValidateQuery(query);
-
-            var retrievedRows =
-                await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
-
-            return ToColumnsDatas(retrievedRows);
-        });
-
-        private static IEnumerable<ResultRow> ToColumnsDatas(
-            IEnumerable<IDictionary<string, object>> retrievedRows) => 
-                retrievedRows.Select(columns =>
-                    new ResultRow
-                    {
-                        Columns = columns.Select(column => new ColumnData
-                        {
-                            Name = column.Key,
-                            Value = column.Value,
-                        })
-                    });
 
         private static IEnumerable<TableMetadata> ToTablesMetadata(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)

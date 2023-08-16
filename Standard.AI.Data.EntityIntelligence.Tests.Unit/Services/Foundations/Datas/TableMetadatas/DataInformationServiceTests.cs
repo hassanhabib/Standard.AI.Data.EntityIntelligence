@@ -5,25 +5,24 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text.RegularExpressions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMetadatas;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.TableMetadatas
 {
-    public partial class DataServiceTests
+    public partial class DataInformationServiceTests
     {
         private readonly Mock<IDataBroker> dataBrokerMock;
-        private readonly IDataService dataService;
+        private readonly IDataInformationService dataInformationService;
 
-        public DataServiceTests()
+        public DataInformationServiceTests()
         {
             this.dataBrokerMock = new Mock<IDataBroker>();
 
-            this.dataService = new DataService(
+            this.dataInformationService = new DataInformationService(
                 dataBroker: this.dataBrokerMock.Object);
         }
 
@@ -52,9 +51,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     "DETACH DATABASE alias_name;",
                     "ATTACH DATABASE 'another_database.db' AS alias_name;",
                 };
-
-        private static string GetValidQuery() => 
-            $"SELECT * FROM [schema].[Table]";
 
         private static SqlException GetSqlException() =>
             (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
@@ -98,24 +94,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             return Tuple.Create(
                     Tuple.Create(randomSchemaName, randomTableName),
                     columnsDictionary);
-        }
-
-        private static IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
-            GenerateColumnDatas()
-        {
-            int rowsCount = GetRandomNumber();
-            int columnsCount = GetRandomNumber();
-
-            for (int rowNumber = 0; rowNumber < rowsCount; rowNumber++)
-            {
-                for (int columnNumber = 0; columnNumber < columnsCount; columnNumber++)
-                {
-                    var columnName = GetRandomString();
-                    var columnValue = GetRandomString();
-
-                    yield return KeyValuePair.Create(rowNumber, (columnName, columnValue as object));
-                }
-            }
         }
     }
 }

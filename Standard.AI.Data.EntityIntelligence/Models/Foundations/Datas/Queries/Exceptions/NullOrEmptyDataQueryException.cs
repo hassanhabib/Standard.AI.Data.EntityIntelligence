@@ -2,14 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions
 {
-    internal class DataValidationException : Xeption
+    internal class NullOrEmptyDataQueryException : Xeption
     {
-        public DataValidationException(Xeption innerException)
-            : base(message: "Data validation error occurred, fix the errors and try again.")
+        public NullOrEmptyDataQueryException()
+            : base(message: "Data query is null or empty")
         { }
     }
 }
