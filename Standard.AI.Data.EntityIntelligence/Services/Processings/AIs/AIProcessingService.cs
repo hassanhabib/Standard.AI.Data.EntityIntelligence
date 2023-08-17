@@ -38,10 +38,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             return tableInformations.Select(tableInformation =>
             {
-                IEnumerable<string> tableColumnDetails = 
+                IEnumerable<string> tableColumnDetails =
                     ConvertToTableColumnDetailsEnumerable(tableInformation);
-                
-                string tableColumns = 
+
+                string tableColumns =
                     string.Join(" ", tableColumnDetails);
 
                 return $"Table name: {tableInformation.Name} has the following columns: {tableColumns}";
