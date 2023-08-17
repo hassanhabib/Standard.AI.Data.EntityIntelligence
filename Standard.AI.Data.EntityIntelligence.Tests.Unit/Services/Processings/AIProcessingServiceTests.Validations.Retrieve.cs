@@ -137,7 +137,78 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 new AIProcessingValidationException(
                     message: "AI validation error occurred, fix errors and try again.",
                     innerException: invalidTableInformationAIProcessingException);
-            
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiProcessingService.RetrieveSqlQueryAsync(
+                    invalidTableInformations,
+                    someNaturalQuery);
+
+            AIProcessingValidationException actualAIProcessingValidationException =
+               await Assert.ThrowsAsync<AIProcessingValidationException>(
+                   retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIProcessingValidationException.Should().BeEquivalentTo(
+                expectedAIProcessingValidationException);
+
+            this.aiServiceMock.Verify(aiService =>
+                aiService.PromptQueryAsync(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [MemberData(nameof(InvalidTableInformations))]
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidTableNamesOrColumnsAsync(TableInformation invalidTableInformation)
+        {
+            // given
+            string someNaturalQuery = GenerateRandomString();
+
+            List<TableInformation> randomTableInformation =
+                CreateRandomTableInformations();
+
+            List<TableInformation> invalidTableInformations =
+                randomTableInformation;
+
+            int randomInvalidItemsCount =
+                new IntRange(min: 1, max: randomTableInformation.Count)
+                    .GetValue();
+
+            List<int> uniqueRandomNumbers = Shuffle(
+                list: Enumerable.Range(0, invalidTableInformations.Count))
+                    .Take(randomInvalidItemsCount).ToList();
+
+            var invalidTableInformationAIProcessingException =
+                new InvalidTableInformationAIProcessingException(
+                    message: "Table information is invalid.");
+
+            invalidTableInformations = invalidTableInformations.Select((tableInformation, index) =>
+            {
+                if (uniqueRandomNumbers.Contains(index))
+                {
+                    tableInformation.Name = invalidTableInformation.Name;
+                    tableInformation.Columns = invalidTableInformation.Columns;
+
+                    invalidTableInformationAIProcessingException.AddData(
+                        key: $"Name at {index}",
+                        values: "Name is required");
+
+                    invalidTableInformationAIProcessingException.AddData(
+                       key: $"Columns at {index}",
+                       values: "Columns are required");
+                    return null;
+                }
+
+                return tableInformation;
+            }).ToList();
+
+            var expectedAIProcessingValidationException =
+                new AIProcessingValidationException(
+                    message: "AI validation error occurred, fix errors and try again.",
+                    innerException: invalidTableInformationAIProcessingException);
+
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(

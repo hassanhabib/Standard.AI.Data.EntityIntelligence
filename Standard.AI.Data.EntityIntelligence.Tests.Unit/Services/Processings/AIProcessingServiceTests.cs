@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
@@ -27,12 +28,52 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 aiService: this.aiServiceMock.Object);
         }
 
-        public static TheoryData InvalidTableInformations()
+        public static TheoryData InvalidTableInformationLists()
         {
             return new TheoryData<List<TableInformation>>
             {
                 null,
                 new List<TableInformation> ()
+            };
+        }
+        public static TheoryData InvalidTableInformations()
+        {
+            return new TheoryData<TableInformation>
+            {
+                new TableInformation {
+                    Name= null,
+                    Columns = null,
+                },
+
+                new TableInformation
+                {
+                    Name= String.Empty,
+                    Columns = null,
+                },
+
+                new TableInformation
+                {
+                    Name= " ",
+                    Columns = null,
+                },
+
+                new TableInformation
+                {
+                    Name= null,
+                    Columns = new List<TableColumn>()
+                },
+
+                new TableInformation
+                {
+                    Name= String.Empty,
+                    Columns = new List<TableColumn>()
+                },
+
+                new TableInformation
+                {
+                    Name= " ",
+                    Columns = new List<TableColumn>()
+                }
             };
         }
 
