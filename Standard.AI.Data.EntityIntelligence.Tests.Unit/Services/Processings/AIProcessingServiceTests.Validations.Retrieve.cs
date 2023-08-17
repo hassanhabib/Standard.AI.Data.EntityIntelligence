@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -102,21 +101,21 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             // given
             string someNaturalQuery = GenerateRandomString();
 
-            List<TableInformation> randomTableInformation =
+            List<TableInformation> randomTableInformations =
                 CreateRandomTableInformations();
 
             List<TableInformation> invalidTableInformations =
-                randomTableInformation;
+                randomTableInformations;
 
             int randomInvalidItemsCount =
-                new IntRange(min: 1, max: randomTableInformation.Count)
+                new IntRange(min: 1, max: randomTableInformations.Count)
                     .GetValue();
 
             List<int> uniqueRandomNumbers = Shuffle(
                 list: Enumerable.Range(0, invalidTableInformations.Count))
                     .Take(randomInvalidItemsCount).ToList();
 
-            var invalidTableInformationAIProcessingException =
+            var invalidTableInformationListAIProcessingException =
                 new InvalidTableInformationListAIProcessingException(
                     message: "Table information list is null or empty.");
 
@@ -124,9 +123,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             {
                 if (uniqueRandomNumbers.Contains(index))
                 {
-                    invalidTableInformationAIProcessingException.AddData(
+                    invalidTableInformationListAIProcessingException.AddData(
                         key: $"Element at {index}",
                         values: "Object is required");
+
                     return null;
                 }
 
@@ -136,8 +136,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             var expectedAIProcessingValidationException =
                 new AIProcessingValidationException(
                     message: "AI validation error occurred, fix errors and try again.",
-                    innerException: invalidTableInformationAIProcessingException);
-            
+                    innerException: invalidTableInformationListAIProcessingException);
+
             // when
             ValueTask<string> retrieveSqlQueryTask =
                 this.aiProcessingService.RetrieveSqlQueryAsync(

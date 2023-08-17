@@ -71,7 +71,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     };
                 }).ToList();
 
-            this.dataBrokerMock.Setup(broker => 
+            this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query))
                     .ReturnsAsync(toRetrieveTableColumnsMetadata);
 

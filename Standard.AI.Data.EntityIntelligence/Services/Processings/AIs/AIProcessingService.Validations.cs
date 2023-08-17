@@ -5,9 +5,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection.Metadata;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
@@ -26,17 +24,17 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             ValidateTableInformationListNotNullOrEmpty(tableInformations);
 
-            (dynamic, string)[] validations = 
+            (dynamic, string)[] validations =
                 tableInformations.Select((tableInformation, index) =>
                     (Rule: IsInvalid(tableInformation), Parameter: $"Element at {index}"))
                         .ToArray();
-            
+
             Validate(validations);
         }
 
-        private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations) 
-        { 
-            if (tableInformations is null || tableInformations.Any() is false) 
+        private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations)
+        {
+            if (tableInformations is null || tableInformations.Any() is false)
             {
                 throw new InvalidTableInformationListAIProcessingException();
             }
@@ -50,7 +48,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            var invalidTableInformationListAIProcessingException = 
+            var invalidTableInformationListAIProcessingException =
                 new InvalidTableInformationListAIProcessingException();
 
             foreach ((dynamic rule, string parameter) in validations)

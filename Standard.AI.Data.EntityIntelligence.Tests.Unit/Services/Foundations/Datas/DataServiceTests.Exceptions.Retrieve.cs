@@ -34,7 +34,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidArgumentException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask =
                 this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableMetadatasException =
@@ -70,7 +70,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidOperationException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask =
                 this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableMetadatasException =
@@ -106,7 +106,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(sqlException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask =
                 this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
@@ -142,7 +142,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask =
                 this.dataService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
