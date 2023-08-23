@@ -25,9 +25,11 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             ValidateTableInformationListNotNullOrEmpty(tableInformations);
 
-             IEnumerable<(dynamic, string)> tableInformationListValidations =
-                tableInformations.Select((tableInformation, index) =>
-                    (Rule: IsInvalid(tableInformation), Parameter: $"Element at {index}"));
+            IEnumerable<(dynamic, string)> tableInformationListValidations =
+               tableInformations.Select((tableInformation, index) =>
+                   (Rule: IsInvalid(tableInformation), Parameter: $"Element at {index}"));
+
+            Validate(tableInformationListValidations.ToArray());
 
             IEnumerable<(dynamic, string)> tableNameValidations =
                 tableInformations.Select((tableInformation, index) =>
@@ -37,7 +39,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                 tableInformations.Select((tableInformation, index) =>
                     (Rule: IsInvalid(tableInformation.Columns), Parameter: $"Columns at {index}"));
 
-            (dynamic, string)[] validations = 
+            (dynamic, string)[] validations =
                 tableInformationListValidations
                     .Concat(tableNameValidations)
                         .Concat(tableColumnsValidations)

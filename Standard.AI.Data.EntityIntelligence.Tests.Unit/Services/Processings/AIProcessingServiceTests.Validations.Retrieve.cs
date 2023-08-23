@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
     public partial class AIProcessingServiceTests
     {
         [Theory]
-        [MemberData(nameof(InvalidTableInformations))]
+        [MemberData(nameof(InvalidTableInformationLists))]
         private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsIsInvalidAsync(
             List<TableInformation> invalidTableInformation)
         {
