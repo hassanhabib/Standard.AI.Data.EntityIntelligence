@@ -189,8 +189,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             {
                 if (uniqueRandomNumbers.Contains(index))
                 {
-                    tableInformation.Name = invalidTableInformation.Name;
-                    tableInformation.Columns = invalidTableInformation.Columns;
+                    tableInformation = invalidTableInformation;
 
                     invalidTableInformationAIProcessingException.AddData(
                         key: $"Name at {index}",
