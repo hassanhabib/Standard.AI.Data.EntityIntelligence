@@ -40,12 +40,11 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                     (Rule: IsInvalid(tableInformation.Columns), Parameter: $"Columns at {index}"));
 
             (dynamic, string)[] validations =
-                tableInformationListValidations
-                    .Concat(tableNameValidations)
-                        .Concat(tableColumnsValidations)
-                            .ToArray();
+                tableNameValidations
+                    .Concat(tableColumnsValidations)
+                        .ToArray();
 
-            Validate(validations);
+            ValidateForItems(validations);
         }
 
         private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations)
@@ -90,6 +89,24 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             }
 
             invalidTableInformationListAIProcessingException.ThrowIfContainsErrors();
+        }
+
+        private static void ValidateForItems(params (dynamic Rule, string Parameter)[] validations)
+        {
+            var invalidTableInformationAIProcessingException =
+                new InvalidTableInformationAIProcessingException();
+
+            foreach ((dynamic rule, string parameter) in validations)
+            {
+                if (rule.Condition)
+                {
+                    invalidTableInformationAIProcessingException.UpsertDataList(
+                        key: parameter,
+                        value: rule.Message);
+                }
+            }
+
+            invalidTableInformationAIProcessingException.ThrowIfContainsErrors();
         }
     }
 }

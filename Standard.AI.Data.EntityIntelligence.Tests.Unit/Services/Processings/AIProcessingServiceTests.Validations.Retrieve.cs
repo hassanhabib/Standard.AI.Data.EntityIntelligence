@@ -199,10 +199,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                     invalidTableInformationAIProcessingException.AddData(
                        key: $"Columns at {index}",
                        values: "Columns are required");
-                    return null;
                 }
 
                 return tableInformation;
+
             }).ToList();
 
             var expectedAIProcessingValidationException =

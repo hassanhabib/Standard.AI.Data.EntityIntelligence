@@ -17,9 +17,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             {
                 return await returningStringFunction();
             }
-            catch (InvalidTableInformationListAIProcessingException nullTableInformationListAIProcessingException)
+            catch (InvalidTableInformationListAIProcessingException invalidTableInformationListAIProcessingException)
             {
-                throw new AIProcessingValidationException(nullTableInformationListAIProcessingException);
+                throw new AIProcessingValidationException(invalidTableInformationListAIProcessingException);
+            }
+            catch (InvalidTableInformationAIProcessingException invalidTableInformationAIProcessingException)
+            {
+                throw new AIProcessingValidationException(invalidTableInformationAIProcessingException);
             }
             catch (InvalidNaturalQueryAIProcessingException invalidNaturalQueryAIProcessingException)
             {
