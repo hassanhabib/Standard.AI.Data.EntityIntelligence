@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Xml.Linq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
@@ -46,13 +47,30 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 
             ValidateForItems(validations);
 
-            (dynamic, string)[] tableColumnValidations =
+            //(dynamic, string)[] tableColumnValidations =
+            //    tableInformations.SelectMany((tableInformation, index) =>
+            //        tableInformation.Columns.Select((tableColumn, columnIndex) =>
+            //            (Rule: IsInvalid(tableColumn), Parameter: $"Table {tableInformation.Name} Column {columnIndex}")))
+            //                .ToArray();
+
+            (dynamic, string)[] tableColumnNameValidations =
                 tableInformations.SelectMany((tableInformation, index) =>
                     tableInformation.Columns.Select((tableColumn, columnIndex) =>
-                        (Rule: IsInvalid(tableColumn), Parameter: $"Table {tableInformation.Name} Column {columnIndex}")))
+                        (Rule: IsInvalidColumn(tableColumn.Name), Parameter: $"Table {tableInformation.Name} Column {columnIndex}")))
                             .ToArray();
 
-            ValidateForColumnItems(tableColumnValidations);
+            //(dynamic, string)[] tableColumnTypeValidations =
+            //    tableInformations.SelectMany((tableInformation, index) =>
+            //        tableInformation.Columns.Select((tableColumn, columnIndex) =>
+            //            (Rule: IsInvalidColumn(tableColumn.Type), Parameter: $"Table {tableInformation.Name} Column {columnIndex}")))
+            //                .ToArray();
+
+            //(dynamic, string)[] allTableColumnValidations =
+            //    tableColumnNameValidations
+            //        .Concat(tableColumnTypeValidations)
+            //            .ToArray();
+
+            ValidateForColumnItems(tableColumnNameValidations);
         }
 
         private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations)
@@ -73,6 +91,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             Condition = String.IsNullOrWhiteSpace(name),
             Message = "Name is required"
+        };
+
+        private static dynamic IsInvalidColumn(string columnProperty) => new
+        {
+            Condition = String.IsNullOrWhiteSpace(columnProperty),
+            Message = "Column is invalid"
         };
 
         private static dynamic IsInvalid(IEnumerable<TableColumn> tableColumns) => new
