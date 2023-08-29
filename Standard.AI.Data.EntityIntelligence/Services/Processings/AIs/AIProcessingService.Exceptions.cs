@@ -25,6 +25,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             {
                 throw new AIProcessingValidationException(invalidTableInformationAIProcessingException);
             }
+            catch (InvalidTableInformationColumnAIProcessingException invalidTableInformationColumnAIProcessingException)
+            {
+                throw new AIProcessingValidationException(invalidTableInformationColumnAIProcessingException);
+            }
             catch (InvalidNaturalQueryAIProcessingException invalidNaturalQueryAIProcessingException)
             {
                 throw new AIProcessingValidationException(invalidNaturalQueryAIProcessingException);

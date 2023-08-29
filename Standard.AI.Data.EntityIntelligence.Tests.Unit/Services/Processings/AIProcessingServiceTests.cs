@@ -86,7 +86,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         {
             return new TheoryData<TableInformation>
             {
-
                 new TableInformation {
                     Name= null,
                     Columns = null,

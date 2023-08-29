@@ -272,7 +272,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                             column = invalidColumn;
                             invalidTableInformationColumnAIProcessingException.AddData(
                                key: $"Table {tableInformation.Name} Column {columnIndex}",
-                               values: "Column is required");
+                               values: "Column is invalid");
                         }
 
                         return column;

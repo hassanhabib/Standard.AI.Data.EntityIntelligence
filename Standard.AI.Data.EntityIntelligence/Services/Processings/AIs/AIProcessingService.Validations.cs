@@ -45,6 +45,14 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                         .ToArray();
 
             ValidateForItems(validations);
+
+            (dynamic, string)[] tableColumnValidations =
+                tableInformations.SelectMany((tableInformation, index) =>
+                    tableInformation.Columns.Select((tableColumn, columnIndex) =>
+                        (Rule: IsInvalid(tableColumn), Parameter: $"Table {tableInformation.Name} Column {columnIndex}")))
+                            .ToArray();
+
+            ValidateForColumnItems(tableColumnValidations);
         }
 
         private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations)
@@ -71,6 +79,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         {
             Condition = tableColumns is null || tableColumns.Any() is false,
             Message = "Columns are required"
+        };
+
+        private static dynamic IsInvalid(TableColumn tableColumn) => new
+        {
+            Condition = tableColumn is null,
+            Message = "Column is invalid"
         };
 
         private static void Validate(params (dynamic Rule, string Parameter)[] validations)
@@ -107,6 +121,24 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             }
 
             invalidTableInformationAIProcessingException.ThrowIfContainsErrors();
+        }
+
+        private static void ValidateForColumnItems(params (dynamic Rule, string Parameter)[] validations)
+        {
+            var invalidTableInformationColumnAIProcessingException =
+                new InvalidTableInformationColumnAIProcessingException();
+
+            foreach ((dynamic rule, string parameter) in validations)
+            {
+                if (rule.Condition)
+                {
+                    invalidTableInformationColumnAIProcessingException.UpsertDataList(
+                        key: parameter,
+                        value: rule.Message);
+                }
+            }
+
+            invalidTableInformationColumnAIProcessingException.ThrowIfContainsErrors();
         }
     }
 }
