@@ -229,5 +229,84 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             this.aiServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(InvalidTableInformationColumns))]
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(TableColumn invalidColumn)
+        {
+            // given
+            string someNaturalQuery = GenerateRandomString();
+
+            List<TableInformation> randomTableInformation =
+                CreateRandomTableInformations();
+
+            List<TableInformation> tableInformationsWithInvalidColumns =
+                randomTableInformation;
+
+            int randomCountOfTableInformationsWithInvalidColumns =
+                new IntRange(min: 1, max: randomTableInformation.Count)
+                    .GetValue();
+
+            List<int> uniqueRandomNumbers = Shuffle(
+                list: Enumerable.Range(0, tableInformationsWithInvalidColumns.Count))
+                    .Take(randomCountOfTableInformationsWithInvalidColumns).ToList();
+
+            var invalidTableInformationColumnAIProcessingException =
+                new InvalidTableInformationColumnAIProcessingException(
+                    message: "Table column is invalid.");
+
+            tableInformationsWithInvalidColumns = tableInformationsWithInvalidColumns.Select((tableInformation, tableIndex) =>
+            {
+                if (uniqueRandomNumbers.Contains(tableIndex))
+                {
+                    int randomInvalidColumnsCount = new IntRange(min: 1, max: tableInformation.Columns.Count()).GetValue();
+
+                    List<int> uniqueInvalidRandomColumnIndices = Shuffle(
+                        list: Enumerable.Range(0, tableInformation.Columns.Count()))
+                            .Take(randomInvalidColumnsCount).ToList();
+
+                    tableInformation.Columns = tableInformation.Columns.Select((column, columnIndex) =>
+                    {
+                        if (uniqueInvalidRandomColumnIndices.Contains(columnIndex))
+                        {
+                            column = invalidColumn;
+                            invalidTableInformationColumnAIProcessingException.AddData(
+                               key: $"Table {tableInformation.Name} Column {columnIndex}",
+                               values: "Column is required");
+                        }
+
+                        return column;
+                    }).ToList();
+                }
+
+                return tableInformation;
+
+            }).ToList();
+
+            var expectedAIProcessingValidationException =
+                new AIProcessingValidationException(
+                    message: "AI validation error occurred, fix errors and try again.",
+                    innerException: invalidTableInformationColumnAIProcessingException);
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiProcessingService.RetrieveSqlQueryAsync(
+                    tableInformationsWithInvalidColumns,
+                    someNaturalQuery);
+
+            AIProcessingValidationException actualAIProcessingValidationException =
+               await Assert.ThrowsAsync<AIProcessingValidationException>(
+                   retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIProcessingValidationException.Should().BeEquivalentTo(
+                expectedAIProcessingValidationException);
+
+            this.aiServiceMock.Verify(aiService =>
+                aiService.PromptQueryAsync(It.IsAny<string>()),
+                    Times.Never);
+
+            this.aiServiceMock.VerifyNoOtherCalls();
+        }
     }
 }

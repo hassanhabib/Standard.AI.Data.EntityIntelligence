@@ -36,10 +36,57 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
                 new List<TableInformation> ()
             };
         }
+
+        public static TheoryData InvalidTableInformationColumns()
+        {
+            return new TheoryData<TableColumn>
+            {
+                null,
+
+                new TableColumn
+                {
+                    Name = null,
+                    Type = null
+                },
+
+                new TableColumn
+                {
+                    Name = String.Empty,
+                    Type = null
+                },
+
+                new TableColumn
+                {
+                    Name = " ",
+                    Type = null
+                },
+
+                new TableColumn
+                {
+                    Name = null,
+                    Type = String.Empty
+                },
+
+                new TableColumn
+                {
+                    Name = null,
+                    Type = " "
+                },
+
+                new TableColumn
+                {
+                    Name = String.Empty,
+                    Type = String.Empty
+                },
+
+            };
+        }
+
         public static TheoryData InvalidTableInformations()
         {
             return new TheoryData<TableInformation>
             {
+
                 new TableInformation {
                     Name= null,
                     Columns = null,
