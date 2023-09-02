@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services.Queries;
@@ -24,6 +25,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
             catch (InvalidQueryException invalidQueryException)
             {
                 throw new QueryValidationException(invalidQueryException);
+            }
+            catch (ArgumentException argumentException)
+            {
+                var invalidQueryException =
+                    new InvalidQueryException(argumentException);
+
+                throw new QueryServiceDependencyValidationException(invalidQueryException);
             }
         }
     }
