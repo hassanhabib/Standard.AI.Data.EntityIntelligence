@@ -3,6 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries;
@@ -22,6 +23,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.queryService = new QueryService(
                 dataBroker: this.dataBrokerMock.Object);
         }
+
+        private static SqlException GetSqlException() =>
+            (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();

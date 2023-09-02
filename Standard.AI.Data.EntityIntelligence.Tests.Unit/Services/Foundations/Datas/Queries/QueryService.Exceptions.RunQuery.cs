@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -78,6 +79,46 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(invalidOperationException);
+
+            // act
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.queryService.RunQueryAsync(query);
+
+            var actualRunQueryException =
+                await Assert.ThrowsAsync<QueryServiceDependencyValidationException>(
+                    runQueryTask.AsTask);
+
+            // assert
+            actualRunQueryException.Should().BeEquivalentTo(
+                expectedQueryServiceDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(query),
+                    Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowSqlDependencyExceptionOnRunQueryIfSqlDependencyExceptionOccursAsync()
+        {
+            // arrange
+            string query = GetRandomString();
+            SqlException sqlException = GetSqlException();
+
+            var invalidQueryException =
+                new InvalidQueryException(
+                    message: "Invalid query error occurred, fix the errors and try again.",
+                    innerException: sqlException);
+
+            var expectedQueryServiceDependencyValidationException =
+                new QueryServiceDependencyValidationException(
+                    message: "Query dependency validation error occurred, fix the errors and try again.",
+                    innerException: invalidQueryException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
+                    .ThrowsAsync(sqlException);
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
