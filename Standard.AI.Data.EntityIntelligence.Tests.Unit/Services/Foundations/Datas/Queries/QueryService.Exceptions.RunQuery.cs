@@ -25,14 +25,59 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var invalidArgumentException = new ArgumentException();
 
             var invalidQueryException =
-                new InvalidQueryException(invalidArgumentException);
+                new InvalidQueryException(
+                    message: "Invalid query error occurred, fix the errors and try again.",
+                    innerException: invalidArgumentException);
 
             var expectedQueryServiceDependencyValidationException =
-                new QueryServiceDependencyValidationException(invalidQueryException);
+                new QueryServiceDependencyValidationException(
+                    message: "Query dependency validation error occurred, fix the errors and try again.",
+                    innerException: invalidQueryException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(invalidArgumentException);
+
+            // act
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+                this.queryService.RunQueryAsync(query);
+
+            var actualRunQueryException =
+                await Assert.ThrowsAsync<QueryServiceDependencyValidationException>(
+                    runQueryTask.AsTask);
+
+            // assert
+            actualRunQueryException.Should().BeEquivalentTo(
+                expectedQueryServiceDependencyValidationException);
+
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<It.IsAnyType>(query),
+                    Times.Once);
+
+            this.dataBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
+        {
+            // arrange
+            string query = GetRandomString();
+
+            var invalidOperationException = new InvalidOperationException();
+
+            var invalidQueryException =
+                new InvalidQueryException(
+                    message: "Invalid query error occurred, fix the errors and try again.",
+                    innerException: invalidOperationException);
+
+            var expectedQueryServiceDependencyValidationException =
+                new QueryServiceDependencyValidationException(
+                    message: "Query dependency validation error occurred, fix the errors and try again.",
+                    innerException: invalidQueryException);
+
+            this.dataBrokerMock.Setup(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
+                    .ThrowsAsync(invalidOperationException);
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
