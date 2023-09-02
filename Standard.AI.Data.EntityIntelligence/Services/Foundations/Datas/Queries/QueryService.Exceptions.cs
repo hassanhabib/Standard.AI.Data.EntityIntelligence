@@ -48,6 +48,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 
                 throw new QueryServiceDependencyValidationException(invalidQueryException);
             }
+            catch (Exception exception)
+            {
+                var failedQueryServiceException =
+                    new FailedQueryServiceException(exception);
+
+                throw new QueryServiceException(failedQueryServiceException);
+            }
         }
     }
 }
