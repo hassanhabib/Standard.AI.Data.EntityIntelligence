@@ -10,20 +10,23 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas.Services.Queries;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 {
-    internal class QueryService : IQueryService
+    internal partial class QueryService : IQueryService
     {
         private readonly IDataBroker dataBroker;
 
         public QueryService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public async ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query)
+        public ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query) =>
+        TryCatch(async () =>
         {
+            ValidateQuery(query);
+
             IEnumerable<IDictionary<string, object>> retrievedRows =
                 await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
 
             return ToResultRows(retrievedRows);
-        }
+        });
 
         private static IEnumerable<ResultRow> ToResultRows(
             IEnumerable<IDictionary<string, object>> retrievedRows) =>

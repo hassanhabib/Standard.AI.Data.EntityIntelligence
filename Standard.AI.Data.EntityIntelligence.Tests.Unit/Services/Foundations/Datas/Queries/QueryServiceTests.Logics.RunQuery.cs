@@ -17,6 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         [Fact]
         public async Task ShouldRunQueryAsync()
         {
+            // given
             string randomQuery = GetRandomString();
             var inputQuery = randomQuery;
 
@@ -47,9 +48,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery))
                     .ReturnsAsync(toRetriveColumnDatas);
 
+            // when
             IEnumerable<ResultRow> retrievedResultRows =
                 await this.queryService.RunQueryAsync(inputQuery);
 
+            // then
             retrievedResultRows.Should()
                 .BeEquivalentTo(expectedResultRows);
 

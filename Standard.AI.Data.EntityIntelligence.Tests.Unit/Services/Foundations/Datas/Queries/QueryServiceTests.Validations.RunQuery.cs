@@ -4,6 +4,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services.Queries;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
@@ -31,12 +32,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     message: "Query validation error occurred, fix the errors and try again.",
                     invalidQueryException);
 
+            // when
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.queryService.RunQueryAsync(invalidQuery);
 
             QueryValidationException actualQueryValidationException =
                 await Assert.ThrowsAsync<QueryValidationException>(
                     runQueryTask.AsTask);
+
+            // then
+            actualQueryValidationException.Should().BeEquivalentTo(
+                expectedQueryValidationException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<It.IsAnyType>(It.IsAny<string>()),
