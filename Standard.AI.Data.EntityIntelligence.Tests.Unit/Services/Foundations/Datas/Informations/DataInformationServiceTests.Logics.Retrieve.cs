@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
+using Standard.AI.Data.EntityIntelligence.Models.Datas.Services.Informations;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
-    public partial class DataServiceTests
+    public partial class DataInformationServiceTests
     {
         [Fact]
         public async Task ShouldRetrieveTableMetadatasAsync()

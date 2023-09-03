@@ -1,7 +1,7 @@
 ﻿using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions.Informations
 {
     internal class InvalidOperationDataException : Xeption
     {

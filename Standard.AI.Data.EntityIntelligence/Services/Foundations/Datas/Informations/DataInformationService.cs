@@ -8,15 +8,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
+using Standard.AI.Data.EntityIntelligence.Models.Datas.Services.Informations;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Informations;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal partial class DataService : IDataService
+    internal partial class DataInformationService : IDataInformationService
     {
         private readonly IDataBroker dataBroker;
 
-        public DataService(IDataBroker dataBroker) =>
+        public DataInformationService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
