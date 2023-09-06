@@ -106,15 +106,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             string query = GetRandomString();
             SqlException sqlException = GetSqlException();
 
-            var invalidQueryException =
-                new InvalidQueryException(
-                    message: "Invalid query error occurred, fix the errors and try again.",
+            var failedQueryStorageException =
+                new FailedQueryStorageException(
+                    message: "Failed query storage error occurred, please contact support.",
                     innerException: sqlException);
 
-            var expectedQueryServiceDependencyValidationException =
-                new QueryServiceDependencyValidationException(
+            var expectedQueryServiceDependencyException =
+                new QueryServiceDependencyException(
                     message: "Query dependency validation error occurred, fix the errors and try again.",
-                    innerException: invalidQueryException);
+                    innerException: failedQueryStorageException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
@@ -125,12 +125,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 this.queryService.RunQueryAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<QueryServiceDependencyValidationException>(
+                await Assert.ThrowsAsync<QueryServiceDependencyException>(
                     runQueryTask.AsTask);
 
             // assert
             actualRunQueryException.Should().BeEquivalentTo(
-                expectedQueryServiceDependencyValidationException);
+                expectedQueryServiceDependencyException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<It.IsAnyType>(query),
