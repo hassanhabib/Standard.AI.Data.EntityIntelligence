@@ -63,7 +63,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         {
             // arrange
             string query = GetRandomString();
-
             var invalidOperationException = new InvalidOperationException();
 
             var invalidQueryException =
@@ -113,7 +112,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             var expectedQueryServiceDependencyException =
                 new QueryServiceDependencyException(
-                    message: "Query dependency validation error occurred, fix the errors and try again.",
+                    message: "Query dependency error occurred, please contact support.",
                     innerException: failedQueryStorageException);
 
             this.dataBrokerMock.Setup(broker =>
