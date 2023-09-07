@@ -12,6 +12,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Excepti
         public InvalidQueryException()
             : base(message: "Invalid query error occurred, fix the errors and try again.")
         { }
+
         public InvalidQueryException(Exception innerException)
             : base(message: "Invalid query error occurred, fix the errors and try again.",
                   innerException)
