@@ -63,15 +63,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
             string query = GetRandomString();
             var invalidOperationException = new InvalidOperationException();
 
-            var invalidQueryException =
-                new InvalidQueryException(
-                    message: "Invalid query error occurred, fix the errors and try again.",
+            var invalidOperationQueryException =
+                new InvalidOperationQueryException(
+                    message: "Invalid operation query error occurred, fix the errors and try again.",
                     innerException: invalidOperationException);
 
             var expectedQueryServiceDependencyValidationException =
                 new QueryServiceDependencyValidationException(
                     message: "Query dependency validation error occurred, fix the errors and try again.",
-                    innerException: invalidQueryException);
+                    innerException: invalidOperationQueryException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
