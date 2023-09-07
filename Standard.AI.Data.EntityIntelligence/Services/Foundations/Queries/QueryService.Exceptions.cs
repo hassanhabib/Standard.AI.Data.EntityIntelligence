@@ -28,10 +28,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries
             }
             catch (InvalidOperationException invalidOperationException)
             {
-                var invalidQueryException =
-                    new InvalidQueryException(invalidOperationException);
+                var invalidOperationQueryException =
+                    new InvalidOperationQueryException(invalidOperationException);
 
-                throw new QueryServiceDependencyValidationException(invalidQueryException);
+                throw new QueryServiceDependencyValidationException(invalidOperationQueryException);
             }
             catch (ArgumentException argumentException)
             {
