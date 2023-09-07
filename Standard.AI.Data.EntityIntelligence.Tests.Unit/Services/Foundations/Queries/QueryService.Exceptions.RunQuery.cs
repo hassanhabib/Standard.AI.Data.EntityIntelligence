@@ -19,9 +19,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
         {
-            // arrange
+            // given
             string query = GetRandomString();
-
             var invalidArgumentException = new ArgumentException();
 
             var invalidQueryException =
@@ -38,7 +37,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(invalidArgumentException);
 
-            // act
+            // when
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.queryService.RunQueryAsync(query);
 
@@ -46,7 +45,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 await Assert.ThrowsAsync<QueryServiceDependencyValidationException>(
                     runQueryTask.AsTask);
 
-            // assert
+            // then
             actualRunQueryException.Should().BeEquivalentTo(
                 expectedQueryServiceDependencyValidationException);
 
@@ -60,7 +59,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
         {
-            // arrange
+            // given
             string query = GetRandomString();
             var invalidOperationException = new InvalidOperationException();
 
@@ -78,7 +77,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(invalidOperationException);
 
-            // act
+            // when
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.queryService.RunQueryAsync(query);
 
@@ -86,7 +85,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 await Assert.ThrowsAsync<QueryServiceDependencyValidationException>(
                     runQueryTask.AsTask);
 
-            // assert
+            // then
             actualRunQueryException.Should().BeEquivalentTo(
                 expectedQueryServiceDependencyValidationException);
 
@@ -98,9 +97,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         }
 
         [Fact]
-        public async Task ShouldThrowSqlDependencyExceptionOnRunQueryIfSqlDependencyExceptionOccursAsync()
+        public async Task ShouldThrowQueryServiceDependencyExceptionOnRunQueryIfSqlExceptionOccursAsync()
         {
-            // arrange
+            // given
             string query = GetRandomString();
             SqlException sqlException = GetSqlException();
 
@@ -118,7 +117,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(sqlException);
 
-            // act
+            // when
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.queryService.RunQueryAsync(query);
 
@@ -126,7 +125,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 await Assert.ThrowsAsync<QueryServiceDependencyException>(
                     runQueryTask.AsTask);
 
-            // assert
+            // then
             actualRunQueryException.Should().BeEquivalentTo(
                 expectedQueryServiceDependencyException);
 
@@ -139,7 +138,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         [Fact]
         public async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
         {
-            // arrange
+            // given
             string query = GetRandomString();
             var serviceException = new Exception();
 
@@ -154,7 +153,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
                     .ThrowsAsync(serviceException);
 
-            // act
+            // when
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.queryService.RunQueryAsync(query);
 
@@ -162,7 +161,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 await Assert.ThrowsAsync<QueryServiceException>(
                     runQueryTask.AsTask);
 
-            // assert
+            // then
             actualRunQueryException.Should().BeEquivalentTo(
                 expectedQueryServiceException);
 

@@ -42,10 +42,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries
             }
             catch (SqlException sqlException)
             {
-                var invalidQueryException =
+                var failedQueryStorageException =
                     new FailedQueryStorageException(sqlException);
 
-                throw new QueryServiceDependencyException(invalidQueryException);
+                throw new QueryServiceDependencyException(failedQueryStorageException);
             }
             catch (Exception exception)
             {
