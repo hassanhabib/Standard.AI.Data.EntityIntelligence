@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
     public partial class QueryServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
         {
             // given
             string query = GetRandomString();
@@ -57,7 +57,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
         {
             // given
             string query = GetRandomString();
@@ -97,7 +97,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         }
 
         [Fact]
-        public async Task ShouldThrowQueryServiceDependencyExceptionOnRunQueryIfSqlExceptionOccursAsync()
+        private async Task ShouldThrowQueryServiceDependencyExceptionOnRunQueryIfSqlExceptionOccursAsync()
         {
             // given
             string query = GetRandomString();
@@ -135,8 +135,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
 
             this.dataBrokerMock.VerifyNoOtherCalls();
         }
+
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
         {
             // given
             string query = GetRandomString();

@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnRunQueryIfQueryIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRunQueryIfQueryIsInvalidAsync(
             string invalidQuery)
         {
             // given

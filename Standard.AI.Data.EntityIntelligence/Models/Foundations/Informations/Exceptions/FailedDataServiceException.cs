@@ -13,5 +13,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Informations.Ex
             : base(message: "Failed data service error occurred, contact support.",
                   innerException)
         { }
+
+        public FailedDataServiceException(string message, Exception innerException)
+            : base(message: message, innerException)
+        { }
     }
 }

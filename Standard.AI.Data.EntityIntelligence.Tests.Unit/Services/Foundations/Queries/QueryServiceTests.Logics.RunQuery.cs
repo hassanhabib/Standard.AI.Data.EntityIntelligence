@@ -15,7 +15,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
     public partial class QueryServiceTests
     {
         [Fact]
-        public async Task ShouldRunQueryAsync()
+        private async Task ShouldRunQueryAsync()
         {
             // given
             string randomQuery = GetRandomString();

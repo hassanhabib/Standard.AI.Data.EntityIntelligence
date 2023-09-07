@@ -17,16 +17,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
     public partial class DataInformationServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidArgumentExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidArgumentExceptionOccursAsync()
         {
             // given
             var invalidArgumentException = new ArgumentException();
 
             var invalidDataException =
-                new InvalidDataException(invalidArgumentException);
+                new InvalidDataException(
+                    message: "Invalid data validation error occurred, fix the errors and try again.",
+                    innerException: invalidArgumentException);
 
             var expectedDataDependencyValidationException =
-                new DataDependencyValidationException(invalidDataException);
+                new DataDependencyValidationException(
+                    message: "Data validation error occurred, fix the errors and try again.",
+                    innerException: invalidDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
@@ -52,17 +56,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidOperationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidOperationExceptionOccursAsync()
         {
             // given
             var invalidOperationException = new InvalidOperationException();
 
             var invalidOperationDataException =
-                new InvalidOperationDataException(invalidOperationException);
+                new InvalidOperationDataException(
+                    message: "Invalid operation data validation error occurred, fix the errors and try again.",
+                    innerException: invalidOperationException);
 
             var expectedDataDependencyValidationException =
                 new DataDependencyValidationException(
-                    invalidOperationDataException);
+                    message: "Data validation error occurred, fix the errors and try again.",
+                    innerException: invalidOperationDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
@@ -88,17 +95,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
         }
 
         [Fact]
-        public async Task ShouldThrowSqlDependencyExceptionOnRetrieveIfSqlDependencyExceptionOccursAsync()
+        private async Task ShouldThrowSqlDependencyExceptionOnRetrieveIfSqlDependencyExceptionOccursAsync()
         {
             // given
             SqlException sqlException = GetSqlException();
 
             var failedDataDependencyException =
-                new FailedDataDependencyException(sqlException);
+                new FailedDataDependencyException(
+                    message: "Failed data dependency error occurred, contact support.",
+                    innerException: sqlException);
 
             var expectedDataDependencyException =
                 new DataDependencyException(
-                    failedDataDependencyException);
+                    message: "Data dependency error occurred, contact support.",
+                    innerException: failedDataDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
@@ -124,17 +134,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();
 
             var failedDataServiceException =
-                new FailedDataServiceException(serviceException);
+                new FailedDataServiceException(
+                    message: "Failed data service error occurred, contact support.",
+                    innerException: serviceException);
 
             var expectedDataServiceException =
                 new DataServiceException(
-                    failedDataServiceException);
+                    message: "Data service error occurred, contact support.",
+                    innerException: failedDataServiceException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))

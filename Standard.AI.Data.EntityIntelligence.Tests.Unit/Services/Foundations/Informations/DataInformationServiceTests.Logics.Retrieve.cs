@@ -16,7 +16,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
     public partial class DataInformationServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveTableMetadatasAsync()
+        private async Task ShouldRetrieveTableMetadatasAsync()
         {
             // given
             string query = String.Join(
@@ -31,9 +31,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
             var randomTableMetadatas = GenerateRandomTableMetadatas();
 
             var toRetrieveTableColumnsMetadata =
-                randomTableMetadatas.Keys.SelectMany(schema__tableName =>
+                randomTableMetadatas.Keys.SelectMany(key =>
                 {
-                    var columnsMetadata = randomTableMetadatas[schema__tableName];
+                    var columnsMetadata = randomTableMetadatas[key];
                     var tablesColumnsMetadata = new List<TableColumnMetadata>();
 
                     foreach (var columnKey in columnsMetadata.Keys)
@@ -43,8 +43,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.In
                         tablesColumnsMetadata.Add(
                             new TableColumnMetadata
                             {
-                                TableSchema = schema__tableName.Split(".")[0],
-                                TableName = schema__tableName.Split(".")[1],
+                                TableSchema = key.Split(".")[0],
+                                TableName = key.Split(".")[1],
                                 Name = columnKey,
                                 DataType = columnsMetadata[columnKey],
                             });

@@ -22,7 +22,8 @@ namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
         
         private async ValueTask<IEnumerable<T>> QueryAsync<T>(string query)
         {
-            using var dbConnection = new SqlConnection(this.configurations.ConnectionString);
+            using var dbConnection =
+                new SqlConnection(this.configurations.ConnectionString);
 
             return await dbConnection.QueryAsync<T>(query);
         }
