@@ -35,10 +35,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries
             }
             catch (ArgumentException argumentException)
             {
-                var invalidQueryException =
-                    new InvalidQueryException(argumentException);
+                var invalidArgumentQueryException =
+                    new InvalidArgumentQueryException(argumentException);
 
-                throw new QueryServiceDependencyValidationException(invalidQueryException);
+                throw new QueryServiceDependencyValidationException(invalidArgumentQueryException);
             }
             catch (SqlException sqlException)
             {
