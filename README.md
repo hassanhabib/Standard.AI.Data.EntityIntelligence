@@ -21,10 +21,50 @@ This library was built according to The Standard. The library follows engineerin
 
 This library is also a community effort which involved many nights of pair-programming, test-driven development and in-depth exploration research and design discussions.
 
+## Standard-Promise
+The most important fulfillment aspect in a Standard complaint system is aimed towards contributing to people, its evolution, and principles.
+An organization that systematically honors an environment of learning, training, and sharing knowledge is an organization that learns from the past, makes calculated risks for the future, 
+and brings everyone within it up to speed on the current state of things as honestly, rapidly, and efficiently as possible. 
+ 
+We believe that everyone has the right to privacy, and will never do anything that could violate that right.
+We are committed to writing ethical and responsible software, and will always strive to use our skills, coding, and systems for the good.
+We believe that these beliefs will help to ensure that our software(s) are safe and secure and that it will never be used to harm or collect personal data for malicious purposes.
+ 
+The Standard Community as a promise to you is in upholding these values.
+
 ## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
 
-### Sessions
-Here's our live sessions to show you how this library is being built
+### Nuget Package 
+Project in development - [![Nuget](https://img.shields.io/nuget/v/Standard.AI.Data.EntityIntelligence?logo=nuget&color=blue)](https://www.nuget.org/packages/Standard.AI.Data.EntityIntelligence)
+
+## How to Contribute
+If you want to contribute to this project please review the following documents:
+- [The Standard](https://github.com/hassanhabib/The-Standard)
+- [C# Coding Standard](https://github.com/hassanhabib/CSharpCodingStandard)
+- [The Team Standard](https://github.com/hassanhabib/The-Standard-Team)
+
+If you have a question make sure you either open an issue or join our [The Standard Community](https://discord.com/invite/vdPZ7hS52X) discord server.
+
+## Live-Sessions
+Our live-sessions are scheduled on [The Standard Calendar](https://tinyurl.com/the-standard-calendar) make sure you adjust the time to your city/timezone to be able to join us.
+
+We broadcast on multiple platforms:
+
+[YouTube](https://www.youtube.com/@HassanHabib)
+
+[LinkedIn](https://www.linkedin.com/in/hassanrezkhabib/)
+
+[Twitch](https://www.twitch.tv/binhabib)
+
+[Twitter](https://twitter.com/HassanRezkHabib)
+
+[Facebook](https://www.facebook.com/hassan.rezk.habib)
+
+### Past-Sessions
+Here's our live sessions to show you how this library was developed from scratch:
 
 [Standard.EntityIntelligence YouTube Playlist](https://www.youtube.com/watch?v=wzT8tiIg70o&list=PLan3SCnsISTSf0q3FDvFLngnVpmiMte3L)
+
+### Important Notice
+This library is a community effort.
