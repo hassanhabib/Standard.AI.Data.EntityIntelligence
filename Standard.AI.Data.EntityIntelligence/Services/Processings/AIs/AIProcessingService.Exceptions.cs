@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
@@ -54,6 +55,13 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             {
                 throw new AIProcessingDependencyException(
                     aiServiceException.InnerException as Xeption);
+            }
+            catch (Exception exception)
+            {
+                var failedAIProcessingServiceException =
+                    new FailedAIProcessingServiceException(exception);
+
+                throw new AIProcessingServiceException(failedAIProcessingServiceException);
             }
         }
     }

@@ -104,7 +104,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             var failedAIProcessingServiceException =
                 new FailedAIProcessingServiceException(
-                    message: "Failed ai service error occurred, contact support.",
+                    message: "Failed AI service error occurred, contact support.",
                     innerException: serviceException);
 
             var expectedAIProcessingServiceException =
