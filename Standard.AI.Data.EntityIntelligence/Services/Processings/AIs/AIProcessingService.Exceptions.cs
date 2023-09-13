@@ -3,7 +3,9 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
+using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 {
@@ -32,6 +34,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             catch (InvalidNaturalQueryAIProcessingException invalidNaturalQueryAIProcessingException)
             {
                 throw new AIProcessingValidationException(invalidNaturalQueryAIProcessingException);
+            }
+            catch (AIValidationException aiValidationException)
+            {
+                throw new AIProcessingDependencyValidationException(
+                    aiValidationException.InnerException as Xeption);
+            }
+            catch (AIDependencyValidationException aiDependencyValidationException)
+            {
+                throw new AIProcessingDependencyValidationException(
+                    aiDependencyValidationException.InnerException as Xeption);
             }
         }
     }

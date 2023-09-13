@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
     {
         [Theory]
         [MemberData(nameof(AIDependencyValidationExceptions))]
-        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDepenencyValidationErrorOccuredAsync(
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDependencyValidationErrorOccursAsync(
             Xeption dependencyValidationException)
         {
             // given
@@ -26,7 +26,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             var expectedAIProcessingDependencyValidationException =
                 new AIProcessingDependencyValidationException(
-                    message: "AI dependency validation error occurred, fix errors and try agian",
+                    message: "AI dependency validation error occurred, fix errors and try again.",
                     innerException: dependencyValidationException.InnerException as Xeption);
 
             this.aiServiceMock.Setup(service =>
