@@ -45,6 +45,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
                 throw new AIProcessingDependencyValidationException(
                     aiDependencyValidationException.InnerException as Xeption);
             }
+            catch (AIDependencyException aiDependencyException)
+            {
+                throw new AIProcessingDependencyException(
+                    aiDependencyException.InnerException as Xeption);
+            }
+            catch (AIServiceException aiServiceException)
+            {
+                throw new AIProcessingDependencyException(
+                    aiServiceException.InnerException as Xeption);
+            }
         }
     }
 }

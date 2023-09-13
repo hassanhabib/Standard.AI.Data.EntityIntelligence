@@ -65,7 +65,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             var expectedAIProcessingDependencyException =
                 new AIProcessingDependencyException(
-                    message: "AI dependency error occurred, contact support",
+                    message: "AI dependency error occurred, contact support.",
                     innerException: dependencyException.InnerException as Xeption);
 
             this.aiServiceMock.Setup(service =>
