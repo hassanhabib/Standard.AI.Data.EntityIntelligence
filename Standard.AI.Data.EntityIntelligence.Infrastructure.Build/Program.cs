@@ -3,10 +3,12 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.IO;
 using ADotNet.Clients;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks;
 using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV1s;
+using ADotNet.Models.Pipelines.GithubPipelines.DotNets.Tasks.SetupDotNetTaskV3s;
 
 var adotNetClient = new ADotNetClient();
 
@@ -27,49 +29,58 @@ var githubPipeline = new GithubPipeline
         }
     },
 
-    Jobs = new Jobs
+    Jobs = new Dictionary<string, Job>
     {
-        Build = new BuildJob
         {
-            RunsOn = BuildMachines.WindowsLatest,
-
-            Steps = new List<GithubTask>
+            "build",
+            new Job
             {
-                new CheckoutTaskV2
-                {
-                    Name = "Checking out code"
-                },
+                RunsOn = BuildMachines.WindowsLatest,
 
-                new SetupDotNetTaskV1
+                Steps = new List<GithubTask>
                 {
-                    Name = "Intalling .NET",
-
-                    TargetDotNetVersion = new TargetDotNetVersion
+                    new CheckoutTaskV3
                     {
-                        DotNetVersion = "8.0.100-preview.7.23376.3",
-                        IncludePrerelease = true
+                        Name = "Checking Out Code"
+                    },
+
+                    new SetupDotNetTaskV3
+                    {
+                        Name = "Installing .NET",
+                        With = new TargetDotNetVersionV3
+                        {
+                            DotNetVersion = "8.0.100-preview.7.23376.3",
+                        }
+                    },
+
+                    new RestoreTask
+                    {
+                        Name = "Restoring NuGet Packages"
+                    },
+
+                    new DotNetBuildTask
+                    {
+                        Name = "Building Project"
+                    },
+
+                    new TestTask
+                    {
+                        Name = "Running Tests"
                     }
-                },
-
-                new RestoreTask
-                {
-                    Name = "Restoring Nuget Packages"
-                },
-
-                new DotNetBuildTask
-                {
-                    Name = "Building Project"
-                },
-
-                new TestTask
-                {
-                    Name = "Running Tests"
                 }
             }
         }
     }
 };
 
+string buildScriptPath = "../../../../.github/workflows/dotnet.yml";
+string directoryPath = Path.GetDirectoryName(buildScriptPath);
+
+if (!Directory.Exists(directoryPath))
+{
+    Directory.CreateDirectory(directoryPath);
+}
+
 adotNetClient.SerializeAndWriteToFile(
     adoPipeline: githubPipeline,
-    path: "../../../../.github/workflows/dotnet.yml");
+    path: buildScriptPath);
