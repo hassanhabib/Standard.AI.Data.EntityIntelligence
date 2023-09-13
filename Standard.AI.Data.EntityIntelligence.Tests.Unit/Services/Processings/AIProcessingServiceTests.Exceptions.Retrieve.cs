@@ -53,5 +53,44 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             this.aiServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(AIDependencyExceptions))]
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfDependencyErrorOccursAsync(
+            Xeption dependencyException)
+        {
+            // given
+            List<TableInformation> someTableInformation = CreateRandomTableInformations();
+            string someNaturalQuery = CreateRandomString();
+
+            var expectedAIProcessingDependencyException =
+                new AIProcessingDependencyException(
+                    message: "AI dependency error occurred, contact support",
+                    innerException: dependencyException.InnerException as Xeption);
+
+            this.aiServiceMock.Setup(service =>
+                service.PromptQueryAsync(It.IsAny<string>()))
+                    .ThrowsAsync(dependencyException);
+
+            // when
+            ValueTask<string> retrieveSqlQueryTask =
+                this.aiProcessingService.RetrieveSqlQueryAsync(
+                    someTableInformation,
+                    someNaturalQuery);
+
+            AIProcessingDependencyException actualAIProcessingDependencyException =
+                await Assert.ThrowsAsync<AIProcessingDependencyException>(
+                    retrieveSqlQueryTask.AsTask);
+
+            // then
+            actualAIProcessingDependencyException.Should()
+                .BeEquivalentTo(expectedAIProcessingDependencyException);
+
+            this.aiServiceMock.Verify(service =>
+                service.PromptQueryAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.aiServiceMock.VerifyNoOtherCalls();
+        }
     }
 }

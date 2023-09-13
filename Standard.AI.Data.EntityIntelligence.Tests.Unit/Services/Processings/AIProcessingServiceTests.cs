@@ -135,6 +135,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             };
         }
 
+        public static TheoryData AIDependencyExceptions()
+        {
+            var innerException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new AIDependencyException(innerException),
+                new AIServiceException(innerException)
+            };
+        }
+
         private static List<TableInformation> CreateRandomTableInformations() =>
             CreateTableInformationFiller().Create(count: GetRandomNumber()).ToList();
 
