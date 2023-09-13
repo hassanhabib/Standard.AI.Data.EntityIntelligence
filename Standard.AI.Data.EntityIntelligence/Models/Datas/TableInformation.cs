@@ -2,12 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
+namespace Standard.AI.Data.EntityIntelligence.Models.Datas
 {
-    internal interface IAIService
+    internal class TableInformation
     {
-        ValueTask<string> PromptQueryAsync(string naturalQuery);
+        public string Name { get; set; }
+        public string Schema { get; set; }
+        public IEnumerable<TableColumn> Columns { get; set; }
     }
 }

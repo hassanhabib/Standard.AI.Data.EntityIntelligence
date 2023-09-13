@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
         { }
 
         public InvalidAIQueryException(string message, Exception innerException)
-            : base(message, innerException) 
+            : base(message, innerException)
         { }
     }
 }

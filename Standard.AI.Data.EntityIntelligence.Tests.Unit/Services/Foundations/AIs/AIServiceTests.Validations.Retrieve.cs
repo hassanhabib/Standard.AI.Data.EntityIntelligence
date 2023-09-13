@@ -17,11 +17,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         [InlineData(null)]
         [InlineData("")]
         [InlineData("  ")]
-        public async Task ShouldThrowValidationExceptionOnRetrieveIfQueryIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfQueryIsInvalidAsync(
             string invalidAIQuery)
         {
             // given
-            var invalidAIQueryException = 
+            var invalidAIQueryException =
                 new InvalidAIQueryException();
 
             var expectedAIValidationException =
@@ -29,7 +29,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(invalidAIQuery);
+                this.aiService.PromptQueryAsync(invalidAIQuery);
 
             AIValidationException actualAIValidationException =
                 await Assert.ThrowsAsync<AIValidationException>(
