@@ -7,7 +7,7 @@ using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
 {
-    internal partial class AIProcessingService : IAIProcessingService
+    internal partial class AIProcessingService
     {
         private delegate ValueTask<string> ReturningStringFunction();
 

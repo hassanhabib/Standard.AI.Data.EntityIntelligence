@@ -19,9 +19,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         private async Task ShouldRetrieveSqlQueryAsync()
         {
             // given
-            string randomNaturalQuery = GenerateRandomString();
+            string randomNaturalQuery = CreateRandomString();
             string inputNaturalQuery = randomNaturalQuery;
-            string randomAISqlResponse = GenerateRandomString();
+            string randomAISqlResponse = CreateRandomString();
             string returnedAiSqlResponse = randomAISqlResponse;
             string expectedAiSqlResponse = returnedAiSqlResponse;
 

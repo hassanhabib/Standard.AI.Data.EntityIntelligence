@@ -22,7 +22,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             List<TableInformation> invalidTableInformation)
         {
             // given
-            string someNaturalQuery = GenerateRandomString();
+            string someNaturalQuery = CreateRandomString();
 
             var tableInformationListAIProcessingException =
                 new InvalidTableInformationListAIProcessingException(
@@ -99,7 +99,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsHasInvalidItemsAsync()
         {
             // given
-            string someNaturalQuery = GenerateRandomString();
+            string someNaturalQuery = CreateRandomString();
 
             List<TableInformation> randomTableInformations =
                 CreateRandomTableInformations();
@@ -165,7 +165,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             TableInformation invalidTableInformation)
         {
             // given
-            string someNaturalQuery = GenerateRandomString();
+            string someNaturalQuery = CreateRandomString();
 
             List<TableInformation> randomTableInformation =
                 CreateRandomTableInformations();
@@ -235,7 +235,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
         private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(TableColumn invalidColumn)
         {
             // given
-            string someNaturalQuery = GenerateRandomString();
+            string someNaturalQuery = CreateRandomString();
 
             List<TableInformation> randomTableInformation =
                 CreateRandomTableInformations();

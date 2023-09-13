@@ -5,12 +5,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.AIs;
 using Tynamix.ObjectFiller;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
@@ -123,6 +124,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             };
         }
 
+        public static TheoryData AIDependencyValidationExceptions()
+        {
+            var innerException = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new AIValidationException(innerException),
+                new AIDependencyValidationException(innerException)
+            };
+        }
+
         private static List<TableInformation> CreateRandomTableInformations() =>
             CreateTableInformationFiller().Create(count: GetRandomNumber()).ToList();
 
@@ -144,7 +156,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
         private static Tuple<string, Dictionary<string, string>> GenerateRandomTable()
         {
-            string randomTableName = GenerateRandomString();
+            string randomTableName = CreateRandomString();
             int randomColumnCount = GetRandomNumber();
             var columnsDictionary = new Dictionary<string, string>();
 
@@ -154,8 +166,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             for (int i = 0; i <= randomColumnCount; i++)
             {
                 columnsDictionary.Add(
-                    key: GenerateRandomString(),
-                    value: GenerateRandomString());
+                    key: CreateRandomString(),
+                    value: CreateRandomString());
             }
 
             return new(randomTableName, columnsDictionary);
@@ -169,7 +181,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             return shuffledTableInformaitons;
         }
 
-        private static string GenerateRandomString() =>
+        private static string CreateRandomString() =>
             new MnemonicString().GetValue();
 
         private static int GetRandomNumber() =>
