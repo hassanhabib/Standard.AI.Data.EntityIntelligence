@@ -61,7 +61,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         private static int GetRandomNumber() =>
             new IntRange(2, 10).GetValue();
 
-        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTableMetadatas()
+        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTableInformations()
         {
             int tablesCount = GetRandomNumber();
             var tablesDictionary = new Dictionary<string, Dictionary<string, string>>();

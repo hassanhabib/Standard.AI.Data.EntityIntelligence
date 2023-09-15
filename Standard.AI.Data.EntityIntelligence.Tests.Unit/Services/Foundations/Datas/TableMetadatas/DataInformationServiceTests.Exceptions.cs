@@ -37,7 +37,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             // when
             ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
-                this.dataInformationService.RetrieveTableMetadatasAsync();
+                this.dataInformationService.RetrieveTableInformationsAsync();
 
             var actualTableMetadatasException =
                 await Assert.ThrowsAsync<DataInformationServiceDependencyValidationException>(
@@ -73,7 +73,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             // when
             ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
-                this.dataInformationService.RetrieveTableMetadatasAsync();
+                this.dataInformationService.RetrieveTableInformationsAsync();
 
             var actualTableMetadatasException =
                 await Assert.ThrowsAsync<DataInformationServiceDependencyValidationException>(
@@ -109,7 +109,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             // when
             ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
-                this.dataInformationService.RetrieveTableMetadatasAsync();
+                this.dataInformationService.RetrieveTableInformationsAsync();
 
             var actualTableInformationListException =
                 await Assert.ThrowsAsync<DataInformationServiceDependencyException>(
@@ -145,7 +145,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             // when
             ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
-                this.dataInformationService.RetrieveTableMetadatasAsync();
+                this.dataInformationService.RetrieveTableInformationsAsync();
 
             var actualTableInformationListException =
                 await Assert.ThrowsAsync<DataInformationServiceException>(

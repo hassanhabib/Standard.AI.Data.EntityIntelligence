@@ -11,6 +11,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
 {
     internal interface IDataInformationService
     {
-        ValueTask<IEnumerable<TableInformation>> RetrieveTableMetadatasAsync();
+        ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync();
     }
 }

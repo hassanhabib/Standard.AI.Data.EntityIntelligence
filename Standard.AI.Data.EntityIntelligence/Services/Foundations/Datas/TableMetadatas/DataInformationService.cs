@@ -19,16 +19,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
         public DataInformationService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<TableInformation>> RetrieveTableMetadatasAsync() =>
+        public ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync() =>
         TryCatch(async () =>
         {
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
-                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
+                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableInformationsQuery);
 
-            return ToTablesMetadata(retrievedTablesColumnsMetadatas);
+            return ToTableInformation(retrievedTablesColumnsMetadatas);
         });
 
-        private static IEnumerable<TableInformation> ToTablesMetadata(
+        private static IEnumerable<TableInformation> ToTableInformation(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)
         {
             IEnumerable<IGrouping<(string TableSchema, string TableName), TableColumnMetadata>> groupedColumns =
@@ -36,10 +36,10 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
                     .GroupBy(tableColumnMetadata =>
                         (tableColumnMetadata.TableSchema, tableColumnMetadata.TableName));
 
-            return groupedColumns.Select(ToTableMetadata);
+            return groupedColumns.Select(ToTableInformation);
         }
 
-        static TableInformation ToTableMetadata(
+        static TableInformation ToTableInformation(
                 IGrouping<(string TableSchema, string Name),
                 TableColumnMetadata> tableColumnsMetadatas) =>
                     new TableInformation
@@ -56,7 +56,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
                                 }),
                     };
 
-        private static readonly string SelectAllTableMetadatasQuery =
+        private static readonly string SelectAllTableInformationsQuery =
             String.Join(
                 separator: Environment.NewLine,
                 "SELECT",

@@ -30,12 +30,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 $"columnMetadata.DATA_TYPE AS [DataType]",
                 "FROM INFORMATION_SCHEMA.COLUMNS columnMetadata");
 
-            var randomTableMetadatas = GenerateRandomTableMetadatas();
+            var randomTableInformations = GenerateRandomTableInformations();
 
             var toRetrieveTableColumnsMetadata =
-                randomTableMetadatas.Keys.SelectMany(schema__tableName =>
+                randomTableInformations.Keys.SelectMany(schema__tableName =>
                 {
-                    var columnsMetadata = randomTableMetadatas[schema__tableName];
+                    var columnsMetadata = randomTableInformations[schema__tableName];
                     var tablesColumnsMetadata = new List<TableColumnMetadata>();
 
                     foreach (var columnKey in columnsMetadata.Keys)
@@ -54,10 +54,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     return tablesColumnsMetadata;
                 });
 
-            var expectedTableMetadata =
-                randomTableMetadatas.Keys.Select(schema__tableName =>
+            var expectedTableInformation =
+                randomTableInformations.Keys.Select(schema__tableName =>
                 {
-                    var columnsMetadata = randomTableMetadatas[schema__tableName];
+                    var columnsMetadata = randomTableInformations[schema__tableName];
 
                     return new TableInformation
                     {
@@ -77,11 +77,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ReturnsAsync(toRetrieveTableColumnsMetadata);
 
             // when
-            var retrievedTableMetadatas =
-                await dataInformationService.RetrieveTableMetadatasAsync();
+            var retrievedTableInformations =
+                await dataInformationService.RetrieveTableInformationsAsync();
 
             // then
-            retrievedTableMetadatas.Should().BeEquivalentTo(expectedTableMetadata);
+            retrievedTableInformations.Should().BeEquivalentTo(expectedTableInformation);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query),
