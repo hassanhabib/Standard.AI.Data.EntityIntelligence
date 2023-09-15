@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Xunit;
@@ -58,15 +59,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 {
                     var columnsMetadata = randomTableMetadatas[schema__tableName];
 
-                    return new TableMetadata
+                    return new TableInformation
                     {
                         Schema = schema__tableName.Split(".")[0],
                         Name = schema__tableName.Split(".")[1],
 
-                        ColumnsMetadata = columnsMetadata.Keys.Select(key => new ColumnMetadata
+                        Columns = columnsMetadata.Keys.Select(key => new TableColumn
                         {
                             Name = key,
-                            DataType = columnsMetadata[key],
+                            Type = columnsMetadata[key],
                         }).ToList()
                     };
                 }).ToList();

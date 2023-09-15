@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
@@ -35,7 +36,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidArgumentException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
                 this.dataInformationService.RetrieveTableMetadatasAsync();
 
             var actualTableMetadatasException =
@@ -71,7 +72,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidOperationException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
                 this.dataInformationService.RetrieveTableMetadatasAsync();
 
             var actualTableMetadatasException =
@@ -107,7 +108,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(sqlException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
                 this.dataInformationService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
@@ -143,7 +144,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<IEnumerable<TableMetadata>> retrieveTableMetadatasTask = 
+            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask = 
                 this.dataInformationService.RetrieveTableMetadatasAsync();
 
             var actualTableInformationListException =
