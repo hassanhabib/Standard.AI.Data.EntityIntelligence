@@ -2,14 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.TableMetadatas.Exceptions
 {
-    internal class DataDependencyValidationException : Xeption
+    internal class FailedDataDependencyException : Xeption
     {
-        public DataDependencyValidationException(Xeption innerException)
-            : base(message: "Data validation error occurred, fix the errors and try again.",
+        public FailedDataDependencyException(Exception innerException)
+            : base(message: "Failed data dependency error ocurred, contact support.",
                   innerException)
         { }
     }

@@ -2,15 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions
 {
-    internal class DataServiceException : Xeption
+    internal class NullOrEmptyDataQueryException : Xeption
     {
-        public DataServiceException(Xeption innerException)
-           : base(message: "Data service error occurred, contact support.",
-                 innerException)
+        public NullOrEmptyDataQueryException()
+            : base(message: "Data query is null or empty")
         { }
     }
 }

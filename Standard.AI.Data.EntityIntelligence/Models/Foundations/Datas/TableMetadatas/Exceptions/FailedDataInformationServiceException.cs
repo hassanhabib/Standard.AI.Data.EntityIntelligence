@@ -2,15 +2,16 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class DataDependencyException : Xeption
+    internal class FailedDataInformationServiceException : Xeption
     {
-        public DataDependencyException(Xeption innerException)
-           : base(message: "Data dependency error occurred, contact support.",
-                 innerException)
+        public FailedDataInformationServiceException(Exception innerException)
+            : base(message: "Failed data information service error occurred, contact support.",
+                  innerException)
         { }
     }
 }

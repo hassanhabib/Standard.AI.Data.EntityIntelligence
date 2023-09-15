@@ -4,9 +4,9 @@
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
 {
-    internal class ColumnMetadata
+    internal class ColumnData
     {
         public string Name { get; init; }
-        public string DataType { get; init; }
+        public object Value { get; init; }
     }
 }

@@ -12,9 +12,9 @@ using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.TableMetadatas
 {
-    public partial class DataServiceTests
+    public partial class DataInformationServiceTests
     {
         [Fact]
         public async Task ShouldRetrieveTableMetadatasAsync()
@@ -77,7 +77,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
             // when
             var retrievedTableMetadatas =
-                await dataService.RetrieveTableMetadatasAsync();
+                await dataInformationService.RetrieveTableMetadatasAsync();
 
             // then
             retrievedTableMetadatas.Should().BeEquivalentTo(expectedTableMetadata);

@@ -10,13 +10,13 @@ using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMetadatas
 {
-    internal partial class DataService : IDataService
+    internal partial class DataInformationService : IDataInformationService
     {
         private readonly IDataBroker dataBroker;
 
-        public DataService(IDataBroker dataBroker) =>
+        public DataInformationService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
         public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
