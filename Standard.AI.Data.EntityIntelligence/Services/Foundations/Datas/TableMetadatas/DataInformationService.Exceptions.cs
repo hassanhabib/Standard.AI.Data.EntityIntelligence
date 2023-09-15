@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
+using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.TableMetadatas.Exceptions;
 
@@ -14,14 +14,14 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
 {
     internal partial class DataInformationService : IDataInformationService
     {
-        private delegate ValueTask<IEnumerable<TableMetadata>> ReturningTableMetadatasFunction();
+        private delegate ValueTask<IEnumerable<TableInformation>> ReturningTableInformationFunction();
 
-        private static async ValueTask<IEnumerable<TableMetadata>> TryCatch(
-            ReturningTableMetadatasFunction returningTableMetadatasFunction)
+        private static async ValueTask<IEnumerable<TableInformation>> TryCatch(
+            ReturningTableInformationFunction returningTableInformationFunction)
         {
             try
             {
-                return await returningTableMetadatasFunction();
+                return await returningTableInformationFunction();
             }
             catch (InvalidOperationException invalidOperationException)
             {

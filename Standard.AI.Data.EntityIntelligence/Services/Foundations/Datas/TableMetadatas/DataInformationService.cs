@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMetadatas
 {
@@ -19,16 +19,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
         public DataInformationService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<TableMetadata>> RetrieveTableMetadatasAsync() =>
+        public ValueTask<IEnumerable<TableInformation>> RetrieveTableMetadatasAsync() =>
         TryCatch(async () =>
         {
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
-              await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
+                await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableMetadatasQuery);
 
             return ToTablesMetadata(retrievedTablesColumnsMetadatas);
         });
 
-        private static IEnumerable<TableMetadata> ToTablesMetadata(
+        private static IEnumerable<TableInformation> ToTablesMetadata(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)
         {
             IEnumerable<IGrouping<(string TableSchema, string TableName), TableColumnMetadata>> groupedColumns =
@@ -39,20 +39,20 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMe
             return groupedColumns.Select(ToTableMetadata);
         }
 
-        static TableMetadata ToTableMetadata(
+        static TableInformation ToTableMetadata(
                 IGrouping<(string TableSchema, string Name),
                 TableColumnMetadata> tableColumnsMetadatas) =>
-                    new TableMetadata
+                    new TableInformation
                     {
                         Schema = tableColumnsMetadatas.Key.TableSchema,
                         Name = tableColumnsMetadatas.Key.Name,
 
-                        ColumnsMetadata =
+                        Columns =
                             tableColumnsMetadatas.Select(columnsMetadata =>
-                                new ColumnMetadata
+                                new TableColumn
                                 {
                                     Name = columnsMetadata.Name,
-                                    DataType = columnsMetadata.DataType,
+                                    Type = columnsMetadata.DataType,
                                 }),
                     };
 
