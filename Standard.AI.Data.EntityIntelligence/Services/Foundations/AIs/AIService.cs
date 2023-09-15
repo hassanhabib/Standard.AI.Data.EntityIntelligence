@@ -15,7 +15,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
         public AIService(IAIBroker aiBroker) =>
             this.aiBroker = aiBroker;
 
-        public ValueTask<string> RetrieveSqlQueryAsync(string naturalQuery) =>
+        public ValueTask<string> PromptQueryAsync(string naturalQuery) =>
         TryCatch(async () =>
         {
             ValidateNaturalQuery(naturalQuery);

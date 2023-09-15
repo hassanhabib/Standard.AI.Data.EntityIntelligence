@@ -2,12 +2,13 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
+using Microsoft.SqlServer.TransactSql.ScriptDom;
+using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
+namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas.Parsers
 {
-    internal interface IAIService
+    internal interface ISqlParserBroker
     {
-        ValueTask<string> PromptQueryAsync(string naturalQuery);
+        (TSqlFragment Fragment, IList<ParseError> Errors) Parse(string query);
     }
 }

@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
     public partial class AIServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfValidationExceptionOccursAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
@@ -29,10 +29,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var invalidAIException =
                 new InvalidAIQueryException(
-                    innerValidationException);
+                    message: "Invalid AI Query error occurred, fix the errors and try again.",
+                    innerException: innerValidationException);
 
             var expectedAIDependencyValidationException =
                 new AIDependencyValidationException(
+                    message: "AI validation error occurred, fix the errors and try again.",
                     invalidAIException);
 
             this.aiBrokerMock.Setup(broker =>
@@ -41,7 +43,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIDependencyValidationException actualAIDependencyValidationException =
                 await Assert.ThrowsAsync<AIDependencyValidationException>(
@@ -60,7 +62,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
         [Theory]
         [MemberData(nameof(AIClientDependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfClientDependencyExceptionOccursAsync(
             Xeption clientDependencyException)
         {
             // given
@@ -80,7 +82,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIDependencyException actualAIDependencyException =
                 await Assert.ThrowsAsync<AIDependencyException>(
@@ -98,7 +100,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
         {
             // given
             string someNaturalQuery = GetRandomString();
@@ -118,7 +120,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiService.RetrieveSqlQueryAsync(someNaturalQuery);
+                this.aiService.PromptQueryAsync(someNaturalQuery);
 
             AIServiceException actualAIServiceException =
                 await Assert.ThrowsAsync<AIServiceException>(

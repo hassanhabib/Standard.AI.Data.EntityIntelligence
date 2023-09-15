@@ -26,7 +26,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs
             }
             catch (CompletionClientValidationException completionClientValidationException)
             {
-                var invalidAIQueryException = 
+                var invalidAIQueryException =
                     new InvalidAIQueryException(
                         completionClientValidationException.InnerException as Xeption);
 

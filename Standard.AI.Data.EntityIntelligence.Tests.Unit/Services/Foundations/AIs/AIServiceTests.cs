@@ -42,7 +42,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
             };
         }
 
-        private static string GetRandomString() => 
+        private static string GetRandomString() =>
             new MnemonicString(wordCount: GetRandomNumber()).GetValue();
 
         private static int GetRandomNumber() =>
@@ -50,7 +50,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
         private Expression<Func<Completion, bool>> SameCompletionAs(Completion expectedCompletion)
         {
-            return actualCompletion => 
+            return actualCompletion =>
                 this.compareLogic.Compare(expectedCompletion, actualCompletion).AreEqual;
         }
     }

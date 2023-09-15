@@ -12,5 +12,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
             : base(message: "AI validation error occurred, fix the errors and try again.",
                   innerException)
         { }
+
+        public AIDependencyValidationException(string message, Xeption innerException)
+            : base(message: message, innerException)
+        { }
     }
 }
