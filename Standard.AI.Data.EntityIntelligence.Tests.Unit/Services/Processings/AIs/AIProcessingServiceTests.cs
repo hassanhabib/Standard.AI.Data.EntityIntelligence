@@ -6,15 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.AIs;
 using Tynamix.ObjectFiller;
 using Xeptions;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AIs
 {
     public partial class AIProcessingServiceTests
     {

@@ -8,11 +8,11 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Queries
 {
     public partial class DataQueryServiceTests
     {

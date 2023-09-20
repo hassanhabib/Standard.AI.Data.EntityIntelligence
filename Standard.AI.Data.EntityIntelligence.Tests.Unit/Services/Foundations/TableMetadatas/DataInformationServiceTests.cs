@@ -7,24 +7,35 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.TableMetadatas;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.TableMetadatas
 {
-    public partial class DataQueryServiceTests
+    public partial class DataInformationServiceTests
     {
         private readonly Mock<IDataBroker> dataBrokerMock;
-        private readonly IDataQueryService dataQueryService;
+        private readonly IDataInformationService dataInformationService;
 
-        public DataQueryServiceTests()
+        public DataInformationServiceTests()
         {
             this.dataBrokerMock = new Mock<IDataBroker>();
 
-            this.dataQueryService = new DataQueryService(
+            this.dataInformationService = new DataInformationService(
                 dataBroker: this.dataBrokerMock.Object);
         }
+
+        public static TheoryData InvalidMultiStatementQueries() =>
+            new TheoryData<string>
+                {
+                    "SELECT * FROM TableX;SELECT * FROM TableY;",
+                    "SelECT * FROM TableX;SELECT * from TableY",
+                    "select * FROM tableX;    selECT * FROM TableY;",
+                    "SELECT * FROM TableX;    SELECT * FROM TableY",
+                    "SELECT * FROM TableX SELECT * FROM TableY",
+                    "SELECT * FROM TableX GO SELECT * FROM TableY",
+                };
 
         public static TheoryData InvalidQueries() =>
             new TheoryData<string>
@@ -41,9 +52,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     "ATTACH DATABASE 'another_database.db' AS alias_name;",
                 };
 
-        private static string GetValidQuery() =>
-            $"SELECT * FROM [schema].[Table]";
-
         private static SqlException GetSqlException() =>
             (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
 
@@ -52,6 +60,22 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
 
         private static int GetRandomNumber() =>
             new IntRange(2, 10).GetValue();
+
+        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTableInformations()
+        {
+            int tablesCount = GetRandomNumber();
+            var tablesDictionary = new Dictionary<string, Dictionary<string, string>>();
+
+            for (int i = 0; i < tablesCount; i++)
+            {
+                ((string schema, string tableName), Dictionary<string, string> tableData) =
+                    GenerateRandomTable();
+
+                tablesDictionary.Add($"{schema}.{tableName}", tableData);
+            }
+
+            return tablesDictionary;
+        }
 
         private static Tuple<Tuple<string, string>, Dictionary<string, string>> GenerateRandomTable()
         {
@@ -70,24 +94,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             return Tuple.Create(
                     Tuple.Create(randomSchemaName, randomTableName),
                     columnsDictionary);
-        }
-
-        private static IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>>
-            GenerateColumnDatas()
-        {
-            int rowsCount = GetRandomNumber();
-            int columnsCount = GetRandomNumber();
-
-            for (int rowNumber = 0; rowNumber < rowsCount; rowNumber++)
-            {
-                for (int columnNumber = 0; columnNumber < columnsCount; columnNumber++)
-                {
-                    var columnName = GetRandomString();
-                    var columnValue = GetRandomString();
-
-                    yield return KeyValuePair.Create(rowNumber, (columnName, columnValue as object));
-                }
-            }
         }
     }
 }

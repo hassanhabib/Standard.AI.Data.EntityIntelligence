@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AIs
 {
     public partial class AIProcessingServiceTests
     {
@@ -35,7 +35,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiProcessingService.RetrieveSqlQueryAsync(
+                aiProcessingService.RetrieveSqlQueryAsync(
                     tableInformations: invalidTableInformation,
                     naturalQuery: someNaturalQuery);
 
@@ -47,11 +47,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             actualAIProcessingValidationException.Should().BeEquivalentTo(
                 expectedAIProcessingValidationException);
 
-            this.aiServiceMock.Verify(aiService =>
+            aiServiceMock.Verify(aiService =>
                 aiService.PromptQueryAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.aiServiceMock.VerifyNoOtherCalls();
+            aiServiceMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -76,7 +76,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiProcessingService.RetrieveSqlQueryAsync(
+                aiProcessingService.RetrieveSqlQueryAsync(
                     someTableInformations,
                     invalidNaturalQuery);
 
@@ -88,11 +88,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             actualAIProcessingValidationException.Should().BeEquivalentTo(
                 expectedAIProcessingValidationException);
 
-            this.aiServiceMock.Verify(aiService =>
+            aiServiceMock.Verify(aiService =>
                 aiService.PromptQueryAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.aiServiceMock.VerifyNoOtherCalls();
+            aiServiceMock.VerifyNoOtherCalls();
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiProcessingService.RetrieveSqlQueryAsync(
+                aiProcessingService.RetrieveSqlQueryAsync(
                     invalidTableInformations,
                     someNaturalQuery);
 
@@ -152,11 +152,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             actualAIProcessingValidationException.Should().BeEquivalentTo(
                 expectedAIProcessingValidationException);
 
-            this.aiServiceMock.Verify(aiService =>
+            aiServiceMock.Verify(aiService =>
                 aiService.PromptQueryAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.aiServiceMock.VerifyNoOtherCalls();
+            aiServiceMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -211,7 +211,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiProcessingService.RetrieveSqlQueryAsync(
+                aiProcessingService.RetrieveSqlQueryAsync(
                     invalidTableInformations,
                     someNaturalQuery);
 
@@ -223,11 +223,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             actualAIProcessingValidationException.Should().BeEquivalentTo(
                 expectedAIProcessingValidationException);
 
-            this.aiServiceMock.Verify(aiService =>
+            aiServiceMock.Verify(aiService =>
                 aiService.PromptQueryAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.aiServiceMock.VerifyNoOtherCalls();
+            aiServiceMock.VerifyNoOtherCalls();
         }
 
         [Theory]
@@ -290,7 +290,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
 
             // when
             ValueTask<string> retrieveSqlQueryTask =
-                this.aiProcessingService.RetrieveSqlQueryAsync(
+                aiProcessingService.RetrieveSqlQueryAsync(
                     tableInformationsWithInvalidColumns,
                     someNaturalQuery);
 
@@ -302,11 +302,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings
             actualAIProcessingValidationException.Should().BeEquivalentTo(
                 expectedAIProcessingValidationException);
 
-            this.aiServiceMock.Verify(aiService =>
+            aiServiceMock.Verify(aiService =>
                 aiService.PromptQueryAsync(It.IsAny<string>()),
                     Times.Never);
 
-            this.aiServiceMock.VerifyNoOtherCalls();
+            aiServiceMock.VerifyNoOtherCalls();
         }
     }
 }

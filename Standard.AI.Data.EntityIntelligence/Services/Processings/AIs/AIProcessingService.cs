@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.AIs;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs

@@ -5,7 +5,7 @@
 using System.Text.RegularExpressions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.TableMetadatas
 {
     internal partial class DataInformationService
     {

@@ -3,11 +3,13 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Services
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries
 {
-    internal class ResultRow
+    internal interface IDataQueryService
     {
-        public IEnumerable<ColumnData> Columns { get; init; }
+        ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query);
     }
 }

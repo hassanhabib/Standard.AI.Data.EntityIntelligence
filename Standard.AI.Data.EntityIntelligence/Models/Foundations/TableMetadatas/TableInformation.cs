@@ -3,13 +3,13 @@
 // ----------------------------------------------------------------------------------
 
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas
 {
-    internal interface IDataInformationService
+    internal class TableInformation
     {
-        ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync();
+        public string Name { get; set; }
+        public string Schema { get; set; }
+        public IEnumerable<TableColumn> Columns { get; set; }
     }
 }

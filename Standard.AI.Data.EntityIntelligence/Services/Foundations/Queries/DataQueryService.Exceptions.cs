@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 {

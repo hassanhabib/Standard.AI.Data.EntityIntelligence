@@ -8,11 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.TableMetadatas
 {
     public partial class DataInformationServiceTests
     {
@@ -32,9 +32,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var randomTableInformations = GenerateRandomTableInformations();
 
             var toRetrieveTableColumnsMetadata =
-                randomTableInformations.Keys.SelectMany(schema__tableName =>
+                randomTableInformations.Keys.SelectMany(schemaTableName =>
                 {
-                    var columnsMetadata = randomTableInformations[schema__tableName];
+                    var columnsMetadata = randomTableInformations[schemaTableName];
                     var tablesColumnsMetadata = new List<TableColumnMetadata>();
 
                     foreach (var columnKey in columnsMetadata.Keys)
@@ -44,8 +44,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                         tablesColumnsMetadata.Add(
                             new TableColumnMetadata
                             {
-                                TableSchema = schema__tableName.Split(".")[0],
-                                TableName = schema__tableName.Split(".")[1],
+                                TableSchema = schemaTableName.Split(".")[0],
+                                TableName = schemaTableName.Split(".")[1],
                                 Name = columnKey,
                                 DataType = columnsMetadata[columnKey],
                             });
@@ -54,14 +54,14 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                 });
 
             var expectedTableInformation =
-                randomTableInformations.Keys.Select(schema__tableName =>
+                randomTableInformations.Keys.Select(schemaTableName =>
                 {
-                    var columnsMetadata = randomTableInformations[schema__tableName];
+                    var columnsMetadata = randomTableInformations[schemaTableName];
 
                     return new TableInformation
                     {
-                        Schema = schema__tableName.Split(".")[0],
-                        Name = schema__tableName.Split(".")[1],
+                        Schema = schemaTableName.Split(".")[0],
+                        Name = schemaTableName.Split(".")[1],
 
                         Columns = columnsMetadata.Keys.Select(key => new TableColumn
                         {

@@ -8,12 +8,12 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.TableMetadatas
 {
     public partial class DataInformationServiceTests
     {
