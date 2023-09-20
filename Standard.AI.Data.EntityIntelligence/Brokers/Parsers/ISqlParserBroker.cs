@@ -5,7 +5,7 @@
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas.Parsers
+namespace Standard.AI.Data.EntityIntelligence.Brokers.Parsers
 {
     internal interface ISqlParserBroker
     {
