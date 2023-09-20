@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
 {
-    internal class InvalidDataException : Xeption
+    internal class InvalidOperationDataException : Xeption
     {
-        public InvalidDataException(Exception innerException)
-            : base(message: "Invalid data validation error occurred, fix the errors and try again.",
+        public InvalidOperationDataException(Exception innerException)
+            : base(message: "Invalid operation data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
     }

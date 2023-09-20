@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
 {
-    internal class FailedDataQueryServiceException : Xeption
+    internal class InvalidDataException : Xeption
     {
-        public FailedDataQueryServiceException(Exception innerException)
-            : base(message: "Failed data query service error occurred, contact support.",
+        public InvalidDataException(Exception innerException)
+            : base(message: "Invalid data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
     }

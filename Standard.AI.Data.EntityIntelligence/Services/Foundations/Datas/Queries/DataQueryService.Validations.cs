@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
 {

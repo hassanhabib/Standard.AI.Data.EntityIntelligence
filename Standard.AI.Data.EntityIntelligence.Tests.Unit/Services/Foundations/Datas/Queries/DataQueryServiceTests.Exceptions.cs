@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.Queries

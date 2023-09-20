@@ -2,14 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
 {
-    internal class DataQueryServiceDependencyValidationException : Xeption
+    internal class FailedDataQueryDependencyException : Xeption
     {
-        public DataQueryServiceDependencyValidationException(Xeption innerException)
-            : base(message: "Data validation error occurred, fix the errors and try again.",
+        public FailedDataQueryDependencyException(Exception innerException)
+            : base(message: "Failed data query dependency error ocurred, contact support.",
                   innerException)
         { }
     }

@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
 {
-    internal class FailedDataDependencyException : Xeption
+    internal class FailedDataInformationServiceException : Xeption
     {
-        public FailedDataDependencyException(Exception innerException)
-            : base(message: "Failed data dependency error ocurred, contact support.",
+        public FailedDataInformationServiceException(Exception innerException)
+            : base(message: "Failed data information service error occurred, contact support.",
                   innerException)
         { }
     }

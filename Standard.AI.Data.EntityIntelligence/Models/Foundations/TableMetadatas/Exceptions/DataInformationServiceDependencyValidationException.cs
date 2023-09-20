@@ -4,7 +4,7 @@
 
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
 {
     internal class DataInformationServiceDependencyValidationException : Xeption
     {
