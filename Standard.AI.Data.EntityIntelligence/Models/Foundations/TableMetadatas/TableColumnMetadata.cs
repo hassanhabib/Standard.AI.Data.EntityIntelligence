@@ -2,7 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas
 {
     public class TableColumnMetadata
     {

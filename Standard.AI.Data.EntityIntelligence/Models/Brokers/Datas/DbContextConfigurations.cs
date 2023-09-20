@@ -2,10 +2,10 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-namespace Standard.AI.Data.EntityIntelligence.Models.AIs
+namespace Standard.AI.Data.EntityIntelligence.Models.Brokers.Datas
 {
-    internal class AIConfigurations
+    internal class DbContextConfigurations
     {
-        public string AIApiKey { get; set; }
+        public string ConnectionString { get; init; }
     }
 }

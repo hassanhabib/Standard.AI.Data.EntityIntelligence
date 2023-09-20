@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.AIs;
+using Standard.AI.Data.EntityIntelligence.Models.Brokers.AIs;
 using Standard.AI.OpenAI.Clients.OpenAIs;
 using Standard.AI.OpenAI.Models.Configurations;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
