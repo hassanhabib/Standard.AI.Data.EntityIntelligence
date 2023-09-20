@@ -27,7 +27,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var expectedDataQueryServiceValidationException =
                 new DataQueryServiceValidationException(nullOrEmptyDataQueryException);
 
-            ValueTask<IEnumerable<ResultRow>> runQueryTask = 
+            ValueTask<IEnumerable<ResultRow>> runQueryTask =
                 this.dataQueryService.RunQueryAsync(invalidQuery);
 
             DataQueryServiceValidationException actualDataValidationException =

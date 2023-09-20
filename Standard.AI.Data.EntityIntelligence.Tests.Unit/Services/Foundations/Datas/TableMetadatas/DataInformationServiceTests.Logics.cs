@@ -10,7 +10,6 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Brokers;
-using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.TableMetadatas

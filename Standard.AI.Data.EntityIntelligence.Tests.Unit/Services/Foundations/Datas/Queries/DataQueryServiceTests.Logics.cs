@@ -20,13 +20,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             string query = GetValidQuery();
             var inputQuery = query;
 
-            IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
+            IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>>
                 randomColumnData = GenerateColumnDatas().ToList();
 
             IEnumerable<IDictionary<string, object>> toRetriveColumnDatas =
                 randomColumnData.GroupBy(rcd => rcd.Key)
-                    .Select(rcd => 
-                        rcd.Select(r => 
+                    .Select(rcd =>
+                        rcd.Select(r =>
                             KeyValuePair.Create(
                                 r.Value.ColumnName,
                                 r.Value.ColumnValue))
@@ -53,8 +53,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             retrievedResultRows.Should()
                 .BeEquivalentTo(expectedResultRows);
 
-            this.dataBrokerMock.Verify(broker => 
-                broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery), 
+            this.dataBrokerMock.Verify(broker =>
+                broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery),
                     Times.Once());
 
             this.dataBrokerMock.VerifyNoOtherCalls();

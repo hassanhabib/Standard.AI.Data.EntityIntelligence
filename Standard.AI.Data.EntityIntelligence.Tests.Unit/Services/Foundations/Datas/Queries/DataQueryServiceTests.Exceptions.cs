@@ -2,16 +2,15 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
+using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Datas.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using Xunit;
-using FluentAssertions;
-using System.Data.SqlClient;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Queries.Exceptions;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas.Queries
 {

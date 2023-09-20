@@ -41,7 +41,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     "ATTACH DATABASE 'another_database.db' AS alias_name;",
                 };
 
-        private static string GetValidQuery() => 
+        private static string GetValidQuery() =>
             $"SELECT * FROM [schema].[Table]";
 
         private static SqlException GetSqlException() =>
@@ -72,7 +72,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     columnsDictionary);
         }
 
-        private static IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>> 
+        private static IEnumerable<KeyValuePair<int, (string ColumnName, object ColumnValue)>>
             GenerateColumnDatas()
         {
             int rowsCount = GetRandomNumber();

@@ -2,8 +2,8 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using Microsoft.SqlServer.TransactSql.ScriptDom;
 using System.Collections.Generic;
+using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace Standard.AI.Data.EntityIntelligence.Brokers.Parsers
 {
