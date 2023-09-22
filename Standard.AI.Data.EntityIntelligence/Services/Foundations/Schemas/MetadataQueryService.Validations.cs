@@ -5,10 +5,13 @@
 using System.Text.RegularExpressions;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.MetadataQueries
 {
-    internal partial class DataQueryService
+    internal partial class MetadataQueryService
     {
+        private const string MultiStatementSelectQueryRegex =
+            @"^(?i)\s*SELECT(?!.*(?:SELECT)).*FROM.*$";
+
         private const string ValidSelectQueryRegex =
             @"^(?i)(?=(\s*SELECT.*FROM))(?!.*(?:CREATE|UPDATE|INSERT|ALTER|DELETE|EXEC|ATTACH|DETACH|TRUNCATE))[^;]*;{0,1}$";
 
@@ -17,6 +20,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
             ValidateIsNullOrEmpty(query);
 
             Validate(
+                (Rule: IsMultiStatementSelectQuery(query), Parameter: nameof(query)),
                 (Rule: IsInvalid(query), Parameter: nameof(query)));
         }
 
@@ -27,6 +31,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
                 throw new NullOrEmptyDataQueryException();
             }
         }
+
+        private static dynamic IsMultiStatementSelectQuery(string query) => new
+        {
+            Condition = !Regex.IsMatch(query, MultiStatementSelectQueryRegex),
+            Message = "Query with multiple statements not allowed."
+        };
 
         private static dynamic IsInvalid(string query) => new
         {

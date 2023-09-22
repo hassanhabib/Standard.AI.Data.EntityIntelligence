@@ -8,11 +8,10 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.TableMetadatas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.MetadataQueries
 {
-    internal partial class DataInformationService : IDataInformationService
+    internal partial class MetadataQueryService : ISchemaService
     {
         private delegate ValueTask<IEnumerable<TableInformation>> ReturningTableInformationFunction();
 
@@ -28,28 +27,28 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.TableMetadata
                 var invalidOperationDataException =
                     new InvalidOperationDataException(invalidOperationException);
 
-                throw new DataInformationServiceDependencyValidationException(invalidOperationDataException);
+                throw new MetadataQueryServiceDependencyValidationException(invalidOperationDataException);
             }
             catch (ArgumentException argumentException)
             {
                 var invalidDataException =
                     new InvalidDataException(argumentException);
 
-                throw new DataInformationServiceDependencyValidationException(invalidDataException);
+                throw new MetadataQueryServiceDependencyValidationException(invalidDataException);
             }
             catch (SqlException sqlException)
             {
                 var failedDataDependencyException =
                     new FailedDataDependencyException(sqlException);
 
-                throw new DataInformationServiceDependencyException(failedDataDependencyException);
+                throw new MetadataQueryServiceDependencyException(failedDataDependencyException);
             }
             catch (Exception exception)
             {
                 var failedDataInformationServiceException =
-                    new FailedDataInformationServiceException(exception);
+                    new FailedMetadataQueryServiceException(exception);
 
-                throw new DataInformationServiceException(failedDataInformationServiceException);
+                throw new MetadataQueryServiceException(failedDataInformationServiceException);
             }
         }
     }

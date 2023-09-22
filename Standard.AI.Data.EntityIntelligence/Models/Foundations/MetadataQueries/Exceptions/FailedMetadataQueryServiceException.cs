@@ -2,15 +2,16 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
 {
-    internal class DataInformationServiceDependencyException : Xeption
+    internal class FailedMetadataQueryServiceException : Xeption
     {
-        public DataInformationServiceDependencyException(Xeption innerException)
-           : base(message: "Data information service dependency error occurred, contact support.",
-                 innerException)
+        public FailedMetadataQueryServiceException(Exception innerException)
+            : base(message: "Failed metadata query service error occurred, contact support.",
+                  innerException)
         { }
     }
 }

@@ -6,11 +6,11 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
 {
-    internal class DataInformationServiceDependencyValidationException : Xeption
+    internal class MetadataQueryServiceException : Xeption
     {
-        public DataInformationServiceDependencyValidationException(Xeption innerException)
-            : base(message: "Data validation error occurred, fix the errors and try again.",
-                  innerException)
+        public MetadataQueryServiceException(Xeption innerException)
+           : base(message: "Metadata query service error occurred, contact support.",
+                 innerException)
         { }
     }
 }

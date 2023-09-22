@@ -7,8 +7,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries;
 using Tynamix.ObjectFiller;
 using Xunit;
 

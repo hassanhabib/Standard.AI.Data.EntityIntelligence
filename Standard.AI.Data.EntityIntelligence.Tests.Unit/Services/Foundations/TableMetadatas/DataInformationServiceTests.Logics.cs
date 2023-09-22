@@ -76,7 +76,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Ta
 
             // when
             var retrievedTableInformations =
-                await dataInformationService.RetrieveTableInformationsAsync();
+                await metadataQueryService.RetrieveTableInformationsAsync();
 
             // then
             retrievedTableInformations.Should().BeEquivalentTo(expectedTableInformation);

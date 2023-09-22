@@ -7,9 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.Queries;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas.Queries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
 {
     internal partial class DataQueryService : IDataQueryService
     {
