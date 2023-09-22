@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
         public SchemaService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync() =>
+        public ValueTask<IEnumerable<SchemaTable>> RetrieveSchemaAsync() =>
         TryCatch(async () =>
         {
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
@@ -27,7 +27,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
             return ToTableInformation(retrievedTablesColumnsMetadatas);
         });
 
-        private static IEnumerable<TableInformation> ToTableInformation(
+        private static IEnumerable<SchemaTable> ToTableInformation(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)
         {
             IEnumerable<IGrouping<(string TableSchema, string TableName), TableColumnMetadata>> groupedColumns =
@@ -38,17 +38,17 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
             return groupedColumns.Select(ToTableInformation);
         }
 
-        static TableInformation ToTableInformation(
+        static SchemaTable ToTableInformation(
                 IGrouping<(string TableSchema, string Name),
                 TableColumnMetadata> tableColumnsMetadatas) =>
-                    new TableInformation
+                    new SchemaTable
                     {
                         Schema = tableColumnsMetadatas.Key.TableSchema,
                         Name = tableColumnsMetadatas.Key.Name,
 
                         Columns =
                             tableColumnsMetadatas.Select(columnsMetadata =>
-                                new TableColumn
+                                new SchemaTableColumn
                                 {
                                     Name = columnsMetadata.Name,
                                     Type = columnsMetadata.DataType,

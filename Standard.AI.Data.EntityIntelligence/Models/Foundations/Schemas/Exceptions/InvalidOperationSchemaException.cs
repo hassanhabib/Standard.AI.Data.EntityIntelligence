@@ -2,15 +2,16 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions
 {
-    internal class SchemaServiceDependencyException : Xeption
+    internal class InvalidOperationSchemaException : Xeption
     {
-        public SchemaServiceDependencyException(Xeption innerException)
-           : base(message: "Metadata query service dependency error occurred, contact support.",
-                 innerException)
+        public InvalidOperationSchemaException(Exception innerException)
+            : base(message: "Invalid operation data validation error occurred, fix the errors and try again.",
+                  innerException)
         { }
     }
 }

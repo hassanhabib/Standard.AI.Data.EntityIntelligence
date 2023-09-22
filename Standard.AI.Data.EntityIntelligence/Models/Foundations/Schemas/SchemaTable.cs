@@ -6,10 +6,10 @@ using System.Collections.Generic;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas
 {
-    internal class TableInformation
+    internal class SchemaTable
     {
         public string Name { get; set; }
         public string Schema { get; set; }
-        public IEnumerable<TableColumn> Columns { get; set; }
+        public IEnumerable<SchemaTableColumn> Columns { get; set; }
     }
 }

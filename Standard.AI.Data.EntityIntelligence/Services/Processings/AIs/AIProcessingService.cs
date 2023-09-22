@@ -18,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             this.aiService = aiService;
 
         public ValueTask<string> RetrieveSqlQueryAsync(
-            List<TableInformation> tableInformations,
+            List<SchemaTable> tableInformations,
             string naturalQuery) => TryCatch(async () =>
         {
             ValidateTableInformationList(tableInformations);
@@ -34,7 +34,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         });
 
         private static IEnumerable<string> ConvertToTablesDetailsEnumerable(
-            List<TableInformation> tableInformations)
+            List<SchemaTable> tableInformations)
         {
             return tableInformations.Select(tableInformation =>
             {
@@ -49,7 +49,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
         }
 
         private static IEnumerable<string> ConvertToTableColumnDetailsEnumerable(
-            TableInformation table)
+            SchemaTable table)
         {
             return table.Columns.Select(column =>
                 $"{column.Name} with type {column.Type}");

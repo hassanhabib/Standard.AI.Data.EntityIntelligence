@@ -31,50 +31,50 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
 
         public static TheoryData InvalidTableInformationLists()
         {
-            return new TheoryData<List<TableInformation>>
+            return new TheoryData<List<SchemaTable>>
             {
                 null,
-                new List<TableInformation> ()
+                new List<SchemaTable> ()
             };
         }
 
         public static TheoryData InvalidTableInformationColumns()
         {
-            return new TheoryData<TableColumn>
+            return new TheoryData<SchemaTableColumn>
             {
                 null,
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = null,
                     Type = null
                 },
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = String.Empty,
                     Type = null
                 },
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = " ",
                     Type = null
                 },
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = null,
                     Type = String.Empty
                 },
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = null,
                     Type = " "
                 },
 
-                new TableColumn
+                new SchemaTableColumn
                 {
                     Name = String.Empty,
                     Type = String.Empty
@@ -85,41 +85,41 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
 
         public static TheoryData InvalidTableInformations()
         {
-            return new TheoryData<TableInformation>
+            return new TheoryData<SchemaTable>
             {
-                new TableInformation {
+                new SchemaTable {
                     Name= null,
                     Columns = null,
                 },
 
-                new TableInformation
+                new SchemaTable
                 {
                     Name= String.Empty,
                     Columns = null,
                 },
 
-                new TableInformation
+                new SchemaTable
                 {
                     Name= " ",
                     Columns = null,
                 },
 
-                new TableInformation
+                new SchemaTable
                 {
                     Name= null,
-                    Columns = new List<TableColumn>()
+                    Columns = new List<SchemaTableColumn>()
                 },
 
-                new TableInformation
+                new SchemaTable
                 {
                     Name= String.Empty,
-                    Columns = new List<TableColumn>()
+                    Columns = new List<SchemaTableColumn>()
                 },
 
-                new TableInformation
+                new SchemaTable
                 {
                     Name= " ",
-                    Columns = new List<TableColumn>()
+                    Columns = new List<SchemaTableColumn>()
                 }
             };
         }
@@ -146,7 +146,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             };
         }
 
-        private static List<TableInformation> CreateRandomTableInformations() =>
+        private static List<SchemaTable> CreateRandomTableInformations() =>
             CreateTableInformationFiller().Create(count: GetRandomNumber()).ToList();
 
         private static Dictionary<string, Dictionary<string, string>> GenerateRandomTables()
@@ -201,7 +201,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
         private static int GetRandomNumber(int minimum, int maximum) =>
           new IntRange(min: minimum, max: maximum).GetValue();
 
-        private static Filler<TableInformation> CreateTableInformationFiller() =>
-            new Filler<TableInformation>();
+        private static Filler<SchemaTable> CreateTableInformationFiller() =>
+            new Filler<SchemaTable>();
     }
 }

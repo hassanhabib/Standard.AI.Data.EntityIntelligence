@@ -16,7 +16,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
     public partial class SchemaServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveTableMetadatasAsync()
+        public async Task ShouldRetrieveSchemaAsync()
         {
             // given
             string query = String.Join(
@@ -28,17 +28,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                 $"columnMetadata.DATA_TYPE AS [DataType]",
                 "FROM INFORMATION_SCHEMA.COLUMNS columnMetadata");
 
-            var randomTableInformations = GenerateRandomTableInformations();
+            Dictionary<string, Dictionary<string, string>> randomSchema = GenerateRandomSchema();
 
-            var toRetrieveTableColumnsMetadata =
-                randomTableInformations.Keys.SelectMany(schemaTableName =>
+            IEnumerable<TableColumnMetadata> toRetrieveTableColumnsMetadata =
+                randomSchema.Keys.SelectMany(schemaTableName =>
                 {
-                    var columnsMetadata = randomTableInformations[schemaTableName];
+                    var columnsMetadata = randomSchema[schemaTableName];
                     var tablesColumnsMetadata = new List<TableColumnMetadata>();
 
-                    foreach (var columnKey in columnsMetadata.Keys)
+                    foreach (string columnKey in columnsMetadata.Keys)
                     {
-                        var columnMetadata = columnsMetadata[columnKey];
+                        string columnMetadata = columnsMetadata[columnKey];
 
                         tablesColumnsMetadata.Add(
                             new TableColumnMetadata
@@ -52,17 +52,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     return tablesColumnsMetadata;
                 });
 
-            var expectedTableInformation =
-                randomTableInformations.Keys.Select(schemaTableName =>
+            List<SchemaTable> expectedSchema =
+                randomSchema.Keys.Select(schemaTableName =>
                 {
-                    var columnsMetadata = randomTableInformations[schemaTableName];
+                    var columnsMetadata = randomSchema[schemaTableName];
 
-                    return new TableInformation
+                    return new SchemaTable
                     {
                         Schema = schemaTableName.Split(".")[0],
                         Name = schemaTableName.Split(".")[1],
 
-                        Columns = columnsMetadata.Keys.Select(key => new TableColumn
+                        Columns = columnsMetadata.Keys.Select(key => new SchemaTableColumn
                         {
                             Name = key,
                             Type = columnsMetadata[key],
@@ -75,11 +75,11 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ReturnsAsync(toRetrieveTableColumnsMetadata);
 
             // when
-            var retrievedTableInformations =
-                await metadataQueryService.RetrieveTableInformationsAsync();
+            IEnumerable<SchemaTable> actualSchema =
+                await schemaService.RetrieveSchemaAsync();
 
             // then
-            retrievedTableInformations.Should().BeEquivalentTo(expectedTableInformation);
+            actualSchema.Should().BeEquivalentTo(expectedSchema);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(query),

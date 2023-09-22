@@ -19,7 +19,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
         [Theory]
         [MemberData(nameof(InvalidTableInformationLists))]
         private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationsIsInvalidAsync(
-            List<TableInformation> invalidTableInformation)
+            List<SchemaTable> invalidTableInformation)
         {
             // given
             string someNaturalQuery = CreateRandomString();
@@ -62,7 +62,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             string invalidNaturalQuery)
         {
             // given
-            List<TableInformation> someTableInformations =
+            List<SchemaTable> someTableInformations =
                 CreateRandomTableInformations();
 
             var invalidNaturalQueryAIProcessingException =
@@ -101,10 +101,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             // given
             string someNaturalQuery = CreateRandomString();
 
-            List<TableInformation> randomTableInformations =
+            List<SchemaTable> randomTableInformations =
                 CreateRandomTableInformations();
 
-            List<TableInformation> invalidTableInformations =
+            List<SchemaTable> invalidTableInformations =
                 randomTableInformations;
 
             int randomInvalidItemsCount =
@@ -162,15 +162,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
         [Theory]
         [MemberData(nameof(InvalidTableInformations))]
         private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidTableNamesOrColumnsAsync(
-            TableInformation invalidTableInformation)
+            SchemaTable invalidTableInformation)
         {
             // given
             string someNaturalQuery = CreateRandomString();
 
-            List<TableInformation> randomTableInformation =
+            List<SchemaTable> randomTableInformation =
                 CreateRandomTableInformations();
 
-            List<TableInformation> invalidTableInformations =
+            List<SchemaTable> invalidTableInformations =
                 randomTableInformation;
 
             int randomInvalidItemsCount =
@@ -232,15 +232,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
 
         [Theory]
         [MemberData(nameof(InvalidTableInformationColumns))]
-        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(TableColumn invalidColumn)
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(SchemaTableColumn invalidColumn)
         {
             // given
             string someNaturalQuery = CreateRandomString();
 
-            List<TableInformation> randomTableInformation =
+            List<SchemaTable> randomTableInformation =
                 CreateRandomTableInformations();
 
-            List<TableInformation> tableInformationsWithInvalidColumns =
+            List<SchemaTable> tableInformationsWithInvalidColumns =
                 randomTableInformation;
 
             int randomCountOfTableInformationsWithInvalidColumns =

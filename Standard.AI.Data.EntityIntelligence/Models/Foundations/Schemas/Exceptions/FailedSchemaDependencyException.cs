@@ -7,9 +7,9 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions
 {
-    internal class FailedDataDependencyException : Xeption
+    internal class FailedSchemaDependencyException : Xeption
     {
-        public FailedDataDependencyException(Exception innerException)
+        public FailedSchemaDependencyException(Exception innerException)
             : base(message: "Failed data dependency error ocurred, contact support.",
                   innerException)
         { }

@@ -22,27 +22,27 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
             // given
             var invalidArgumentException = new ArgumentException();
 
-            var invalidDataException =
-                new InvalidDataException(invalidArgumentException);
+            var invalidSchemaException =
+                new InvalidSchemaException(invalidArgumentException);
 
-            var expectedDataDependencyValidationException =
-                new SchemaServiceDependencyValidationException(invalidDataException);
+            var expectedSchemaDependencyValidationException =
+                new SchemaDependencyValidationException(invalidSchemaException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(invalidArgumentException);
 
             // when
-            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask =
-                this.metadataQueryService.RetrieveTableInformationsAsync();
+            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+                this.schemaService.RetrieveSchemaAsync();
 
-            var actualTableMetadatasException =
-                await Assert.ThrowsAsync<SchemaServiceDependencyValidationException>(
-                    retrieveTableMetadatasTask.AsTask);
+            SchemaDependencyValidationException actualSchemaDependencyValidationException =
+                await Assert.ThrowsAsync<SchemaDependencyValidationException>(
+                    retrieveSchemaTask.AsTask);
 
             // then
-            actualTableMetadatasException.Should().BeEquivalentTo(
-                expectedDataDependencyValidationException);
+            actualSchemaDependencyValidationException.Should().BeEquivalentTo(
+                expectedSchemaDependencyValidationException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
@@ -57,28 +57,28 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
             // given
             var invalidOperationException = new InvalidOperationException();
 
-            var invalidOperationDataException =
-                new InvalidOperationDataException(invalidOperationException);
+            var invalidOperationSchemaException =
+                new InvalidOperationSchemaException(invalidOperationException);
 
-            var expectedDataDependencyValidationException =
-                new SchemaServiceDependencyValidationException(
-                    invalidOperationDataException);
+            var expectedSchemaDependencyValidationException =
+                new SchemaDependencyValidationException(
+                    invalidOperationSchemaException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(invalidOperationException);
 
             // when
-            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask =
-                this.metadataQueryService.RetrieveTableInformationsAsync();
+            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+                this.schemaService.RetrieveSchemaAsync();
 
-            var actualTableMetadatasException =
-                await Assert.ThrowsAsync<SchemaServiceDependencyValidationException>(
-                    retrieveTableMetadatasTask.AsTask);
+            SchemaDependencyValidationException actualSchemaDependencyValidationException =
+                await Assert.ThrowsAsync<SchemaDependencyValidationException>(
+                    retrieveSchemaTask.AsTask);
 
             // then
-            actualTableMetadatasException.Should().BeEquivalentTo(
-                expectedDataDependencyValidationException);
+            actualSchemaDependencyValidationException.Should().BeEquivalentTo(
+                expectedSchemaDependencyValidationException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
@@ -93,28 +93,28 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
             // given
             SqlException sqlException = GetSqlException();
 
-            var failedDataDependencyException =
-                new FailedDataDependencyException(sqlException);
+            var failedSchemaDependencyException =
+                new FailedSchemaDependencyException(sqlException);
 
-            var expectedDataDependencyException =
-                new SchemaServiceDependencyException(
-                    failedDataDependencyException);
+            var expectedSchemaDependencyException =
+                new SchemaDependencyException(
+                    failedSchemaDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(sqlException);
 
             // when
-            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask =
-                this.metadataQueryService.RetrieveTableInformationsAsync();
+            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+                this.schemaService.RetrieveSchemaAsync();
 
-            var actualTableInformationListException =
-                await Assert.ThrowsAsync<SchemaServiceDependencyException>(
-                    retrieveTableMetadatasTask.AsTask);
+            SchemaDependencyException actualSchemaDependencyException =
+                await Assert.ThrowsAsync<SchemaDependencyException>(
+                    retrieveSchemaTask.AsTask);
 
             // then
-            actualTableInformationListException.Should().BeEquivalentTo(
-                expectedDataDependencyException);
+            actualSchemaDependencyException.Should().BeEquivalentTo(
+                expectedSchemaDependencyException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),
@@ -129,27 +129,27 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
             // given
             var serviceException = new Exception();
 
-            var failedDataInformationServiceException =
+            var failedSchemaInformationServiceException =
                 new FailedSchemaServiceException(serviceException);
 
-            var expectedDataInformationServiceException =
+            var expectedSchemaInformationServiceException =
                 new SchemaServiceException(
-                    failedDataInformationServiceException);
+                    failedSchemaInformationServiceException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<IEnumerable<TableInformation>> retrieveTableMetadatasTask =
-                this.metadataQueryService.RetrieveTableInformationsAsync();
+            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+                this.schemaService.RetrieveSchemaAsync();
 
-            var actualTableInformationListException =
+            SchemaServiceException actualSchemaServiceException =
                 await Assert.ThrowsAsync<SchemaServiceException>(
-                    retrieveTableMetadatasTask.AsTask);
+                    retrieveSchemaTask.AsTask);
 
             // then
-            actualTableInformationListException.Should().BeEquivalentTo(expectedDataInformationServiceException);
+            actualSchemaServiceException.Should().BeEquivalentTo(expectedSchemaInformationServiceException);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()),

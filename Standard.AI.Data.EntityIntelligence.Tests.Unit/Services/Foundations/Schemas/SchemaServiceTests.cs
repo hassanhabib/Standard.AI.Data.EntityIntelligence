@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.Serialization;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas;
@@ -16,13 +17,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
     public partial class SchemaServiceTests
     {
         private readonly Mock<IDataBroker> dataBrokerMock;
-        private readonly ISchemaService metadataQueryService;
+        private readonly ISchemaService schemaService;
 
         public SchemaServiceTests()
         {
             this.dataBrokerMock = new Mock<IDataBroker>();
 
-            this.metadataQueryService = new SchemaService(
+            this.schemaService = new SchemaService(
                 dataBroker: this.dataBrokerMock.Object);
         }
 
@@ -53,7 +54,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                 };
 
         private static SqlException GetSqlException() =>
-            (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
+            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();
@@ -61,7 +62,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
         private static int GetRandomNumber() =>
             new IntRange(2, 10).GetValue();
 
-        private static Dictionary<string, Dictionary<string, string>> GenerateRandomTableInformations()
+        private static Dictionary<string, Dictionary<string, string>> GenerateRandomSchema()
         {
             int tablesCount = GetRandomNumber();
             var tablesDictionary = new Dictionary<string, Dictionary<string, string>>();
@@ -92,7 +93,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
             }
 
             return Tuple.Create(
-                    Tuple.Create(randomSchemaName, randomTableName),
+                Tuple.Create(randomSchemaName, randomTableName),
                     columnsDictionary);
         }
     }

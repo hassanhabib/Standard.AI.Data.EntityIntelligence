@@ -11,7 +11,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
     internal interface IAIProcessingService
     {
         ValueTask<string> RetrieveSqlQueryAsync(
-            List<TableInformation> tableInformations,
+            List<SchemaTable> tableInformations,
             string naturalQuery);
     }
 }

@@ -28,15 +28,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             Dictionary<string, Dictionary<string, string>> randomTablesData =
                 GenerateRandomTables();
 
-            List<TableInformation> randomTableInformations =
+            List<SchemaTable> randomTableInformations =
                 randomTablesData.Keys.Select(key =>
                 {
-                    return new TableInformation
+                    return new SchemaTable
                     {
                         Name = key,
                         Columns = randomTablesData[key].Keys.Select(tableColumnKey =>
                         {
-                            return new TableColumn
+                            return new SchemaTableColumn
                             {
                                 Name = tableColumnKey,
                                 Type = randomTablesData[key][tableColumnKey]
@@ -45,7 +45,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
                     };
                 }).ToList();
 
-            List<TableInformation> inputTableInformaiton = randomTableInformations;
+            List<SchemaTable> inputTableInformaiton = randomTableInformations;
 
             string randomTablesColumns = String.Join(" ", randomTablesData.Keys.Select(key =>
             {

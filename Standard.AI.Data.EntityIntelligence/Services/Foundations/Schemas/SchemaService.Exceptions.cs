@@ -13,9 +13,9 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
 {
     internal partial class SchemaService : ISchemaService
     {
-        private delegate ValueTask<IEnumerable<TableInformation>> ReturningTableInformationFunction();
+        private delegate ValueTask<IEnumerable<SchemaTable>> ReturningTableInformationFunction();
 
-        private static async ValueTask<IEnumerable<TableInformation>> TryCatch(
+        private static async ValueTask<IEnumerable<SchemaTable>> TryCatch(
             ReturningTableInformationFunction returningTableInformationFunction)
         {
             try
@@ -25,23 +25,23 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
             catch (InvalidOperationException invalidOperationException)
             {
                 var invalidOperationDataException =
-                    new InvalidOperationDataException(invalidOperationException);
+                    new InvalidOperationSchemaException(invalidOperationException);
 
-                throw new SchemaServiceDependencyValidationException(invalidOperationDataException);
+                throw new SchemaDependencyValidationException(invalidOperationDataException);
             }
             catch (ArgumentException argumentException)
             {
                 var invalidDataException =
-                    new InvalidDataException(argumentException);
+                    new InvalidSchemaException(argumentException);
 
-                throw new SchemaServiceDependencyValidationException(invalidDataException);
+                throw new SchemaDependencyValidationException(invalidDataException);
             }
             catch (SqlException sqlException)
             {
                 var failedDataDependencyException =
-                    new FailedDataDependencyException(sqlException);
+                    new FailedSchemaDependencyException(sqlException);
 
-                throw new SchemaServiceDependencyException(failedDataDependencyException);
+                throw new SchemaDependencyException(failedDataDependencyException);
             }
             catch (Exception exception)
             {

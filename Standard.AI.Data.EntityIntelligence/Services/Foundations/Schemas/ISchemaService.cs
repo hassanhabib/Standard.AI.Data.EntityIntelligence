@@ -10,6 +10,6 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
 {
     internal interface ISchemaService
     {
-        ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync();
+        ValueTask<IEnumerable<SchemaTable>> RetrieveSchemaAsync();
     }
 }

@@ -22,7 +22,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             Xeption dependencyValidationException)
         {
             // given
-            List<TableInformation> someTableInformation = CreateRandomTableInformations();
+            List<SchemaTable> someTableInformation = CreateRandomTableInformations();
             string someNaturalQuery = CreateRandomString();
 
             var expectedAIProcessingDependencyValidationException =
@@ -61,7 +61,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
             Xeption dependencyException)
         {
             // given
-            List<TableInformation> someTableInformation = CreateRandomTableInformations();
+            List<SchemaTable> someTableInformation = CreateRandomTableInformations();
             string someNaturalQuery = CreateRandomString();
 
             var expectedAIProcessingDependencyException =
@@ -98,7 +98,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
         private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccursAsync()
         {
             // given
-            List<TableInformation> someTableInformation = CreateRandomTableInformations();
+            List<SchemaTable> someTableInformation = CreateRandomTableInformations();
             string someNaturalQuery = CreateRandomString();
             var serviceException = new Exception();
 
