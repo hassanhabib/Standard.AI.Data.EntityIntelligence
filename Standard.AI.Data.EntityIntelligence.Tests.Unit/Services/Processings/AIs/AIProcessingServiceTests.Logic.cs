@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AIs

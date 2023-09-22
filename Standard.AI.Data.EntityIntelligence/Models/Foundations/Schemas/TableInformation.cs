@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas
 {
     internal class TableInformation
     {

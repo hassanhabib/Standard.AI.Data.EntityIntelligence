@@ -7,15 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.MetadataQueries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
 {
-    internal partial class MetadataQueryService : ISchemaService
+    internal partial class SchemaService : ISchemaService
     {
         private readonly IDataBroker dataBroker;
 
-        public MetadataQueryService(IDataBroker dataBroker) =>
+        public SchemaService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
         public ValueTask<IEnumerable<TableInformation>> RetrieveTableInformationsAsync() =>

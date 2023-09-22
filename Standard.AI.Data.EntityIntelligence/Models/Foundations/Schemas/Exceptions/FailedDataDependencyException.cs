@@ -5,7 +5,7 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions
 {
     internal class FailedDataDependencyException : Xeption
     {

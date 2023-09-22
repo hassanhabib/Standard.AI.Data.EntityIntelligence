@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions
 {
-    internal class FailedMetadataQueryServiceException : Xeption
+    internal class InvalidOperationDataException : Xeption
     {
-        public FailedMetadataQueryServiceException(Exception innerException)
-            : base(message: "Failed metadata query service error occurred, contact support.",
+        public InvalidOperationDataException(Exception innerException)
+            : base(message: "Invalid operation data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
     }

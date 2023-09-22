@@ -4,12 +4,12 @@
 
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions
 {
-    internal class MetadataQueryServiceDependencyException : Xeption
+    internal class SchemaServiceException : Xeption
     {
-        public MetadataQueryServiceDependencyException(Xeption innerException)
-           : base(message: "Metadata query service dependency error occurred, contact support.",
+        public SchemaServiceException(Xeption innerException)
+           : base(message: "Metadata query service error occurred, contact support.",
                  innerException)
         { }
     }

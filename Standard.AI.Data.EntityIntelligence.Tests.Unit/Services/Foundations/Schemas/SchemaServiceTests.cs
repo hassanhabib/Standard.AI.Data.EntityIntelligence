@@ -7,22 +7,22 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.MetadataQueries;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Schemas
 {
-    public partial class DataInformationServiceTests
+    public partial class SchemaServiceTests
     {
         private readonly Mock<IDataBroker> dataBrokerMock;
         private readonly ISchemaService metadataQueryService;
 
-        public DataInformationServiceTests()
+        public SchemaServiceTests()
         {
             this.dataBrokerMock = new Mock<IDataBroker>();
 
-            this.metadataQueryService = new MetadataQueryService(
+            this.metadataQueryService = new SchemaService(
                 dataBroker: this.dataBrokerMock.Object);
         }
 

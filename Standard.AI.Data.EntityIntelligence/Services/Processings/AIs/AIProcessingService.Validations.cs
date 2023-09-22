@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs

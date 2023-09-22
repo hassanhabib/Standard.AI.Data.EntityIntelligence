@@ -8,12 +8,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.TableMetadatas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.TableMetadatas
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Schemas
 {
-    public partial class DataInformationServiceTests
+    public partial class SchemaServiceTests
     {
         [Fact]
         public async Task ShouldRetrieveTableMetadatasAsync()
