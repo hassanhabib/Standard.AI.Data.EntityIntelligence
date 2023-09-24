@@ -33,7 +33,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ThrowsAsync(invalidArgumentException);
 
             // when
-            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+            ValueTask<Schema> retrieveSchemaTask =
                 this.schemaService.RetrieveSchemaAsync();
 
             SchemaDependencyValidationException actualSchemaDependencyValidationException =
@@ -69,7 +69,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ThrowsAsync(invalidOperationException);
 
             // when
-            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+            ValueTask<Schema> retrieveSchemaTask =
                 this.schemaService.RetrieveSchemaAsync();
 
             SchemaDependencyValidationException actualSchemaDependencyValidationException =
@@ -105,7 +105,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ThrowsAsync(sqlException);
 
             // when
-            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+            ValueTask<Schema> retrieveSchemaTask =
                 this.schemaService.RetrieveSchemaAsync();
 
             SchemaDependencyException actualSchemaDependencyException =
@@ -141,7 +141,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ThrowsAsync(serviceException);
 
             // when
-            ValueTask<IEnumerable<SchemaTable>> retrieveSchemaTask =
+            ValueTask<Schema> retrieveSchemaTask =
                 this.schemaService.RetrieveSchemaAsync();
 
             SchemaServiceException actualSchemaServiceException =

@@ -13,9 +13,9 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
 {
     internal partial class SchemaService : ISchemaService
     {
-        private delegate ValueTask<IEnumerable<SchemaTable>> ReturningTableInformationFunction();
+        private delegate ValueTask<Schema> ReturningTableInformationFunction();
 
-        private static async ValueTask<IEnumerable<SchemaTable>> TryCatch(
+        private static async ValueTask<Schema> TryCatch(
             ReturningTableInformationFunction returningTableInformationFunction)
         {
             try

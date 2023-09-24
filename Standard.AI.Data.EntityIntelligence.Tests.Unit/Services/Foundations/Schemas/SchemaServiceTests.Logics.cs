@@ -52,7 +52,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     return tablesColumnsMetadata;
                 });
 
-            List<SchemaTable> expectedSchema =
+            Schema expectedSchema = new Schema();
+            expectedSchema.SchemaTables =
                 randomSchema.Keys.Select(schemaTableName =>
                 {
                     var columnsMetadata = randomSchema[schemaTableName];
@@ -75,7 +76,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
                     .ReturnsAsync(toRetrieveTableColumnsMetadata);
 
             // when
-            IEnumerable<SchemaTable> actualSchema =
+            Schema actualSchema =
                 await schemaService.RetrieveSchemaAsync();
 
             // then

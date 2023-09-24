@@ -16,18 +16,18 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
         private readonly IDataBroker dataBroker;
 
         public SchemaService(IDataBroker dataBroker) =>
-            this.dataBroker = dataBroker;
+               this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<SchemaTable>> RetrieveSchemaAsync() =>
+        public ValueTask<Schema> RetrieveSchemaAsync() =>
         TryCatch(async () =>
         {
             IEnumerable<TableColumnMetadata> retrievedTablesColumnsMetadatas =
                 await this.dataBroker.ExecuteQueryAsync<TableColumnMetadata>(SelectAllTableInformationsQuery);
 
-            return ToTableInformation(retrievedTablesColumnsMetadatas);
+            return ToSchema(retrievedTablesColumnsMetadatas);
         });
 
-        private static IEnumerable<SchemaTable> ToTableInformation(
+        private static Schema ToSchema(
             IEnumerable<TableColumnMetadata> tableColumnsMetadatas)
         {
             IEnumerable<IGrouping<(string TableSchema, string TableName), TableColumnMetadata>> groupedColumns =
@@ -35,10 +35,12 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
                     .GroupBy(tableColumnMetadata =>
                         (tableColumnMetadata.TableSchema, tableColumnMetadata.TableName));
 
-            return groupedColumns.Select(ToTableInformation);
+            Schema schema = new Schema();
+            schema.SchemaTables = groupedColumns.Select(ToSchemaTable);
+            return schema;
         }
 
-        static SchemaTable ToTableInformation(
+        static SchemaTable ToSchemaTable(
                 IGrouping<(string TableSchema, string Name),
                 TableColumnMetadata> tableColumnsMetadatas) =>
                     new SchemaTable
