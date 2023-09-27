@@ -3,11 +3,11 @@
 // ----------------------------------------------------------------------------------
 
 using System.Text.RegularExpressions;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal partial class DataQueryService
+    internal partial class DataService
     {
         private const string ValidSelectQueryRegex =
             @"^(?i)(?=(\s*SELECT.*FROM))(?!.*(?:CREATE|UPDATE|INSERT|ALTER|DELETE|EXEC|ATTACH|DETACH|TRUNCATE))[^;]*;{0,1}$";

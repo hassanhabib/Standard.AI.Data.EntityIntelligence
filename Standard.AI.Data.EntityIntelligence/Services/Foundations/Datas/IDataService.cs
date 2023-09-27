@@ -4,12 +4,12 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal interface IDataQueryService
+    internal interface IDataService
     {
-        ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query);
+        ValueTask<IEnumerable<ResultRow>> RetrieveDataAsync(string query);
     }
 }

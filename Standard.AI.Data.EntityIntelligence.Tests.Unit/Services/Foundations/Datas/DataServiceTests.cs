@@ -7,22 +7,22 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries;
+using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 using Tynamix.ObjectFiller;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
-    public partial class DataQueryServiceTests
+    public partial class DataServiceTests
     {
         private readonly Mock<IDataBroker> dataBrokerMock;
-        private readonly IDataQueryService dataQueryService;
+        private readonly IDataService dataQueryService;
 
-        public DataQueryServiceTests()
+        public DataServiceTests()
         {
             this.dataBrokerMock = new Mock<IDataBroker>();
 
-            this.dataQueryService = new DataQueryService(
+            this.dataQueryService = new DataService(
                 dataBroker: this.dataBrokerMock.Object);
         }
 

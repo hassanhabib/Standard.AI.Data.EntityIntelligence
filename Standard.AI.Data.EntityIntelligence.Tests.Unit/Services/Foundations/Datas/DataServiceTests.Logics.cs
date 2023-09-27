@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
-    public partial class DataQueryServiceTests
+    public partial class DataServiceTests
     {
         [Fact]
         public async Task ShouldRunSqlQueryAsync()
@@ -48,7 +48,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                     .ReturnsAsync(toRetriveColumnDatas);
 
             IEnumerable<ResultRow> retrievedResultRows =
-                await dataQueryService.RunQueryAsync(query);
+                await dataQueryService.RetrieveDataAsync(query);
 
             retrievedResultRows.Should()
                 .BeEquivalentTo(expectedResultRows);

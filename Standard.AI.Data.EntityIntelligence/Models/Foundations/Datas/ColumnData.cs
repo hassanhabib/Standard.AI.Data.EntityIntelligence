@@ -2,12 +2,11 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Collections.Generic;
-
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas
 {
-    internal class ResultRow
+    internal class ColumnData
     {
-        public IEnumerable<ColumnData> Columns { get; init; }
+        public string Name { get; init; }
+        public object Value { get; init; }
     }
 }

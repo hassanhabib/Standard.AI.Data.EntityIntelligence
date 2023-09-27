@@ -6,18 +6,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal partial class DataQueryService : IDataQueryService
+    internal partial class DataService : IDataService
     {
         private readonly IDataBroker dataBroker;
 
-        public DataQueryService(IDataBroker dataBroker) =>
+        public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<ResultRow>> RunQueryAsync(string query) =>
+        public ValueTask<IEnumerable<ResultRow>> RetrieveDataAsync(string query) =>
         TryCatch(async () =>
         {
             ValidateQuery(query);

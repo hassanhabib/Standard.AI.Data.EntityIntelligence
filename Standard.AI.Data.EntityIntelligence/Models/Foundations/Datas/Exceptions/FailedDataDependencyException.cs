@@ -5,12 +5,12 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class FailedDataQueryServiceException : Xeption
+    internal class FailedDataDependencyException : Xeption
     {
-        public FailedDataQueryServiceException(Exception innerException)
-            : base(message: "Failed data query service error occurred, contact support.",
+        public FailedDataDependencyException(Exception innerException)
+            : base(message: "Failed data query dependency error ocurred, contact support.",
                   innerException)
         { }
     }

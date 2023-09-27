@@ -8,13 +8,13 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
-    public partial class DataQueryServiceTests
+    public partial class DataServiceTests
     {
         [Fact]
         public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
@@ -28,7 +28,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 new InvalidDataException(invalidArgumentException);
 
             var expectedDataDependencyValidationException =
-                new DataQueryServiceDependencyValidationException(invalidDataException);
+                new DataServiceDependencyValidationException(invalidDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
@@ -36,10 +36,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(query);
+                this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<DataQueryServiceDependencyValidationException>(
+                await Assert.ThrowsAsync<DataServiceDependencyValidationException>(
                     runQueryTask.AsTask);
 
             // assert
@@ -65,7 +65,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 new InvalidOperationDataException(invalidOperationException);
 
             var expectedDataQueryServiceDependencyValidationException =
-                new DataQueryServiceDependencyValidationException(invalidOperationDataException);
+                new DataServiceDependencyValidationException(invalidOperationDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
@@ -73,10 +73,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(query);
+                this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<DataQueryServiceDependencyValidationException>(
+                await Assert.ThrowsAsync<DataServiceDependencyValidationException>(
                     runQueryTask.AsTask);
 
             // assert
@@ -98,10 +98,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
             SqlException sqlException = GetSqlException();
 
             var failedDataQueryDependencyException =
-                new FailedDataQueryDependencyException(sqlException);
+                new FailedDataDependencyException(sqlException);
 
             var expectedDataDependencyException =
-                new DataQueryServiceDependencyException(
+                new DataServiceDependencyException(
                     failedDataQueryDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -110,10 +110,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(query);
+                this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<DataQueryServiceDependencyException>(
+                await Assert.ThrowsAsync<DataServiceDependencyException>(
                     runQueryTask.AsTask);
 
             // assert
@@ -135,10 +135,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
             var serviceException = new Exception();
 
             var failedDataQueryServiceException =
-                new FailedDataQueryServiceException(serviceException);
+                new FailedDataServiceException(serviceException);
 
             var expectedDataQueryServiceException =
-                new DataQueryServiceException(
+                new DataServiceException(
                     failedDataQueryServiceException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -147,10 +147,10 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
 
             // act
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(query);
+                this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
-                await Assert.ThrowsAsync<DataQueryServiceException>(
+                await Assert.ThrowsAsync<DataServiceException>(
                     runQueryTask.AsTask);
 
             // assert

@@ -5,13 +5,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
 
-namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Queries
+namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
-    public partial class DataQueryServiceTests
+    public partial class DataServiceTests
     {
         [Theory]
         [InlineData(null)]
@@ -25,13 +25,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 new NullOrEmptyDataQueryException();
 
             var expectedDataQueryServiceValidationException =
-                new DataQueryServiceValidationException(nullOrEmptyDataQueryException);
+                new DataServiceValidationException(nullOrEmptyDataQueryException);
 
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(invalidQuery);
+                this.dataQueryService.RetrieveDataAsync(invalidQuery);
 
-            DataQueryServiceValidationException actualDataValidationException =
-                await Assert.ThrowsAsync<DataQueryServiceValidationException>(
+            DataServiceValidationException actualDataValidationException =
+                await Assert.ThrowsAsync<DataServiceValidationException>(
                     runQueryTask.AsTask);
 
             this.dataBrokerMock.Verify(broker =>
@@ -51,13 +51,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Qu
                 new InvalidDataQueryException();
 
             var expectedDataQueryServiceValidationException =
-                new DataQueryServiceValidationException(invalidDataQueryException);
+                new DataServiceValidationException(invalidDataQueryException);
 
             ValueTask<IEnumerable<ResultRow>> runQueryTask =
-                this.dataQueryService.RunQueryAsync(invalidQuery);
+                this.dataQueryService.RetrieveDataAsync(invalidQuery);
 
-            DataQueryServiceValidationException actualDataValidationException =
-                await Assert.ThrowsAsync<DataQueryServiceValidationException>(
+            DataServiceValidationException actualDataValidationException =
+                await Assert.ThrowsAsync<DataServiceValidationException>(
                     runQueryTask.AsTask);
 
             this.dataBrokerMock.Verify(broker =>

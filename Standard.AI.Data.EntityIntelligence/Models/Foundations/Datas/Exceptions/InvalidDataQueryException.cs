@@ -5,7 +5,7 @@
 using System;
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
     internal class InvalidDataQueryException : Xeption
     {

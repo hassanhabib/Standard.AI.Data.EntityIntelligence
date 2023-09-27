@@ -4,11 +4,11 @@
 
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class DataQueryServiceValidationException : Xeption
+    internal class DataServiceValidationException : Xeption
     {
-        public DataQueryServiceValidationException(Xeption innerException)
+        public DataServiceValidationException(Xeption innerException)
             : base(message: "Data query service validation error occurred, fix the errors and try again.")
         { }
     }

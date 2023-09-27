@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
-    internal partial class DataQueryService : IDataQueryService
+    internal partial class DataService
     {
         private delegate ValueTask<IEnumerable<ResultRow>> ReturningResultRawsFunction();
 
@@ -24,39 +24,39 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.DataQueries
             }
             catch (NullOrEmptyDataQueryException nullOrEmptyDataQueryException)
             {
-                throw new DataQueryServiceValidationException(nullOrEmptyDataQueryException);
+                throw new DataServiceValidationException(nullOrEmptyDataQueryException);
             }
             catch (InvalidDataQueryException invalidDataQueryException)
             {
-                throw new DataQueryServiceValidationException(invalidDataQueryException);
+                throw new DataServiceValidationException(invalidDataQueryException);
             }
             catch (ArgumentException argumentException)
             {
                 var invalidDataException =
                     new InvalidDataException(argumentException);
 
-                throw new DataQueryServiceDependencyValidationException(invalidDataException);
+                throw new DataServiceDependencyValidationException(invalidDataException);
             }
             catch (InvalidOperationException invalidOperationException)
             {
                 var invalidOperationDataException =
                     new InvalidOperationDataException(invalidOperationException);
 
-                throw new DataQueryServiceDependencyValidationException(invalidOperationDataException);
+                throw new DataServiceDependencyValidationException(invalidOperationDataException);
             }
             catch (SqlException sqlException)
             {
                 var failedDataDependencyException =
-                    new FailedDataQueryDependencyException(sqlException);
+                    new FailedDataDependencyException(sqlException);
 
-                throw new DataQueryServiceDependencyException(failedDataDependencyException);
+                throw new DataServiceDependencyException(failedDataDependencyException);
             }
             catch (Exception exception)
             {
                 var failedDataQueryServiceException =
-                    new FailedDataQueryServiceException(exception);
+                    new FailedDataServiceException(exception);
 
-                throw new DataQueryServiceException(failedDataQueryServiceException);
+                throw new DataServiceException(failedDataQueryServiceException);
             }
         }
     }

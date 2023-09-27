@@ -2,14 +2,12 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using Xeptions;
+using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Queries.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas
 {
-    internal class NullOrEmptyDataQueryException : Xeption
+    internal class ResultRow
     {
-        public NullOrEmptyDataQueryException()
-            : base(message: "Data query is null or empty")
-        { }
+        public IEnumerable<ColumnData> Columns { get; init; }
     }
 }
