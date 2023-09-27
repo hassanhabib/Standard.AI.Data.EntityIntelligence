@@ -2,16 +2,13 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
+namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Schemas
 {
-    internal interface IAIProcessingService
+    internal interface ISchemaService
     {
-        ValueTask<string> RetrieveSqlQueryAsync(
-            List<SchemaTable> tableInformations,
-            string naturalQuery);
+        ValueTask<Schema> RetrieveSchemaAsync();
     }
 }

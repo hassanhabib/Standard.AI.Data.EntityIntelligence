@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Dapper;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Brokers.Datas;
 
 namespace Standard.AI.Data.EntityIntelligence.Brokers.Datas
 {

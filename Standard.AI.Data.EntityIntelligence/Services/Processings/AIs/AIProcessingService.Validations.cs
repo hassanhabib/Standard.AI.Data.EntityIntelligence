@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Standard.AI.Data.EntityIntelligence.Models.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
@@ -21,7 +21,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             }
         }
 
-        private static void ValidateTableInformationList(List<TableInformation> tableInformations)
+        private static void ValidateTableInformationList(List<SchemaTable> tableInformations)
         {
             ValidateTableInformationListNotNullOrEmpty(tableInformations);
 
@@ -55,7 +55,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             ValidateForColumnItems(tableInformationIndividualColumnsValidations);
         }
 
-        private static void ValidateTableInformationListNotNullOrEmpty(List<TableInformation> tableInformations)
+        private static void ValidateTableInformationListNotNullOrEmpty(List<SchemaTable> tableInformations)
         {
             if (tableInformations is null || tableInformations.Any() is false)
             {
@@ -63,7 +63,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             }
         }
 
-        private static dynamic IsInvalid(TableInformation tableInformation) => new
+        private static dynamic IsInvalid(SchemaTable tableInformation) => new
         {
             Condition = tableInformation is null,
             Message = "Object is required"
@@ -75,19 +75,19 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.AIs
             Message = "Name is required"
         };
 
-        private static dynamic IsInvalidColumn(TableColumn column) => new
+        private static dynamic IsInvalidColumn(SchemaTableColumn column) => new
         {
             Condition = column == null || String.IsNullOrWhiteSpace(column.Name) || String.IsNullOrWhiteSpace(column.Type),
             Message = "Column is invalid"
         };
 
-        private static dynamic IsInvalid(IEnumerable<TableColumn> tableColumns) => new
+        private static dynamic IsInvalid(IEnumerable<SchemaTableColumn> tableColumns) => new
         {
             Condition = tableColumns is null || tableColumns.Any() is false,
             Message = "Columns are required"
         };
 
-        private static dynamic IsInvalid(TableColumn tableColumn) => new
+        private static dynamic IsInvalid(SchemaTableColumn tableColumn) => new
         {
             Condition = tableColumn is null,
             Message = "Column is invalid"
