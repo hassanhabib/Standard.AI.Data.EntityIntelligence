@@ -8,7 +8,6 @@ using System.Data.SqlClient;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
 using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
