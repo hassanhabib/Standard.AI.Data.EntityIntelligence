@@ -11,6 +11,7 @@ using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
+using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -35,7 +36,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidArgumentException);
 
             // act
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
@@ -72,7 +73,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(invalidOperationException);
 
             // act
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
@@ -109,7 +110,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(sqlException);
 
             // act
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =
@@ -146,7 +147,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     .ThrowsAsync(serviceException);
 
             // act
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(query);
 
             var actualRunQueryException =

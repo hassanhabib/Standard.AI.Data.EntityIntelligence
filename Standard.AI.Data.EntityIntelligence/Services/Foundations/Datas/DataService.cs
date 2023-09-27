@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {
@@ -17,7 +18,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         public DataService(IDataBroker dataBroker) =>
             this.dataBroker = dataBroker;
 
-        public ValueTask<IEnumerable<ResultRow>> RetrieveDataAsync(string query) =>
+        public ValueTask<DataResult> RetrieveDataAsync(string query) =>
         TryCatch(async () =>
         {
             ValidateQuery(query);
@@ -25,19 +26,24 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             IEnumerable<IDictionary<string, object>> retrievedRows =
                 await this.dataBroker.ExecuteQueryAsync<IDictionary<string, object>>(query);
 
-            return ToResultRows(retrievedRows);
+            return ToDataResult(retrievedRows);
         });
 
-        private static IEnumerable<ResultRow> ToResultRows(
-            IEnumerable<IDictionary<string, object>> retrievedRows) =>
-                retrievedRows.Select(row =>
-                    new ResultRow
-                    {
-                        Columns = row.Select(column => new ColumnData
-                        {
-                            Name = column.Key,
-                            Value = column.Value,
-                        })
-                    });
+        private static DataResult ToDataResult(
+            IEnumerable<IDictionary<string, object>> retrievedRows)
+        {
+            return new DataResult
+            {
+                ColumnGroups = retrievedRows.Select(row =>
+                 new ColumnGroupData
+                 {
+                     Columns = row.Select(column => new ColumnData
+                     {
+                         Name = column.Key,
+                         Value = column.Value,
+                     })
+                 })
+            };
+        }
     }
 }

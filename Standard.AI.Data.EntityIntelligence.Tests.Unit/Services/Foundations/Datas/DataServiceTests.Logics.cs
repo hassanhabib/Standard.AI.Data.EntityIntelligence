@@ -9,6 +9,7 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Xunit;
+using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -32,26 +33,31 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                                 r.Value.ColumnValue))
                         .ToDictionary(r => r.Key, r => r.Value));
 
-            IEnumerable<ResultRow> expectedResultRows =
-                randomColumnData.GroupBy(rcd => rcd.Key)
-                    .Select(rcd => new ResultRow
+            DataResult expectedResultRows =
+                new DataResult
+                {
+                    ColumnGroups = randomColumnData.GroupBy(rcd => rcd.Key)
+                    .Select(rcd => new ColumnGroupData
                     {
                         Columns = rcd.Select(r => new ColumnData
                         {
                             Name = r.Value.ColumnName,
                             Value = r.Value.ColumnValue,
                         })
-                    });
+                    })
+                };
+
+
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery))
                     .ReturnsAsync(toRetriveColumnDatas);
 
-            IEnumerable<ResultRow> retrievedResultRows =
+            DataResult retrievedResultRows =
                 await dataQueryService.RetrieveDataAsync(query);
 
             retrievedResultRows.Should()
-                .BeEquivalentTo(expectedResultRows);
+                    .BeEquivalentTo(expectedResultRows);
 
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery),
