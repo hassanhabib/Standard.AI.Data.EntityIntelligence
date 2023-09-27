@@ -2,11 +2,11 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Xunit;
+using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
@@ -26,7 +26,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var expectedDataQueryServiceValidationException =
                 new DataServiceValidationException(nullOrEmptyDataQueryException);
 
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(invalidQuery);
 
             DataServiceValidationException actualDataValidationException =
@@ -52,7 +52,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var expectedDataQueryServiceValidationException =
                 new DataServiceValidationException(invalidDataQueryException);
 
-            ValueTask<IEnumerable<ResultRow>> runQueryTask =
+            ValueTask<DataResult> runQueryTask =
                 this.dataQueryService.RetrieveDataAsync(invalidQuery);
 
             DataServiceValidationException actualDataValidationException =
