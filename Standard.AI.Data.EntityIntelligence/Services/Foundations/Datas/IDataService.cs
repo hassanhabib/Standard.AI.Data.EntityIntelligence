@@ -3,7 +3,7 @@
 // ----------------------------------------------------------------------------------
 
 using System.Threading.Tasks;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas
 {
-    internal class Data
+    internal class DataResult
     {
         public IEnumerable<ColumnGroupData> ColumnGroups { get; init; }
     }

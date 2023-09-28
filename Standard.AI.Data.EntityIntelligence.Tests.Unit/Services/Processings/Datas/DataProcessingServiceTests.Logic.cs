@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Xunit;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Datas
 {

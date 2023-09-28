@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {

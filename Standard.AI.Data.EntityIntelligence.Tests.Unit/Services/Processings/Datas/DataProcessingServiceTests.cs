@@ -4,10 +4,10 @@
 
 
 using Moq;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.Datas;
 using Tynamix.ObjectFiller;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Datas
 {
