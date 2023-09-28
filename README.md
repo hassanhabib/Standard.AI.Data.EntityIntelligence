@@ -32,6 +32,12 @@ We believe that these beliefs will help to ensure that our software(s) are safe 
  
 The Standard Community as a promise to you is in upholding these values.
 
+## Current State of the Project
+
+![StateOfTheProject](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/main/stateoftheproject.drawio.png)
+
+<a href="https://app.diagrams.net/#Hjgraph%2Fdrawio-github%2Fmaster%2Fstateoftheproject.png" target="_blank">Edit with draw.io</a>
+
 ## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
 
