@@ -36,7 +36,7 @@ The Standard Community as a promise to you is in upholding these values.
 
 ![StateOfTheProject](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/main/stateoftheproject.drawio.png)
 
-<a href="https://app.diagrams.net/#Hjgraph%2Fdrawio-github%2Fmaster%2Fstateoftheproject.png" target="_blank">Edit with draw.io</a>
+<a href="https://app.diagrams.net/#Hhassanhabib%2FStandard.AI.Data.EntityIntelligence%2Fmain%2Fstateoftheproject.drawio" target="_blank">Edit with Draw.io</a>
 
 ## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
