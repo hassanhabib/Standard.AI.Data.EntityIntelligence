@@ -16,7 +16,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Datas
         public DataProcessingService(IDataService dataService) =>
             this.dataService = dataService;
 
-        public ValueTask<DataResult> RetrieveDataAsync(string query) =>
-            throw new NotImplementedException();
+        public async ValueTask<DataResult> RetrieveDataAsync(string query) =>
+            await this.dataService.RetrieveDataAsync(query);
     }
 }
