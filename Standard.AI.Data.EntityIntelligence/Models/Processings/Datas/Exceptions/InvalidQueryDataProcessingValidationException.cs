@@ -7,13 +7,13 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exceptions
 {
-    internal class InvalidQueryProcessingException : Xeption
+    internal class InvalidQueryDataProcessingException : Xeption
     {
-        public InvalidQueryProcessingException(Exception innerException)
-           : base(message: "Invalid Query errors occurred, fix the errors and try again.", innerException)
+        public InvalidQueryDataProcessingException()
+           : base(message: "Invalid Query errors occurred, fix the errors and try again.")
         { }
 
-        public InvalidQueryProcessingException(string message)
+        public InvalidQueryDataProcessingException(string message)
            : base(message) { }
     }
 }

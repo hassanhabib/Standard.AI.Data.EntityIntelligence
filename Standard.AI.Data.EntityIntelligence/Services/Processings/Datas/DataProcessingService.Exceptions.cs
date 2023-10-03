@@ -5,25 +5,25 @@
 using System;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Datas
 {
     internal partial class DataProcessingService : IDataProcessingService
     {
-        private readonly IDataService dataService;
-
-        public DataProcessingService(IDataService dataService) =>
-            this.dataService = dataService;
-
-        public ValueTask<DataResult> RetrieveDataAsync(string query)
+        private delegate ValueTask<DataResult> ReturningDataFunction();
+        private async ValueTask<DataResult> TryCatch(ReturningDataFunction returningDataFunction)
         {
-            return TryCatch(async () =>
+            try
             {
-                ValidateQuery(query);
-
-                return await this.dataService.RetrieveDataAsync(query);
-            });
+                return await returningDataFunction();
+            }
+            catch (InvalidQueryDataProcessingException invalidQueryDataProcessingException)
+            {
+                throw new DataProcessingValidationException(invalidQueryDataProcessingException);
+            }
         }
+
     }
 }

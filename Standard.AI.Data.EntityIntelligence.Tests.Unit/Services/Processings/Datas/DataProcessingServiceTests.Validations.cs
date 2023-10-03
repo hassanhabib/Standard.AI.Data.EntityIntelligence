@@ -22,7 +22,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
         {
             // given
             var invalidQueryProcessingException =
-                new InvalidQueryProcessingException(
+                new InvalidQueryDataProcessingException(
                     message: "Invalid Query errors occurred, fix the errors and try again.");
 
             var expectedDataProcessingValidationException =
