@@ -47,5 +47,41 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
 
             this.dataServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(DataDepndencyExceptions))]
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfDependencyyValidationeErrorOccursAsync(
+            Xeption dependencyException)
+        {
+            // given
+            string someQuery = CreateRandomQuery();
+
+            var expectedDataProcessingDependencyException =
+                new DataProcessingDependencyException(
+                    message: "Data dependency error occurred, contact support.",
+                    innerException: dependencyException.InnerException as Xeption);
+
+            this.dataServiceMock.Setup(service =>
+                service.RetrieveDataAsync(It.IsAny<string>()))
+                    .ThrowsAsync(dependencyException);
+
+            // when
+            ValueTask<DataResult> retrieveDataResultTask =
+                this.dataProcessingService.RetrieveDataAsync(someQuery);
+
+            DataProcessingDependencyException
+                actualDataProcessingDependencyException =
+                    await Assert.ThrowsAsync<DataProcessingDependencyException>(
+                        retrieveDataResultTask.AsTask);
+            // then
+            actualDataProcessingDependencyException.Should().BeEquivalentTo(
+                expectedDataProcessingDependencyException);
+
+            this.dataServiceMock.Verify(service =>
+                service.RetrieveDataAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.dataServiceMock.VerifyNoOtherCalls();
+        }
     }
 }

@@ -38,6 +38,17 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
             };
         }
 
+        public static TheoryData<Xeption> DataDepndencyExceptions()
+        {
+            var randomInnerXeption = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new DataServiceException(randomInnerXeption),
+                new DataServiceDependencyException(randomInnerXeption)
+            };
+        }
+
         private static string CreateRandomQuery() =>
             new MnemonicString().GetValue();
 
