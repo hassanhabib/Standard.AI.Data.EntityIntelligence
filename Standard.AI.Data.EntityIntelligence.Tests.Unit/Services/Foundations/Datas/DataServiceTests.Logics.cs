@@ -9,8 +9,6 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Xunit;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
-
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Datas
 {
     public partial class DataServiceTests

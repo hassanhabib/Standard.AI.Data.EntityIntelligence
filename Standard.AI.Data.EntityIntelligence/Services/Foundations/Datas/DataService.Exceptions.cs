@@ -5,8 +5,8 @@
 using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
-using DataResult = Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Data;
 
 namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
 {

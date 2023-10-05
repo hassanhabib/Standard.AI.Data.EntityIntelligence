@@ -2,13 +2,12 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
-using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using System.Collections.Generic;
 
-namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
+namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas
 {
-    internal interface IDataService
+    internal class DataResult
     {
-        ValueTask<DataResult> RetrieveDataAsync(string query);
+        public IEnumerable<ColumnGroupData> ColumnGroups { get; init; }
     }
 }
