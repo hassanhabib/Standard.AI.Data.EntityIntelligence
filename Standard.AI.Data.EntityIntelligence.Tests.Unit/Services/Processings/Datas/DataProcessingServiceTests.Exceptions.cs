@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -76,6 +77,46 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
             // then
             actualDataProcessingDependencyException.Should().BeEquivalentTo(
                 expectedDataProcessingDependencyException);
+
+            this.dataServiceMock.Verify(service =>
+                service.RetrieveDataAsync(It.IsAny<string>()),
+                    Times.Once);
+
+            this.dataServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccursAsync()
+        {
+            // given
+            string someQuery = CreateRandomQuery();
+            var serviceException = new Exception();
+
+            var failedDataProcessingServiceException =
+                new FailedDataProcessingServiceException(
+                    message: "Failed Data service error occurred, contact support.",
+                    innerException: serviceException as Xeption);
+
+            var expectedDataProcessingServiceException =
+                new DataProcessingServiceException(
+                    message: "Data service error occurred, contact support.",
+                    innerException: failedDataProcessingServiceException);
+
+            this.dataServiceMock.Setup(service =>
+                service.RetrieveDataAsync(It.IsAny<string>()))
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<DataResult> retrieveDataResultTask =
+                this.dataProcessingService.RetrieveDataAsync(someQuery);
+
+            DataProcessingServiceException
+                actualDataProcessingServiceException =
+                    await Assert.ThrowsAsync<DataProcessingServiceException>(
+                        retrieveDataResultTask.AsTask);
+            // then
+            actualDataProcessingServiceException.Should().BeEquivalentTo(
+                expectedDataProcessingServiceException);
 
             this.dataServiceMock.Verify(service =>
                 service.RetrieveDataAsync(It.IsAny<string>()),
