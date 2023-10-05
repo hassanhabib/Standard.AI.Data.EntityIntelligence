@@ -5,9 +5,12 @@
 
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
+using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Processings.Datas;
 using Tynamix.ObjectFiller;
+using Xeptions;
+using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Datas
 {
@@ -23,6 +26,19 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
             this.dataProcessingService = new DataProcessingService(
                 dataService: this.dataServiceMock.Object);
         }
+
+
+        public static TheoryData<Xeption> DataDepndencyValidationExceptions()
+        {
+            var randomInnerXeption = new Xeption();
+
+            return new TheoryData<Xeption>
+            {
+                new DataServiceValidationException(randomInnerXeption),
+                new DataServiceDependencyValidationException(randomInnerXeption)
+            };
+        }
+
 
         private static string CreateRandomQuery() =>
             new MnemonicString().GetValue();
