@@ -4,10 +4,8 @@
 
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
-using Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions;
 using Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exceptions;
 using Xeptions;
 using Xunit;

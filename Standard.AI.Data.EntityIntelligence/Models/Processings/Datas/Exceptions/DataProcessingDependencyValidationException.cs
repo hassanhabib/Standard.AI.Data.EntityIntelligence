@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------------------- 
+// Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
+// ----------------------------------------------------------------------------------
+
 using Xeptions;
 
-namespace Standard.AI.Data.EntityIntelligence.Models.Processings.AIs.Exceptions
+namespace Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exceptions
 {
     internal class DataProcessingDependencyValidationException : Xeption
     {

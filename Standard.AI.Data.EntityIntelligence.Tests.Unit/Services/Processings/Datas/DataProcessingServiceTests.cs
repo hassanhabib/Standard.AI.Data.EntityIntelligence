@@ -27,7 +27,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
                 dataService: this.dataServiceMock.Object);
         }
 
-
         public static TheoryData<Xeption> DataDepndencyValidationExceptions()
         {
             var randomInnerXeption = new Xeption();
@@ -38,7 +37,6 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
                 new DataServiceDependencyValidationException(randomInnerXeption)
             };
         }
-
 
         private static string CreateRandomQuery() =>
             new MnemonicString().GetValue();
