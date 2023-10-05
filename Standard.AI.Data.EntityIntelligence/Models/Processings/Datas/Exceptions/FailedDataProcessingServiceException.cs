@@ -14,7 +14,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exception
                   innerException)
         { }
 
-        public FailedDataProcessingServiceException(string message, Xeption innerException)
+        public FailedDataProcessingServiceException(string message, Exception innerException)
             : base(message, innerException)
         { }
     }
