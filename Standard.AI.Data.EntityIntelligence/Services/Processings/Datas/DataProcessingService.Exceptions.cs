@@ -48,7 +48,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Datas
             catch (Exception exception)
             {
                 var failedDataProcessingException =
-                    new FailedDataProcessingServiceException(exception as Xeption);
+                    new FailedDataProcessingServiceException(exception);
 
                 throw new DataProcessingServiceException(failedDataProcessingException);
             }
