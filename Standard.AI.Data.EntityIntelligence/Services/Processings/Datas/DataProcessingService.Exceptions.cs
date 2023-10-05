@@ -24,15 +24,25 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Datas
             {
                 throw new DataProcessingValidationException(invalidQueryDataProcessingException);
             }
-            catch (DataServiceValidationException dataServiceValidationException)
+            catch (DataServiceValidationException dataValidationException)
             {
                 throw new DataProcessingDependencyValidationException(
-                    dataServiceValidationException.InnerException as Xeption);
+                    dataValidationException.InnerException as Xeption);
             }
-            catch (DataServiceDependencyValidationException dataServiceDependencyValidationException)
+            catch (DataServiceDependencyValidationException dataDependencyValidationException)
             {
                 throw new DataProcessingDependencyValidationException(
-                    dataServiceDependencyValidationException.InnerException as Xeption);
+                    dataDependencyValidationException.InnerException as Xeption);
+            }
+            catch (DataServiceDependencyException dataDependencyException)
+            {
+                throw new DataProcessingDependencyException(
+                    dataDependencyException.InnerException as Xeption);
+            }
+            catch (DataServiceException dataServiceException)
+            {
+                throw new DataProcessingDependencyException(
+                    dataServiceException.InnerException as Xeption);
             }
         }
     }

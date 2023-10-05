@@ -15,8 +15,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
     public partial class DataProcessingServiceTests
     {
         [Theory]
-        [MemberData(nameof(DataDepndencyValidationExceptions))]
-        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDependencyyValidationeErrorOccursAsync(Xeption dependencyValidationException)
+        [MemberData(nameof(DataDependencyValidationExceptions))]
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDependencyValidationErrorOccursAsync(Xeption dependencyValidationException)
         {
             // given
             string someQuery = CreateRandomQuery();
@@ -49,8 +49,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
         }
 
         [Theory]
-        [MemberData(nameof(DataDepndencyExceptions))]
-        private async Task ShouldThrowDependencyExceptionOnRetrieveIfDependencyyValidationeErrorOccursAsync(
+        [MemberData(nameof(DataDependencyExceptions))]
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfDependencyErrorOccursAsync(
             Xeption dependencyException)
         {
             // given
