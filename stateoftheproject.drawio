@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-09-28T21:45:10.048Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="1MSMchnwwKb6G2QUzIkp" version="22.0.0" type="device">
+<mxfile host="Electron" modified="2023-10-05T20:30:05.570Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.0 Chrome/114.0.5735.289 Electron/25.8.3 Safari/537.36" etag="wUGq1n37puWSPGA8jzlL" version="22.0.0" type="device">
   <diagram name="Page-1" id="ijIoo2txcSmLpSjnDCax">
-    <mxGraphModel dx="2028" dy="1640" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+    <mxGraphModel dx="1159" dy="937" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -43,7 +43,7 @@
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Zzn7-beLQOJeG9ghUKCm-13" target="Zzn7-beLQOJeG9ghUKCm-5" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Zzn7-beLQOJeG9ghUKCm-13" value="DataProcessingService" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="Zzn7-beLQOJeG9ghUKCm-13" value="DataProcessingService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" parent="1" vertex="1">
           <mxGeometry x="560" y="120" width="170" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Zzn7-beLQOJeG9ghUKCm-14" target="Zzn7-beLQOJeG9ghUKCm-6" edge="1">
@@ -64,10 +64,10 @@
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-16" value="QueryProcessingService" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="560" y="440" width="170" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="TNSvjdxZK8alisaPlrmR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Zzn7-beLQOJeG9ghUKCm-21" target="Zzn7-beLQOJeG9ghUKCm-14">
+        <mxCell id="TNSvjdxZK8alisaPlrmR-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Zzn7-beLQOJeG9ghUKCm-21" target="Zzn7-beLQOJeG9ghUKCm-14" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Zzn7-beLQOJeG9ghUKCm-21" value="SQLGeneration&lt;br&gt;Orchestration Service" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="Zzn7-beLQOJeG9ghUKCm-21" value="SQLGeneration&lt;br&gt;Orchestration Service" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;" parent="1" vertex="1">
           <mxGeometry x="340" y="170" width="140" height="60" as="geometry" />
         </mxCell>
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="Zzn7-beLQOJeG9ghUKCm-23" target="Zzn7-beLQOJeG9ghUKCm-15" edge="1">
@@ -97,11 +97,11 @@
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-32" value="Client" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="30" y="270" width="120" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="Zzn7-beLQOJeG9ghUKCm-34" value="" style="rhombus;whiteSpace=wrap;html=1;strokeWidth=2;fillWeight=-1;hachureGap=8;fillStyle=solid;fillColor=#006600;sketch=1;rotation=-90;" parent="1" vertex="1">
-          <mxGeometry x="630" y="100" width="30" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="Zzn7-beLQOJeG9ghUKCm-35" value="&lt;p style=&quot;line-height: 140%; font-size: 24px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Standard.AI.Data.EntityIntelligence&lt;/span&gt;&lt;br&gt;&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="210" y="60" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-9ZAO_HesUwj9xrey1F0-1" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fa6800;strokeColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="380" y="130" width="60" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
