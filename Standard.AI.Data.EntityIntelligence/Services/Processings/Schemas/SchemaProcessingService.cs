@@ -16,9 +16,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Schemas
         public SchemaProcessingService(ISchemaService schemaService) =>
             this.schemaService = schemaService;
 
-        public ValueTask<Schema> RetrieveSchemaAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async ValueTask<Schema> RetrieveSchemaAsync() =>
+            await this.schemaService.RetrieveSchemaAsync();
     }
 }
