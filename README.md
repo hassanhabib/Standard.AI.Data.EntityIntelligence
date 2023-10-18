@@ -33,57 +33,9 @@ We believe that these beliefs will help to ensure that our software(s) are safe 
 The Standard Community as a promise to you is in upholding these values.
 
 ## Current State of the Project
+![StateOfTheProject](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/main/stateoftheproject.drawio.png)
 
-```mermaid
-flowchart RL
-id0.0[(Database)]:::DB <--> id0.1(DataBroker):::DONE
-<-->id0.2(DataService):::DONE & id1.1(SchemaService):::DONE
-
-id0.2 <--> id0.3(DataProcessingService):::DONE
-
-
-id1.1 <-->id1.2(SchemaProcessingService):::CURRENT
-
-id2[[Standard.Ai.OpenAI]]:::LIB
-<-->id2.0(OpenAIBroker):::DONE
-<-->id2.1(AIService):::DONE
-<-->id2.2(AIProcessingService):::DONE
-
-id0.3 <--> id0.4[SQLQueryOrchestrationService]:::CURRENT
-id1.2 <--> id0.4
-id2.2 <--> id0.4
-
-id3[[TransactSql.ScriptDom<br>Library]]:::LIB
-<-->id3.0(SQLParserBroker):::DONE
-<-->id3.1(SQLParserService)
-<-->id3.2(SQLParserProcessingService)
-
-id4[(Database)]:::DB
-<-->id4.0(DataBroker):::DONE
-<-->id4.1(QueryService)
-<-->id4.2(QueryProcessingService)
-
-id4.3[SQLQueryParserOrchestrationService]
-id3.2 <--> id4.3
-id4.2 <--> id4.3
-
-id5{NaturalSQLQuery<br>CoordinationService}
-id0.4 <--> id5
-id4.3 <--> id5
-id6(((Client))):::CLIENT
-id5<-->id6
-
-classDef DONE fill:#008000, stroke:#008000, stroke-width:2px, color:#FFFFFF, stroke-dasharray: 0, 0
-classDef DB fill:#DAA520, stroke:##FFD700, stroke-width:2px, color:#000000, stroke-dasharray: 0, 0
-classDef LIB fill:#87CEEB, stroke:#00008B, stroke-width:2px, color:#000000, stroke-dasharray: 2, 2
-classDef CURRENT fill:#FFA500, stroke:#FF4500, stroke-width:2px, color:#000000, stroke-dasharray: 0, 0
-classDef CLIENT fill:#FFFAFA, stroke:#2F4F4F, stroke-width:2px, color:#4B0082, stroke-dasharray: 0, 0 
-```
-#
-
-<!--![StateOfTheProject](https://raw.githubusercontent.com/hassanhabib/Standard.AI.Data.EntityIntelligence/main/stateoftheproject.drawio.png)
-
-<a href="https://app.diagrams.net/#Hhassanhabib%2FStandard.AI.Data.EntityIntelligence%2Fmain%2Fstateoftheproject.drawio" target="_blank">Edit with Draw.io</a>-->
+<a href="https://app.diagrams.net/#Hhassanhabib%2FStandard.AI.Data.EntityIntelligence%2Fmain%2Fstateoftheproject.drawio" target="_blank">Edit with Draw.io</a>
 
 ## How to use this library
 ![image](https://github.com/hassanhabib/Standard.AI.Data.EntityIntelligence/assets/1453985/c6d9f0c9-aa2f-4634-ae83-1ab2260fd50e)
