@@ -26,6 +26,16 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Schemas
                 throw new SchemaProcessingDependencyValidationException(
                     schemaDependencyValidationException.InnerException as Xeption);
             }
+            catch (SchemaDependencyException schemaDependencyException)
+            {
+                throw new SchemaProcessingDependencyException(
+                    schemaDependencyException.InnerException as Xeption);
+            }
+            catch (SchemaServiceException schemaServiceException)
+            {
+                throw new SchemaProcessingDependencyException(
+                    schemaServiceException.InnerException as Xeption);
+            }
         }
     }
 }
