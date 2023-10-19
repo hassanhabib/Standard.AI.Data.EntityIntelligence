@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
@@ -78,6 +79,45 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
             // then
             actualSchemaProcessingDependencyException.Should()
                 .BeEquivalentTo(expectedSchemaProcessingDependencyException);
+
+            this.schemaServiceMock.Verify(service =>
+                service.RetrieveSchemaAsync(),
+                    Times.Once());
+
+            this.schemaServiceMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveIfExceptionOccursAsync()
+        {
+            // given
+            var serviceException = new Exception();
+
+            var failedSchemaProcessingServiceException =
+                new FailedSchemaProcessingServiceException(
+                    message: "Failed Schema service error occurred, contact support.",
+                    innerException: serviceException);
+
+            var expectedSchemaProcessingServiceException =
+                new SchemaProcessingServiceException(
+                   message: "Schema service error occurred, contact support.",
+                   innerException: failedSchemaProcessingServiceException);
+
+            this.schemaServiceMock.Setup(service =>
+                service.RetrieveSchemaAsync())
+                    .ThrowsAsync(serviceException);
+
+            // when
+            ValueTask<Schema> retrieveSchemaTask =
+                this.schemaProcessingService.RetrieveSchemaAsync();
+
+            SchemaProcessingServiceException actualSchemaProcessingServiceException =
+                await Assert.ThrowsAsync<SchemaProcessingServiceException>(
+                    retrieveSchemaTask.AsTask);
+
+            // then
+            actualSchemaProcessingServiceException.Should()
+                .BeEquivalentTo(expectedSchemaProcessingServiceException);
 
             this.schemaServiceMock.Verify(service =>
                 service.RetrieveSchemaAsync(),
