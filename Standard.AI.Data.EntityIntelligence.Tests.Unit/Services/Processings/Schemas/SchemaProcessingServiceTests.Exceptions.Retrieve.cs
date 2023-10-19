@@ -26,7 +26,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
 
             var expectedSchemaProcessingDependencyValidationException =
                 new SchemaProcessingDependencyValidationException(
-                   message: "Data dependency validation error occurred, fix errors and try again.",
+                   message: "Schema dependency validation error occurred, fix errors and try again.",
                    innerException: someInnerException);
 
             this.schemaServiceMock.Setup(service =>
