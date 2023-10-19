@@ -51,5 +51,39 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
 
             this.schemaServiceMock.VerifyNoOtherCalls();
         }
+
+        [Theory]
+        [MemberData(nameof(SchemaDependencyExceptions))]
+        public async Task ShouldThrowDependencyExceptionOnRetrieveIfSchemaDependencyValidationErrorAsync(
+            Xeption schemaDependencyException)
+        {
+            // given
+            var expectedSchemaProcessingDependencyException =
+                new SchemaProcessingDependencyException(
+                   message: "Schema dependency error occurred, contact support.",
+                   innerException: schemaDependencyException.InnerException as Xeption);
+
+            this.schemaServiceMock.Setup(service =>
+                service.RetrieveSchemaAsync())
+                    .ThrowsAsync(schemaDependencyException);
+
+            // when
+            ValueTask<Schema> retrieveSchemaTask =
+                this.schemaProcessingService.RetrieveSchemaAsync();
+
+            SchemaProcessingDependencyException actualSchemaProcessingDependencyException =
+                await Assert.ThrowsAsync<SchemaProcessingDependencyException>(
+                    retrieveSchemaTask.AsTask);
+
+            // then
+            actualSchemaProcessingDependencyException.Should()
+                .BeEquivalentTo(expectedSchemaProcessingDependencyException);
+
+            this.schemaServiceMock.Verify(service =>
+                service.RetrieveSchemaAsync(),
+                    Times.Once());
+
+            this.schemaServiceMock.VerifyNoOtherCalls();
+        }
     }
 }
