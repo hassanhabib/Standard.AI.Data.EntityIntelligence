@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Threading.Tasks;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Exceptions;
@@ -35,6 +36,14 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Processings.Schemas
             {
                 throw new SchemaProcessingDependencyException(
                     schemaServiceException.InnerException as Xeption);
+            }
+            catch (Exception exception)
+            {
+                var failedSchemaServiceException =
+                    new FailedSchemaProcessingServiceException(exception);
+
+                throw new SchemaProcessingServiceException(
+                    failedSchemaServiceException);
             }
         }
     }
