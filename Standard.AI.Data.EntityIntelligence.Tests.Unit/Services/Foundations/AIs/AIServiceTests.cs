@@ -48,7 +48,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         private static int GetRandomNumber() =>
             new IntRange(min: 10, max: 20).GetValue();
 
-        private Expression<Func<Completion, bool>> SameCompletionAs(Completion expectedCompletion)
+        private Expression<Func<Completion, bool>> SameCompletionAs(
+            Completion expectedCompletion)
         {
             return actualCompletion =>
                 this.compareLogic.Compare(expectedCompletion, actualCompletion).AreEqual;

@@ -6,10 +6,14 @@ using Xeptions;
 
 namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions
 {
-    internal class NullOrEmptyDataQueryException : Xeption
+    internal class NullDataQueryException : Xeption
     {
-        public NullOrEmptyDataQueryException()
-            : base(message: "Data query is null or empty")
+        public NullDataQueryException()
+            : base(message: "Data query is null.")
+        { }
+        
+        public NullDataQueryException(string message)
+            : base(message)
         { }
     }
 }

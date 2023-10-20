@@ -11,5 +11,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
         public DataServiceValidationException(Xeption innerException)
             : base(message: "Data query service validation error occurred, fix the errors and try again.")
         { }
+        
+        public DataServiceValidationException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }

@@ -10,7 +10,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exception
     internal class FailedDataProcessingServiceException : Xeption
     {
         public FailedDataProcessingServiceException(Exception innerException)
-            : base(message: "Failed Data service error occurred, contact support.",
+            : base(message: "Failed data service error occurred, contact support.",
                   innerException)
         { }
 

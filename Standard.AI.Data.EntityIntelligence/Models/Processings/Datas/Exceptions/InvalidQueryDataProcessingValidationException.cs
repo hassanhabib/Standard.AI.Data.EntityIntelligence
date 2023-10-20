@@ -9,7 +9,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Processings.Datas.Exception
     internal class InvalidQueryDataProcessingException : Xeption
     {
         public InvalidQueryDataProcessingException()
-           : base(message: "Invalid Query errors occurred, fix the errors and try again.")
+           : base(message: "Invalid query errors occurred, fix the errors and try again.")
         { }
 
         public InvalidQueryDataProcessingException(string message)

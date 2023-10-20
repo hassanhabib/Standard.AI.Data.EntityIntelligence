@@ -2,7 +2,6 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exceptions;

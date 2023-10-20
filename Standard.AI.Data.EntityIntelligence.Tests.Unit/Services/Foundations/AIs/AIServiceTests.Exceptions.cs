@@ -29,8 +29,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var invalidAIException =
                 new InvalidAIQueryException(
-                    message: "Invalid AI Query error occurred, fix the errors and try again.",
-                    innerException: innerValidationException);
+                    message: "Invalid AI query error occurred, fix the errors and try again.",
+                    innerValidationException);
 
             var expectedAIDependencyValidationException =
                 new AIDependencyValidationException(
@@ -70,10 +70,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var failedAIDependencyException =
                 new FailedAIDependencyException(
+                    message: "Failed AI dependency error occurred, contact support.",
                     clientDependencyException.InnerException as Xeption);
 
             var expectedAIDependencyException =
                 new AIDependencyException(
+                    message: "AI dependency error occurred, contact support.",
                     failedAIDependencyException);
 
             this.aiBrokerMock.Setup(broker =>
@@ -108,10 +110,12 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
 
             var failedAIServiceException =
                 new FailedAIServiceException(
+                    message: "Failed AI service error occurred, contact support.",
                     serviceException);
 
             var expectedAIServiceException =
                 new AIServiceException(
+                    message: "AI service error occurred, contact support.",
                     failedAIServiceException);
 
             this.aiBrokerMock.Setup(broker =>

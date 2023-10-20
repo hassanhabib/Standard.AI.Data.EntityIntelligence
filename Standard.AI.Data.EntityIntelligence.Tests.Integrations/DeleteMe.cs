@@ -9,7 +9,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Integrations
     public class DeleteMe
     {
         [Fact]
-        public void ShouldBeTrue() =>
+        private void ShouldBeTrue() =>
             Assert.True(condition: true);
     }
 }

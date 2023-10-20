@@ -16,7 +16,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
     public partial class SchemaServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveSchemaAsync()
+        private async Task ShouldRetrieveSchemaAsync()
         {
             // given
             string query = String.Join(

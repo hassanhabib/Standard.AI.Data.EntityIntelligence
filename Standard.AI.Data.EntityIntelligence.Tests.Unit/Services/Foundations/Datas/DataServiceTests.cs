@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Runtime.CompilerServices;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Brokers.Datas;
 using Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas;
@@ -45,7 +46,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             $"SELECT * FROM [schema].[Table]";
 
         private static SqlException GetSqlException() =>
-            (SqlException)System.Runtime.Serialization.FormatterServices.GetUninitializedObject(typeof(SqlException));
+            (SqlException)RuntimeHelpers.GetUninitializedObject(typeof(SqlException));
 
         private static string GetRandomString() =>
             new MnemonicString().GetValue();

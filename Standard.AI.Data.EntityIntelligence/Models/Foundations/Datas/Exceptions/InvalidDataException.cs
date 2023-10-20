@@ -13,5 +13,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
             : base(message: "Invalid data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
+        
+        public InvalidDataException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }

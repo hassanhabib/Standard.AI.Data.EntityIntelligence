@@ -10,15 +10,19 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
     internal class InvalidAIQueryException : Xeption
     {
         public InvalidAIQueryException()
-            : base(message: "Invalid AI Query error occurred, fix the errors and try again.")
+            : base(message: "Invalid AI query error occurred, fix the errors and try again.")
         { }
 
         public InvalidAIQueryException(Exception innerException)
-            : base(message: "Invalid AI Query error occurred, fix the errors and try again.", innerException)
+            : base(message: "Invalid AI query error occurred, fix the errors and try again.", innerException)
         { }
 
         public InvalidAIQueryException(string message, Exception innerException)
             : base(message, innerException)
+        { }
+        
+        public InvalidAIQueryException(string message)
+            : base(message)
         { }
     }
 }

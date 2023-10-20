@@ -12,5 +12,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
            : base(message: "Data query service dependency error occurred, contact support.",
                  innerException)
         { }
+        
+        public DataServiceDependencyException(string message, Xeption innerException)
+           : base(message, innerException)
+        { }
     }
 }

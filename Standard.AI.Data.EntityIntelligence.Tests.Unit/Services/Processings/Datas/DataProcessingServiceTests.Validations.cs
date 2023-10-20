@@ -17,13 +17,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldThrowValidationExceptionOnRetrieveIfInputQueryIsInvalidAsync(
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfInputQueryIsInvalidAsync(
             string invalidQuery)
         {
             // given
             var invalidQueryProcessingException =
                 new InvalidQueryDataProcessingException(
-                    message: "Invalid Query errors occurred, fix the errors and try again.");
+                    message: "Invalid query errors occurred, fix the errors and try again.");
 
             var expectedDataProcessingValidationException =
                 new DataProcessingValidationException(
@@ -35,7 +35,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
                 this.dataProcessingService.RetrieveDataAsync(invalidQuery);
 
             DataProcessingValidationException actualDataProcessingValidationException =
-                await Assert.ThrowsAsync<DataProcessingValidationException>(retrieveDataTask.AsTask);
+                await Assert.ThrowsAsync<DataProcessingValidationException>(
+                    retrieveDataTask.AsTask);
 
             // then
             actualDataProcessingValidationException.Should()

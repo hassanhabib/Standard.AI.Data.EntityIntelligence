@@ -14,8 +14,9 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
     public partial class DataServiceTests
     {
         [Fact]
-        public async Task ShouldRunSqlQueryAsync()
+        private async Task ShouldRunSqlQueryAsync()
         {
+            // given
             string query = GetValidQuery();
             var inputQuery = query;
 
@@ -45,15 +46,15 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
                     })
                 };
 
-
-
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(inputQuery))
                     .ReturnsAsync(toRetriveColumnDatas);
 
+            // when
             DataResult retrievedResultRows =
                 await dataQueryService.RetrieveDataAsync(query);
 
+            // then
             retrievedResultRows.Should()
                     .BeEquivalentTo(expectedResultRows);
 

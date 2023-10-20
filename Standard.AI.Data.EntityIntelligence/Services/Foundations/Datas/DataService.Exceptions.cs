@@ -21,7 +21,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
             {
                 return await returningResultRawsFunction();
             }
-            catch (NullOrEmptyDataQueryException nullOrEmptyDataQueryException)
+            catch (NullDataQueryException nullOrEmptyDataQueryException)
             {
                 throw new DataServiceValidationException(nullOrEmptyDataQueryException);
             }
