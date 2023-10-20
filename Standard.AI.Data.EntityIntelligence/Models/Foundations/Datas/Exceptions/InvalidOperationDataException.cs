@@ -13,7 +13,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
             : base(message: "Invalid operation data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
-        
+
         public InvalidOperationDataException(string message, Exception innerException)
             : base(message, innerException)
         { }

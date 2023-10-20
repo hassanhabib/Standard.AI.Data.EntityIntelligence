@@ -42,7 +42,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // then
             actualDataValidationException.Should().BeEquivalentTo(
                 expectedDataQueryServiceValidationException);
-            
+
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<It.IsAnyType>(It.IsAny<string>()),
                     Times.Never);
@@ -76,7 +76,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             // then
             actualDataValidationException.Should().BeEquivalentTo(
                 expectedDataQueryServiceValidationException);
-            
+
             this.dataBrokerMock.Verify(broker =>
                 broker.ExecuteQueryAsync<It.IsAnyType>(It.IsAny<string>()),
                     Times.Never);

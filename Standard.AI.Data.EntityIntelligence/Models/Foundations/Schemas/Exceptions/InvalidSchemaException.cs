@@ -13,7 +13,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Excepti
             : base(message: "Invalid schema validation error occurred, fix the errors and try again.",
                   innerException)
         { }
-        
+
         public InvalidSchemaException(string message, Exception innerException)
             : base(message, innerException)
         { }

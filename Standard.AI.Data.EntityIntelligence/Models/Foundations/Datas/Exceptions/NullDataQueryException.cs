@@ -11,7 +11,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
         public NullDataQueryException()
             : base(message: "Data query is null.")
         { }
-        
+
         public NullDataQueryException(string message)
             : base(message)
         { }

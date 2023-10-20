@@ -12,7 +12,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
            : base(message: "Data service error occurred, contact support.",
                  innerException)
         { }
-        
+
         public DataServiceException(string message, Xeption innerException)
            : base(message, innerException)
         { }

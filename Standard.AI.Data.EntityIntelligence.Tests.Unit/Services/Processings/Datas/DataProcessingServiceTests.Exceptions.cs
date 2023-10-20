@@ -23,7 +23,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
             // given
             string someQuery = CreateRandomQuery();
 
-            var expectedDataProcessingDependencyValidationException = 
+            var expectedDataProcessingDependencyValidationException =
                 new DataProcessingDependencyValidationException(
                     message: "Data dependency validation error occurred, fix errors and try again.",
                     innerException: dependencyValidationException.InnerException as Xeption);

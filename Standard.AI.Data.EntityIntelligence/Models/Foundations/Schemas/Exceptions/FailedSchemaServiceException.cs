@@ -13,7 +13,7 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Excepti
             : base(message: "Failed schema service error occurred, contact support.",
                   innerException)
         { }
-        
+
         public FailedSchemaServiceException(string message, Exception innerException)
             : base(message, innerException)
         { }

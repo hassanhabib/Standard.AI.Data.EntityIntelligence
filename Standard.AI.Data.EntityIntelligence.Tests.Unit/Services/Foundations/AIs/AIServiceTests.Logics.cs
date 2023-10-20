@@ -36,7 +36,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
                 }
             };
 
-            Completion retrievedCompletion = 
+            Completion retrievedCompletion =
                 expectedInputCompletion.DeepClone();
 
             retrievedCompletion.Response = new CompletionResponse
