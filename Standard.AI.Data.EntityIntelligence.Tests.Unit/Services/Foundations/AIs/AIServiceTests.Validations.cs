@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions;
 using Standard.AI.OpenAI.Models.Services.Foundations.Completions;
+using Xeptions;
 using Xunit;
 
 namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AIs
@@ -22,10 +23,13 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.AI
         {
             // given
             var invalidAIQueryException =
-                new InvalidAIQueryException();
+                new InvalidAIQueryException(
+                    message: "Invalid AI query error occurred, fix the errors and try again.");
 
             var expectedAIValidationException =
-                new AIValidationException(invalidAIQueryException);
+                new AIValidationException(
+                    message: "AI validation error occurred, fix the errors and try again.",
+                    invalidAIQueryException.InnerException as Xeption);
 
             // when
             ValueTask<string> retrieveSqlQueryTask =

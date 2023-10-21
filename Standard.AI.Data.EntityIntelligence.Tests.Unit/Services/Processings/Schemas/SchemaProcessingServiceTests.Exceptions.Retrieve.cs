@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
     public partial class SchemaProcessingServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfSchemaDependencyValidationErrorAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfSchemaDependencyValidationErrorAsync()
         {
             // given
             var someInnerException = new Xeption();
@@ -55,7 +55,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
 
         [Theory]
         [MemberData(nameof(SchemaDependencyExceptions))]
-        public async Task ShouldThrowDependencyExceptionOnRetrieveIfSchemaDependencyValidationErrorAsync(
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfSchemaDependencyValidationErrorOccursAsync(
             Xeption schemaDependencyException)
         {
             // given
@@ -88,7 +88,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfExceptionOccursAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfExceptionOccursAsync()
         {
             // given
             var serviceException = new Exception();

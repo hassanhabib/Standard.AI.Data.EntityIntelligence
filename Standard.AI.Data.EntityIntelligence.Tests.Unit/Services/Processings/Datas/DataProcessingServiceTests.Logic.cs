@@ -14,7 +14,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
     public partial class DataProcessingServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveDataAsync()
+        private async Task ShouldRetrieveDataAsync()
         {
             // given
             string randomQuery = CreateRandomQuery();

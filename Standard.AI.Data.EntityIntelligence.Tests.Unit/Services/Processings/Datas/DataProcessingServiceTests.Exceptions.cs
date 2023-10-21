@@ -17,14 +17,16 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
     {
         [Theory]
         [MemberData(nameof(DataDependencyValidationExceptions))]
-        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDependencyValidationErrorOccursAsync(Xeption dependencyValidationException)
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfDependencyValidationErrorOccursAsync(
+            Xeption dependencyValidationException)
         {
             // given
             string someQuery = CreateRandomQuery();
 
-            var expectedDataProcessingDependencyValidationException = new DataProcessingDependencyValidationException(
-                message: "Data dependency validation error occurred, fix errors and try again.",
-                innerException: dependencyValidationException.InnerException as Xeption);
+            var expectedDataProcessingDependencyValidationException =
+                new DataProcessingDependencyValidationException(
+                    message: "Data dependency validation error occurred, fix errors and try again.",
+                    innerException: dependencyValidationException.InnerException as Xeption);
 
             this.dataServiceMock.Setup(service =>
                 service.RetrieveDataAsync(It.IsAny<string>()))
@@ -94,7 +96,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Da
 
             var failedDataProcessingServiceException =
                 new FailedDataProcessingServiceException(
-                    message: "Failed Data service error occurred, contact support.",
+                    message: "Failed data service error occurred, contact support.",
                     innerException: serviceException as Xeption);
 
             var expectedDataProcessingServiceException =

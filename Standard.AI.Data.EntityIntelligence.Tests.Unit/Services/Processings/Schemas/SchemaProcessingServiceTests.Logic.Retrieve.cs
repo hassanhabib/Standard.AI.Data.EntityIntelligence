@@ -14,7 +14,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.Sc
     public partial class SchemaProcessingServiceTests
     {
         [Fact]
-        public async Task ShouldRetrieveSchemaAsync()
+        private async Task ShouldRetrieveSchemaAsync()
         {
             // given
             Schema randomSchema = CreateRandomSchema();

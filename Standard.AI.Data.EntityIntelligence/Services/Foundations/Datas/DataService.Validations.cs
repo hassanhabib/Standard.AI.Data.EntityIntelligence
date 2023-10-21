@@ -24,7 +24,7 @@ namespace Standard.AI.Data.EntityIntelligence.Services.Foundations.Datas
         {
             if (string.IsNullOrEmpty(query))
             {
-                throw new NullOrEmptyDataQueryException();
+                throw new NullDataQueryException();
             }
         }
 

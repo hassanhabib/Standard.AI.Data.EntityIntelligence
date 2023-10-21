@@ -13,5 +13,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.AIs.Exceptions
             : base(message: "Failed AI dependency error occurred, contact support.",
                   innerException)
         { }
+
+        public FailedAIDependencyException(string message, Exception innerException)
+            : base(message, innerException)
+        { }
     }
 }

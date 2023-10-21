@@ -232,7 +232,8 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Processings.AI
 
         [Theory]
         [MemberData(nameof(InvalidTableInformationColumns))]
-        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(SchemaTableColumn invalidColumn)
+        private async Task ShouldThrowValidationExceptionOnRetrieveIfTableInformationHasInvalidColumns(
+            SchemaTableColumn invalidColumn)
         {
             // given
             string someNaturalQuery = CreateRandomString();

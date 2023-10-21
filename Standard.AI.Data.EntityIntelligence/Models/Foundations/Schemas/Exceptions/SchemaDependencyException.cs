@@ -9,8 +9,12 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Excepti
     internal class SchemaDependencyException : Xeption
     {
         public SchemaDependencyException(Xeption innerException)
-           : base(message: "Metadata query service dependency error occurred, contact support.",
+           : base(message: "Schema dependency error occurred, contact support.",
                  innerException)
+        { }
+
+        public SchemaDependencyException(string message, Xeption innerException)
+           : base(message, innerException)
         { }
     }
 }

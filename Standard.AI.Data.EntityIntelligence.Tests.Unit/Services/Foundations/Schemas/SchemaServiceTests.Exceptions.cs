@@ -16,16 +16,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
     public partial class SchemaServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidArgumentExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidArgumentExceptionOccursAsync()
         {
             // given
             var invalidArgumentException = new ArgumentException();
 
             var invalidSchemaException =
-                new InvalidSchemaException(invalidArgumentException);
+                new InvalidSchemaException(
+                    message: "Invalid schema validation error occurred, fix the errors and try again.",
+                    invalidArgumentException);
 
             var expectedSchemaDependencyValidationException =
-                new SchemaDependencyValidationException(invalidSchemaException);
+                new SchemaDependencyValidationException(
+                    message: "Data validation error occurred, fix the errors and try again.",
+                    invalidSchemaException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<TableColumnMetadata>(It.IsAny<string>()))
@@ -51,16 +55,19 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidOperationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRetrieveIfInvalidOperationExceptionOccursAsync()
         {
             // given
             var invalidOperationException = new InvalidOperationException();
 
             var invalidOperationSchemaException =
-                new InvalidOperationSchemaException(invalidOperationException);
+                new InvalidOperationSchemaException(
+                    message: "Invalid operation data validation error occurred, fix the errors and try again.",
+                    invalidOperationException);
 
             var expectedSchemaDependencyValidationException =
                 new SchemaDependencyValidationException(
+                    message: "Data validation error occurred, fix the errors and try again.",
                     invalidOperationSchemaException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -87,16 +94,19 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
         }
 
         [Fact]
-        public async Task ShouldThrowSqlDependencyExceptionOnRetrieveIfSqlDependencyExceptionOccursAsync()
+        private async Task ShouldThrowDependencyExceptionOnRetrieveIfSqlErrorOccursAsync()
         {
             // given
             SqlException sqlException = GetSqlException();
 
             var failedSchemaDependencyException =
-                new FailedSchemaDependencyException(sqlException);
+                new FailedSchemaDependencyException(
+                    message: "Failed schema dependency error ocurred, contact support.",
+                    sqlException);
 
             var expectedSchemaDependencyException =
                 new SchemaDependencyException(
+                    message: "Schema dependency error occurred, contact support.",
                     failedSchemaDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -123,16 +133,19 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Sc
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRetrieveIfServiceErrorOccurredAsync()
         {
             // given
             var serviceException = new Exception();
 
             var failedSchemaInformationServiceException =
-                new FailedSchemaServiceException(serviceException);
+                new FailedSchemaServiceException(
+                    message: "Failed schema service error occurred, contact support.",
+                    serviceException);
 
             var expectedSchemaInformationServiceException =
                 new SchemaServiceException(
+                    message: "Schema service error occurred, contact support.",
                     failedSchemaInformationServiceException);
 
             this.dataBrokerMock.Setup(broker =>

@@ -12,5 +12,9 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Excepti
             : base(message: "Data validation error occurred, fix the errors and try again.",
                   innerException)
         { }
+
+        public SchemaDependencyValidationException(string message, Xeption innerException)
+            : base(message, innerException)
+        { }
     }
 }

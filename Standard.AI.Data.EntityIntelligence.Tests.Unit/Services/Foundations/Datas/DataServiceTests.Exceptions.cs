@@ -17,7 +17,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
     public partial class DataServiceTests
     {
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidArgumentExceptionOccursAsync()
         {
             // given
             string query = GetValidQuery();
@@ -25,10 +25,14 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var invalidArgumentException = new ArgumentException();
 
             var invalidDataException =
-                new InvalidDataException(invalidArgumentException);
+                new InvalidDataException(
+                    message: "Invalid data validation error occurred, fix the errors and try again.",
+                    invalidArgumentException);
 
             var expectedDataDependencyValidationException =
-                new DataServiceDependencyValidationException(invalidDataException);
+                new DataServiceDependencyValidationException(
+                    message: "Data validation error occurred, fix the errors and try again.",
+                    invalidDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
@@ -54,7 +58,7 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         }
 
         [Fact]
-        public async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
+        private async Task ShouldThrowDependencyValidationExceptionOnRunQueryIfInvalidOperationExceptionOccursAsync()
         {
             // given
             string query = GetValidQuery();
@@ -62,10 +66,14 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
             var invalidOperationException = new InvalidOperationException();
 
             var invalidOperationDataException =
-                new InvalidOperationDataException(invalidOperationException);
+                new InvalidOperationDataException(
+                    message: "Invalid operation data validation error occurred, fix the errors and try again.",
+                    invalidOperationException);
 
             var expectedDataQueryServiceDependencyValidationException =
-                new DataServiceDependencyValidationException(invalidOperationDataException);
+                new DataServiceDependencyValidationException(
+                    message: "Data validation error occurred, fix the errors and try again.",
+                    invalidOperationDataException);
 
             this.dataBrokerMock.Setup(broker =>
                 broker.ExecuteQueryAsync<IDictionary<string, object>>(query))
@@ -91,17 +99,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         }
 
         [Fact]
-        public async Task ShouldThrowSqlDependencyExceptionOnRunQueryIfSqlDependencyExceptionOccursAsync()
+        private async Task ShouldThrowSqlDependencyExceptionOnRunQueryIfSqlDependencyExceptionOccursAsync()
         {
             // given
             string query = GetValidQuery();
             SqlException sqlException = GetSqlException();
 
             var failedDataQueryDependencyException =
-                new FailedDataDependencyException(sqlException);
+                new FailedDataDependencyException(
+                    message: "Failed data dependency error ocurred, contact support.",
+                    sqlException);
 
             var expectedDataDependencyException =
                 new DataServiceDependencyException(
+                    message: "Data query service dependency error occurred, contact support.",
                     failedDataQueryDependencyException);
 
             this.dataBrokerMock.Setup(broker =>
@@ -128,17 +139,20 @@ namespace Standard.AI.Data.EntityIntelligence.Tests.Unit.Services.Foundations.Da
         }
 
         [Fact]
-        public async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
+        private async Task ShouldThrowServiceExceptionOnRunQueryIfServiceErrorOccurredAsync()
         {
             // given
             string query = GetValidQuery();
             var serviceException = new Exception();
 
             var failedDataQueryServiceException =
-                new FailedDataServiceException(serviceException);
+                new FailedDataServiceException(
+                    message: "Failed data service error occurred, contact support.",
+                    serviceException);
 
             var expectedDataQueryServiceException =
                 new DataServiceException(
+                    message: "Data service error occurred, contact support.",
                     failedDataQueryServiceException);
 
             this.dataBrokerMock.Setup(broker =>

@@ -10,8 +10,12 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Schemas.Excepti
     internal class FailedSchemaDependencyException : Xeption
     {
         public FailedSchemaDependencyException(Exception innerException)
-            : base(message: "Failed data dependency error ocurred, contact support.",
+            : base(message: "Failed schema dependency error ocurred, contact support.",
                   innerException)
+        { }
+
+        public FailedSchemaDependencyException(string message, Exception innerException)
+            : base(message, innerException)
         { }
     }
 }

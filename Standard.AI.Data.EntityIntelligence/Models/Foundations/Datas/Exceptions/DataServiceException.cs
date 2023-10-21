@@ -9,8 +9,12 @@ namespace Standard.AI.Data.EntityIntelligence.Models.Foundations.Datas.Exception
     internal class DataServiceException : Xeption
     {
         public DataServiceException(Xeption innerException)
-           : base(message: "Data query service error occurred, contact support.",
+           : base(message: "Data service error occurred, contact support.",
                  innerException)
+        { }
+
+        public DataServiceException(string message, Xeption innerException)
+           : base(message, innerException)
         { }
     }
 }
